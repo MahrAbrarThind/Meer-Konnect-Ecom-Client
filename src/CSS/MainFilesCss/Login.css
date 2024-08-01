@@ -1,0 +1,139 @@
+.signIn_container {
+    height: 100vh;
+    padding: 20px;
+    background-color: rgb(245, 217, 217);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signIn_div {
+    width: 40%;
+    margin: 20px auto;
+    padding: 20px;
+    gap: 10px;
+    max-width:380px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signIn_inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    width: 80%;
+}
+
+.signIn_inputs input {
+    padding: 8px;
+    border-radius: 9px;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.signIn_btn,
+.signUp_btn {
+    width: 70%;
+    border-radius: 10px;
+    padding: 7px;
+    margin-top: 10px;
+    background-color: rgb(44, 31, 31);
+    color: white;
+    border: none;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    transition: transform 0.5s, background-color 0.5s, color 0.5s, border 0.2s;
+    font-size: 19px;
+}
+
+.signUp_btn {
+    /* width: 50%; */
+    text-decoration: none;
+    text-align: center;
+}
+.signUpText{
+    font-size: 17px;
+    font-weight: 600;
+    display: block;
+}
+
+
+.signIn_btn:hover,
+.signUp_btn:hover {
+    background-color: rgb(244, 236, 236);
+    border: 2px solid black;
+    color: black;
+    transform: scale(1.05);
+}
+
+.signUp_way {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    padding: 7px;
+}
+.error-message{
+    color:red;
+    text-align: center;
+}
+
+
+/* responsive code */
+
+
+@media (max-width:992px){
+    .signIn_div{
+        width:40%;
+    }
+}
+
+
+@media (max-width:768px){
+    .signIn_container{
+    padding: 100px 20px;
+    }
+    .signIn_div{
+        width:60%;
+    }
+    .signUpText{
+        font-size: 15px;
+        font-weight: 500;
+        display: block;
+    }
+}
+
+
+@media (max-width:576px){
+    .signIn_div{
+        width:75%;
+    }
+}
+
+@media (max-width:486px){
+    .signIn_div{
+        width:90%;
+    }
+    .signIn_btn,
+.signUp_btn {
+    width: 60%;
+    padding: 5px;
+    font-size: 15px;
+}
+.signUpText{
+    font-size: 12px;
+    font-weight: 400;
+    display: block;
+}
+
+}
+
+
+
+

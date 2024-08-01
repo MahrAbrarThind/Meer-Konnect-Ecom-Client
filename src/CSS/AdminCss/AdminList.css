@@ -1,0 +1,40 @@
+.adminListContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 70px 0px;
+    background-color: rgb(242, 236, 242);
+    box-shadow: 0 0 5px  rgb(246, 240, 230);
+    border-radius: 5px;
+}
+.adminListContainer a{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: black;
+    padding: 10px 15px;
+    width: 40%;
+    border: 2px solid black;
+    border-radius: 7px;
+    background-color: rgb(248, 245, 245);
+    background-color: rgb(255, 255, 255);
+    /* background-color: aliceblue; */
+    font-size: 20px;
+    box-sizing: border-box;
+
+}
+
+.adminListActive{
+    color: black;
+    background-color: rgb(230, 240, 250);
+}
+
+.adminListContainer a:hover{
+    color: black;
+    background-color: rgb(230, 240, 250);
+
+}

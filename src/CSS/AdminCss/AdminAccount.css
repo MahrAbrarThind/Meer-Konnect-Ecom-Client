@@ -1,0 +1,8 @@
+.adminAccountContainer{
+    display: flex;
+    padding: 50px;
+}
+.adminProfile{
+    flex: 2;
+    /* background-color: black; */
+}

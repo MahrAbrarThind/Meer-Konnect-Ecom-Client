@@ -1,0 +1,135 @@
+.main-container {
+  display: flex;
+  padding: 20px;
+}
+
+.filter-container {
+  flex: 0 0 200px; /* Fixed width for filter container */
+  padding: 20px;
+  /* background-color: #f9f9f9; */
+  border-radius: 10px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  margin-right: 20px;
+}
+
+.filter-container h4 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.price-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price-filter input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.price-filter button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.price-filter button:hover {
+  background-color: #0056b3;
+}
+
+.allproducts-container {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  background-color: red;
+  /* justify-content: center; */
+}
+
+.allproducts-card-link {
+  text-decoration: none;
+  color: inherit;
+  width: 280px;
+}
+
+.allproducts-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.allproducts-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.allproducts-card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.allproducts-card-body {
+  padding: 20px;
+  text-align: center;
+}
+
+.allproducts-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.allproducts-card-text {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.allproducts-btns {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.allproducts-btn {
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+  width: 100px;
+}
+
+.allproducts-btn:hover {
+  background-color: #0056b3;
+}
+
+.buy-now-btn {
+  background-color: #28a745;
+}
+
+.buy-now-btn:hover {
+  background-color: #218838;
+}
+
+.add-to-cart-btn {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e0a800;
+}

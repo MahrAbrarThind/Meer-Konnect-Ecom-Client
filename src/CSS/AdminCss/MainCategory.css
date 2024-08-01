@@ -1,0 +1,9 @@
+.mainCatContainer{
+    display: flex;
+    padding: 50px;
+}
+
+.category-content{
+    flex: 2;
+    
+}
