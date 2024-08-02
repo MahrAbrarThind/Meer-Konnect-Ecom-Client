@@ -1,0 +1,7 @@
+.editProductsContainer{
+    display: flex;
+    padding: 40px;
+}
+.editAllProducts{
+    flex: 2;
+}

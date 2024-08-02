@@ -1,0 +1,8 @@
+.updateProductContainer{
+    display: flex;
+    padding: 40px;
+}
+
+.updateProductForm{
+    flex: 1;
+}

@@ -61,14 +61,11 @@ const Header = () => {
                     <i className="fas fa-search"></i>
                 </div>
 
-                {/*     {JSON.stringify(auth?.token)} */}
-
                 {auth?.token ? (
                     <div className="header_actions">
-                        <NavLink to={'/account'} className="header_icon">
+                        <NavLink to={`/account${auth?.user?.isAdmin===1 ? '/admin': ''}`} className="header_icon">
                             <i className="fas fa-user"></i>
                             My Account
-                            {/* <NavLink >My Account</NavLink> */}
                         </NavLink>
                         <div className="header_icon">
                             <i className="fas fa-shopping-cart"></i>

@@ -28,6 +28,10 @@ import "./CSS/OtherFilesCss/Main_Cat_Click.css";
 import "./CSS/AdminCss/AdminList.css";
 import "./CSS/AdminCss/AdminAccount.css";
 import "./CSS/AdminCss/MainCategory.css";
+import "./CSS/AdminCss/AddProduct.css";
+import "./CSS/AdminCss/EditProducts.css";
+import "./CSS/AdminCss/UpdateProduct.css";
+
 
 
 

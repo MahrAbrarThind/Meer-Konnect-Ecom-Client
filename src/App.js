@@ -1,6 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
 import { useAuth } from './Contexts/auth.js';
+import { Navigate } from 'react-router-dom';
+
 
 //importing Main Files
 
@@ -33,16 +35,22 @@ import MainCategory from './Components/Admin/MainCategory.jsx';
 import SubCategory from './Components/Admin/SubCategory.jsx'
 
 
-import ChekUser from './Components/OtherFiles/ChekUser.jsx';
-
+import ChekUser from './Components/OtherFiles/ChekUser.js';
+import AddProduct from './Components/Admin/AddProduct.jsx';
+import EditProducts from './Components/Admin/EditProducts.jsx';
+import Home from './Components/MainFiles/Home.jsx';
+import UpdateProduct from './Components/Admin/UpdateProduct.jsx';
+import ChekAdmin from './Components/OtherFiles/ChekAdmin.js';
 
 const App = () => {
 
   const { auth, setAuth } = useAuth();
   return (
     <>
+
       <Header />
       <Routes>
+
         {/* authentication routes */}
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<SignUp />} />
@@ -54,29 +62,30 @@ const App = () => {
 
         <Route path='/account' element={<ChekUser />} >
 
-          {auth?.user?.isAdmin === 1 ?
-            <>
-              <Route index element={<AdminAccount />} />
-              <Route path='/account/main-category' element={<MainCategory />} />
-              <Route path='/account/sub-category' element={<SubCategory />} />
-            </>
-            :
-            <>
-              <Route index element={<UserAccount />} />
-            </>
-          }
+          <Route path='admin' element={<ChekAdmin />} >
+            <Route index element={<AdminAccount />} />
+            <Route path='main-category' element={<MainCategory />} />
+            <Route path='sub-category' element={<SubCategory />} />
+            <Route path='add-product' element={<AddProduct />} />
+            <Route path='edit-products' element={<EditProducts />} />
+            <Route path='edit-products/update/:id' element={<UpdateProduct />} />
+
+          </Route>
+
+          <Route index element={<UserAccount />} />
+
+
         </Route>
 
 
 
-
-
+        <Route path='/' element={<Home />} />
         <Route path='/main/:name' element={<Main_Cat_Click />} />
         <Route path='/sub/:name' element={<Sub_Cat_Click />} />
 
-      </Routes>
 
-
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes >
     </>
   )
 }

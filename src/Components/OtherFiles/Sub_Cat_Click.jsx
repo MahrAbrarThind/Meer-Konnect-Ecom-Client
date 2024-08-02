@@ -98,12 +98,12 @@ const Sub_Cat_Click = () => {
               <NavLink to={`/product/${product._id}`} key={index} className="allproducts-card-link">
                 <div className="allproducts-card custom-card">
                   <img
-                    src={product.image?.url}
+                    src={product.images[0]?.url}
                     className="allproducts-card-img-top"
                     alt={product.name}
                   />
                   <div className="allproducts-card-body">
-                    <h5 className="allproducts-card-title">{product.name}</h5>
+                    <h5 className="allproducts-card-title">{product.title}</h5>
                     <p className="allproducts-card-text">{product.description.substring(0, 100)}...</p>
                     <div className="allproducts-btns">
                       <button className="allproducts-btn buy-now-btn">Buy Now</button>
