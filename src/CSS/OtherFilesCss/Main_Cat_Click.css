@@ -133,3 +133,32 @@
 .add-to-cart-btn:hover {
   background-color: #e0a800;
 }
+
+
+
+
+
+
+.quantity-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.quantity-selector button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.quantity-selector span {
+  width: 20px;
+  text-align: center;
+}

@@ -31,6 +31,7 @@ import "./CSS/AdminCss/MainCategory.css";
 import "./CSS/AdminCss/AddProduct.css";
 import "./CSS/AdminCss/EditProducts.css";
 import "./CSS/AdminCss/UpdateProduct.css";
+import { CartProvider } from './Contexts/cartContex';
 
 
 
@@ -40,23 +41,25 @@ import "./CSS/AdminCss/UpdateProduct.css";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>
-    <BrowserRouter>
-      <React.StrictMode>
-        <ToastContainer
-          position="top-center"
-          autoClose={1700}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          style={{ fontSize: '14px' }}  
-        />
-        <App />
-      </React.StrictMode>
-    </BrowserRouter>
+    <CartProvider>
+      <BrowserRouter>
+        <React.StrictMode>
+          <ToastContainer
+            position="top-center"
+            autoClose={1700}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            style={{ fontSize: '14px' }}
+          />
+          <App />
+        </React.StrictMode>
+      </BrowserRouter>
+    </CartProvider>
   </AuthProvider>
 );
 

@@ -67,10 +67,11 @@ const Header = () => {
                             <i className="fas fa-user"></i>
                             My Account
                         </NavLink>
-                        <div className="header_icon">
+
+                        <NavLink to={'/cart'} className="header_icon">
                             <i className="fas fa-shopping-cart"></i>
                             <span>Cart</span>
-                        </div>
+                        </NavLink>
                     </div>
                 ) : (
                     <div className="header_actions">
@@ -86,10 +87,10 @@ const Header = () => {
                                 Sign Up
                             </NavLink>
                         </div>
-                        <div className="header_icon">
+                        <NavLink to={'/cart'} className="header_icon">
                             <i className="fas fa-shopping-cart"></i>
                             <span>Cart</span>
-                        </div>
+                        </NavLink>
                     </div>
                 )}
             </div>

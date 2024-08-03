@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getProductsForMainCat } from '../DBFunctions/getProducts';
+import { useCart } from '../../Contexts/cartContex';
+import QuantitySelector from './QuantitySelector';
 
 const Main_Cat_Click = () => {
   const [products, setProducts] = useState([]);
@@ -11,6 +13,8 @@ const Main_Cat_Click = () => {
   const toastShownRef = useRef(false);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+
+  const { cart, setCart } = useCart();
 
   useEffect(() => {
     toastShownRef.current = false;
@@ -24,7 +28,7 @@ const Main_Cat_Click = () => {
           throw response.error;
         } else {
           setProducts(response.data);
-          setFilteredProducts(response.data); 
+          setFilteredProducts(response.data);
         }
       } catch (error) {
         if (!toastShownRef.current) {
@@ -52,7 +56,6 @@ const Main_Cat_Click = () => {
     setMaxPrice('');
     setFilteredProducts(products);
   };
-
 
   return (
     <div className="main-container">
@@ -83,8 +86,8 @@ const Main_Cat_Click = () => {
               }
             }}
           />
-          <button onClick={handleFilter}>OK</button>
-          <button onClick={clearFilter}>Clear</button>
+          <button type='button' onClick={handleFilter}>OK</button>
+          <button type='button' onClick={clearFilter}>Clear</button>
         </div>
       </div>
       <div className="allproducts-container">
@@ -94,7 +97,7 @@ const Main_Cat_Click = () => {
           filteredProducts.length === 0 ? (
             <h3>Oops! No Products Have Been Added Yet</h3>
           ) : (
-            filteredProducts.map((product, index) => (
+            filteredProducts?.map((product, index) => (
               <NavLink to={`/product/${product._id}`} key={index} className="allproducts-card-link">
                 <div className="allproducts-card custom-card">
                   <img
@@ -106,8 +109,17 @@ const Main_Cat_Click = () => {
                     <h5 className="allproducts-card-title">{product.title}</h5>
                     <p className="allproducts-card-text">{product.description.substring(0, 100)}...</p>
                     <div className="allproducts-btns">
-                      <button className="allproducts-btn buy-now-btn">Buy Now</button>
-                      <button className="allproducts-btn add-to-cart-btn">Add to Cart</button>
+                      <button type='button' className="allproducts-btn buy-now-btn" onClick={(e) => { e.preventDefault() }}>Buy Now</button>
+                      <button type='button' className="allproducts-btn add-to-cart-btn" onClick={(e) => {
+                        e.preventDefault();
+                        setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
+                        localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
+
+
+                        // setCart([...cart, { ...product, quantity: product.quantity || 1 }]);
+                        // localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity || 1 }]));
+                        toast.success(`${cart?.length+1}  Item Added To Cart`);
+                      }}>Add to Cart</button>
                     </div>
                   </div>
                 </div>
@@ -119,5 +131,4 @@ const Main_Cat_Click = () => {
     </div>
   );
 };
-
 export default Main_Cat_Click;

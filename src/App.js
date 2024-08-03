@@ -41,6 +41,7 @@ import EditProducts from './Components/Admin/EditProducts.jsx';
 import Home from './Components/MainFiles/Home.jsx';
 import UpdateProduct from './Components/Admin/UpdateProduct.jsx';
 import ChekAdmin from './Components/OtherFiles/ChekAdmin.js';
+import Cart from './Components/OtherFiles/Cart.jsx';
 
 const App = () => {
 
@@ -82,9 +83,10 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/main/:name' element={<Main_Cat_Click />} />
         <Route path='/sub/:name' element={<Sub_Cat_Click />} />
+        <Route path='/cart' element={<Cart/>}/>
 
 
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes >
     </>
   )
