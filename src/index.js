@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './Contexts/auth';
+import { CartProvider } from './Contexts/cartContex';
 
 
 
@@ -31,11 +32,11 @@ import "./CSS/AdminCss/MainCategory.css";
 import "./CSS/AdminCss/AddProduct.css";
 import "./CSS/AdminCss/EditProducts.css";
 import "./CSS/AdminCss/UpdateProduct.css";
-import { CartProvider } from './Contexts/cartContex';
 
 
 
-
+// importing user files css
+import "./CSS/UserCss/UserOrders.css";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

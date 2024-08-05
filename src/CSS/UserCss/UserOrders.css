@@ -1,0 +1,7 @@
+.userOrdersContainer{
+    display: flex;
+    padding: 40px;
+}
+.userOrdersSide{
+    flex: 2;
+}

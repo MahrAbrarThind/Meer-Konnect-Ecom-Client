@@ -99,7 +99,31 @@ export const getSingleProduct=async(id)=>{
             };
         }
     }
+}
 
+export const getRelatedProducts=async(id)=>{
 
+    try {
+        const response=await axios.get(`http://localhost:4000/api/v1/get-related-products/${id}`);
+        if(response.data.success){
+            return response.data || [];
+        }
+    } catch (error) {
+        if(error.response){
+            return{
+                error:{
+                    status:error.response.status,
+                    msg:error.response.data.msg
+                }
+            }
+        }else{
+            return {
+                error: {
+                    msg: "Server Error",
+                    status: 500
+                }
+            };
+        }
+    }
 
 }
