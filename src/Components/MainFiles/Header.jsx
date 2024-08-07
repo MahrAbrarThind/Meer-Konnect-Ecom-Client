@@ -13,34 +13,22 @@ const Header = () => {
     const { auth, setAuth } = useAuth();
 
     useEffect(() => {
-        (async () => {
+        const fetchCategories = async () => {
             try {
-                const response = await getAll_mainCategories();
-                if (response.error) {
-                    throw response.error;
+                const [mainResponse, subResponse] = await Promise.all([getAll_mainCategories(), getAll_subCategories()]);
+                if (mainResponse.error || subResponse.error) {
+                    throw new Error("Failed to fetch categories");
                 } else {
-                    set_mainCategories(response.data);
+                    set_mainCategories(mainResponse.data);
+                    set_subCategories(subResponse.data);
                 }
             } catch (error) {
-                toast.error("Internal Server Error");
+                toast.error("Internal Server Error: " + error.message);
             }
-        })();
+        };
+        fetchCategories();
     }, []);
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const response = await getAll_subCategories();
-                if (response.error) {
-                    throw response.error;
-                } else {
-                    set_subCategories(response.data);
-                }
-            } catch (error) {
-                toast.error("Internal Server Error");
-            }
-        })();
-    }, []);
 
     const handleMouseEnter = (categoryId) => {
         setShowDropdown(categoryId);
@@ -53,9 +41,9 @@ const Header = () => {
     return (
         <header className='headerContainer'>
             <div className="upper_header_part">
-                <div className="logo">
-                    <img src="logo1.png" alt="Your Logo" />
-                </div>
+                <NavLink to={'/'} className="logo">
+                    <img src="mk2.png" alt="Your Logo" />
+                </NavLink>
                 <div className="header_search">
                     <input type="text" placeholder="Search" />
                     <i className="fas fa-search"></i>
@@ -65,7 +53,7 @@ const Header = () => {
                     <div className="header_actions">
                         <NavLink to={`/account${auth?.user?.isAdmin===1 ? '/admin': ''}`} className="header_icon">
                             <i className="fas fa-user"></i>
-                            My Account
+                            Account
                         </NavLink>
 
                         <NavLink to={'/cart'} className="header_icon">
@@ -102,14 +90,14 @@ const Header = () => {
                             onMouseEnter={() => handleMouseEnter(category._id)}
                             onMouseLeave={handleMouseLeave}
                         >
-                            <NavLink to={`/main/${category.name}`}>{category.name}</NavLink>
+                            <NavLink to={`/main/${category.name}`} className="mainCat_Navlink">{category.name}</NavLink>
                             {showDropdown === category._id && (
                                 <ul className="dropdown">
                                     {subCategories
                                         .filter(sub => sub.mainCategory_id === category._id)
                                         .map(sub1 => (
                                             <li key={sub1._id}>
-                                                <NavLink to={`/sub/${sub1.name}`} className="">
+                                                <NavLink to={`/sub/${sub1.name}`} className="subCat_Navlink">
                                                     {sub1.name}
                                                 </NavLink>
                                             </li>

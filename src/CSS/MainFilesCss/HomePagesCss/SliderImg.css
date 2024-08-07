@@ -1,0 +1,96 @@
+.custom1-prev,
+.custom1-next {
+    width: 50px;
+    /* Adjust the size as needed */
+    height: 50px;
+    /* Adjust the size as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* Makes the button circular */
+    background-color: white !important;
+    /* Hover background color */
+    color: black !important;
+    transition: background-color 0.3s;
+    /* Smooth transition effect */
+    border: none;
+    /* Remove any border */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.custom1-prev {
+    left: 20px;
+}
+
+.custom1-next {
+    right: 20px;
+}
+
+.custom1-prev:hover,
+.custom1-next:hover {
+    background-color: black !important;
+    color: white !important;
+}
+
+.custom1-prev .fas,
+.custom1-next .fas {
+    color: black;
+    font-size: 30px;
+}
+
+.custom1-prev:hover .fas,
+.custom1-next:hover .fas {
+    color: white;
+}
+
+/* .carousel-caption{
+    position:absolute;
+    left: -50%;
+    display: block;
+} */
+
+.carousel-caption a{
+    border: none;
+    text-decoration: none;
+    padding: 12px 18px;
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+    font-size: 20px;
+    transition: all 0.5s;
+}
+.carousel-caption a:hover{
+
+    color: black;
+    background-color: white;
+}
+
+
+.carousel-caption h5 {
+    font-family: 'Playfair Display', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+
+    font-size: 45px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: black !important;
+    color: white !important;
+
+}
+
+.carousel-caption p {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: black !important;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Timmana', sans-serif;
+
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    color: #f8f9fa !important;
+
+}

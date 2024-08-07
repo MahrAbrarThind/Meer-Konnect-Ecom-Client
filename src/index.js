@@ -5,6 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './Contexts/auth';
 import { CartProvider } from './Contexts/cartContex';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 
 
 // Setting React - Toastify here
@@ -18,6 +21,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import './CSS/MainFilesCss/header.css';
 import './CSS/MainFilesCss/Login.css';
 
+
+
+//importing home page css
+import './CSS/MainFilesCss/HomePagesCss/SliderImg.css';
 
 
 //importing other files css

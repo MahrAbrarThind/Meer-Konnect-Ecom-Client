@@ -1,9 +1,10 @@
 import React from 'react'
+import SliderImg from './HomePages/SliderImg'
 
 const Home = () => {
   return (
     <>
-      i am home page
+      <SliderImg/>
     </>
   )
 }
