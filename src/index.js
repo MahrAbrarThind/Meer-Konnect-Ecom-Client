@@ -21,6 +21,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import './CSS/MainFilesCss/header.css';
 import './CSS/MainFilesCss/Login.css';
 
+//importing home files css
+import './CSS/MainFilesCss/HomePagesCss/ShowingSubCategories.css';
+
 
 
 //importing home page css
