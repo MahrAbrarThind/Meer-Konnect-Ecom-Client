@@ -23,6 +23,9 @@ import './CSS/MainFilesCss/Login.css';
 
 //importing home files css
 import './CSS/MainFilesCss/HomePagesCss/ShowingSubCategories.css';
+import './CSS/MainFilesCss/HomePagesCss/FeaturedProducts.css';
+import './CSS/MainFilesCss/HomePagesCss/BagsProducts.css';
+import './CSS/MainFilesCss/HomePagesCss/ClothesProducts.css';
 
 
 

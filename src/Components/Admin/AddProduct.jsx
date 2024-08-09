@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import AdminList from './AdminList';
 import { useAuth } from '../../Contexts/auth';
 import { getAll_subCategories } from '../DBFunctions/getCategories.js';
+import imageCompression from 'browser-image-compression';
+
 
 const AddProduct = () => {
     const { auth } = useAuth();
@@ -18,6 +20,8 @@ const AddProduct = () => {
     const [stock, setStock] = useState('');
     const [category, setCategory] = useState('');
     const [images, setImages] = useState([]);
+    const [isFeatured, setIsFeatured] = useState(0);
+
     const toastShownRef = useRef(false);
 
     const [uploadProgress, setUploadProgress] = useState(0);
@@ -38,22 +42,39 @@ const AddProduct = () => {
         })();
     }, []);
 
-    const handleImageChange = (e) => {
+    const handleImageChange = async (e) => {
         const selectedFiles = Array.from(e.target.files);
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         const invalidFiles = selectedFiles.filter(file => !allowedTypes.includes(file.type));
         const largeFiles = selectedFiles.filter(file => file.size > 1 * 1024 * 1024); // 1 MB
-
+    
         if (invalidFiles.length > 0) {
             setError('Please upload valid image files (JPEG, PNG, GIF)');
         } else if (largeFiles.length > 0) {
             setError('Image file size should not exceed 1MB');
         } else {
-            setImages((prev) => [...prev, ...selectedFiles]);
+            const resizedImages = await Promise.all(
+                selectedFiles.map(async (file) => {
+                    try {
+                        const options = {
+                            maxSizeMB: 1, // Reduce file size to below 1MB
+                            maxWidthOrHeight: 800, // Resize to 800px width or height, maintaining aspect ratio
+                            useWebWorker: true,
+                        };
+                        const compressedFile = await imageCompression(file, options);
+                        return compressedFile;
+                    } catch (error) {
+                        console.error('Error resizing image:', error);
+                        return file; // Fallback to original file if resizing fails
+                    }
+                })
+            );
+    
+            setImages((prev) => [...prev, ...resizedImages]);
             setError('');
         }
     };
-
+    
     const removeNewImage = (index) => {
         const updatedImages = images.filter((_, i) => i !== index);
         setImages(updatedImages);
@@ -140,7 +161,8 @@ const AddProduct = () => {
                 shippingPrice,
                 stock,
                 subCategory_id: category,
-                imageKeys
+                imageKeys,
+                isFeatured
             };
 
             const response = await axios.post("http://localhost:4000/api/v1/add_product", productData, {
@@ -163,6 +185,7 @@ const AddProduct = () => {
                 setStock('');
                 setCategory('');
                 setImages([]);
+                setIsFeatured(0);
             }
         } catch (error) {
             if (error.response) {
@@ -292,6 +315,29 @@ const AddProduct = () => {
                             ))}
                         </div>
                     )}
+                    <label className="addproduct-label">Is Featured?</label>
+                    <div className="feature_selection">
+                        <label style={{ marginRight: "6px" }}>
+                            <input
+                                type="radio"
+                                name="isFeatured"
+                                value={0} // Not featured
+                                checked={isFeatured === 0}
+                                onChange={(e) => setIsFeatured(parseInt(e.target.value))}
+                            />
+                            No
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="isFeatured"
+                                value={1} // Featured
+                                checked={isFeatured === 1}
+                                onChange={(e) => setIsFeatured(parseInt(e.target.value))}
+                            />
+                            Yes
+                        </label>
+                    </div>
                     <button type="submit" className="addproduct-button" disabled={sendingRequest}>
                         {sendingRequest ? `Uploading... ${uploadProgress}%` : 'Add Product'}
                     </button>

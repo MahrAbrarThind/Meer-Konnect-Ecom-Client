@@ -14,7 +14,6 @@ const ShowingSubCategories = () => {
         const fetchCategories = async () => {
             try {
                 const subResponse = await getAll_subCategories();
-                console.log("it is response for getting sub categories", subResponse);
                 if (subResponse.error) {
                     throw new Error("Failed to fetch categories");
                 } else {

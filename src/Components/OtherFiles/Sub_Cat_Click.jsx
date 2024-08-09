@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getProductsForSubCat } from '../DBFunctions/getProducts.js';
+import { useCart } from '../../Contexts/cartContex.js';
 
 const Sub_Cat_Click = () => {
   const [products, setProducts] = useState([]);
@@ -11,6 +12,9 @@ const Sub_Cat_Click = () => {
   const toastShownRef = useRef(false);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+
+  const { cart, setCart } = useCart();
+
 
   useEffect(() => {
     toastShownRef.current = false;
@@ -57,7 +61,7 @@ const Sub_Cat_Click = () => {
   return (
     <div className="main-container">
       <div className="filter-container">
-        <h4>Filter by Price</h4>
+        <h4>Filter</h4>
         <div className="price-filter">
           <input
             type="number"
@@ -83,8 +87,8 @@ const Sub_Cat_Click = () => {
               }
             }}
           />
-          <button onClick={handleFilter}>OK</button>
-          <button onClick={clearFilter}>Clear</button>
+          <button type='button' onClick={handleFilter}>Filter</button>
+          <button type='button' onClick={clearFilter}>Clear</button>
         </div>
       </div>
       <div className="allproducts-container">
@@ -94,26 +98,26 @@ const Sub_Cat_Click = () => {
           filteredProducts.length === 0 ? (
             <h3>Oops! No Products Have Been Added Yet</h3>
           ) : (
-            filteredProducts.map((product, index) => (
-              <NavLink to={`/product/${product._id}`} key={index} className="allproducts-card-link">
-                <div className="allproducts-card custom-card">
-                  <img
-                    src={product.images[0]?.url}
-                    className="allproducts-card-img-top"
-                    alt={product.name}
-                  />
-                  <div className="allproducts-card-body">
-                    <h5 className="allproducts-card-title">{product.title}</h5>
-                    <p className="allproducts-card-text">{product.description.substring(0, 100)}...</p>
-                    <div className="allproducts-btns">
-                      <button className="allproducts-btn buy-now-btn">Buy Now</button>
-                      <button className="allproducts-btn add-to-cart-btn">Add to Cart</button>
-                    </div>
-                  </div>
+            filteredProducts?.map((product, index) => (
+              <div key={index} className="singleFeaturedProduct">
+                <NavLink to={`/product/${product?._id}`} className="featuredImgContainer">
+                  <img src={product.images[0].url} alt={product.title} />
+                </NavLink>
+                <p className='productTitle'>{product.title.substring(0, 80)}{product.title.length > 80 ? "..." : ""}</p>
+                <div className="productPrices">
+                  <p>Rs: {product.price}</p>
+                  <p>Rs: {product.comparedPrice}</p>
                 </div>
-              </NavLink>
-            ))
-          )
+
+                <button type='button' onClick={(e) => {
+                  e.preventDefault();
+                  setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
+                  localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
+                  toast.success(`${cart?.length + 1}  Item Added To Cart`);
+                }}>Add to Cart</button>
+
+              </div>
+            )))
         )}
       </div>
     </div>

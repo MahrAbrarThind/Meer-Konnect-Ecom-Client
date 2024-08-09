@@ -1,0 +1,136 @@
+.featuredProductsContainer h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.featuredProducts {
+    width: 95%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+.singleFeaturedProduct {
+    border: none;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.featuredImgContainer {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.featuredImgContainer::before {
+    content: 'View Details';
+    position: absolute;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    opacity: 0;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition: all 0.5s ease-in-out;
+}
+
+.featuredImgContainer:hover::before {
+    opacity: 1;
+    z-index: 2;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.featuredImgContainer:hover img {
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.featuredImgContainer img {
+    background-color: #eaeaea;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.productTitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Montserrat', sans-serif;  */
+    min-height: 50px;
+    align-content: center;
+}
+
+.productPrices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: -20px;
+}
+
+.productPrices p:last-child {
+    text-decoration: line-through;
+    font-size: 1rem;
+    color: #df5757;
+    font-weight: bold;
+}
+
+.productPrices p:first-child {
+    font-size: 1.25rem;
+    color: #582323;
+    font-weight: bold;
+}
+
+.singleFeaturedProduct button {
+    background-color: black;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    width: 80%;
+    padding: 8px 10px;
+    /* border-radius: 30px; */
+    border: none;
+    margin-top: -10px;
+    transition: all 0.2s;
+}
+
+.singleFeaturedProduct button:hover {
+    background-color: rgb(157, 130, 62);
+    border: 2px solid black;
+    border: none;
+}
+
+.ViewAllBtn {
+    text-decoration: none;
+    display: block;
+    width: 15%;
+    margin: auto;
+    text-align: center;
+    color: white;
+    background-color: rgb(222, 30, 62);
+    font-size: 18px;
+    padding: 6px 10px;
+    margin-top: -30px;
+    margin-bottom: 60px;
+    letter-spacing: 2px;
+}

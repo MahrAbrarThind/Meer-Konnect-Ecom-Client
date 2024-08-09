@@ -127,3 +127,82 @@ export const getRelatedProducts=async(id)=>{
     }
 
 }
+
+export const getFeaturedProducts=async(id)=>{
+
+    try {
+        const response=await axios.get(`http://localhost:4000/api/v1/get-featured-products`);
+        if(response.data.success){
+            return response.data || [];
+        }
+    } catch (error) {
+        if(error.response){
+            return{
+                error:{
+                    status:error.response.status,
+                    msg:error.response.data.msg
+                }
+            }
+        }else{
+            return {
+                error: {
+                    msg: "Server Error",
+                    status: 500
+                }
+            };
+        }
+    }
+
+}
+
+export const getClothesProducts=async(id)=>{
+
+    try {
+        const response=await axios.get(`http://localhost:4000/api/v1/get-clothes-products`);
+        if(response.data.success){
+            return response.data || [];
+        }
+    } catch (error) {
+        if(error.response){
+            return{
+                error:{
+                    status:error.response.status,
+                    msg:error.response.data.msg
+                }
+            }
+        }else{
+            return {
+                error: {
+                    msg: "Server Error",
+                    status: 500
+                }
+            };
+        }
+    }
+}
+
+export const getBagsProducts=async(id)=>{
+
+    try {
+        const response=await axios.get(`http://localhost:4000/api/v1/get-bags-products`);
+        if(response.data.success){
+            return response.data || [];
+        }
+    } catch (error) {
+        if(error.response){
+            return{
+                error:{
+                    status:error.response.status,
+                    msg:error.response.data.msg
+                }
+            }
+        }else{
+            return {
+                error: {
+                    msg: "Server Error",
+                    status: 500
+                }
+            };
+        }
+    }
+}

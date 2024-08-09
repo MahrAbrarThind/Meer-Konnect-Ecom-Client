@@ -60,7 +60,7 @@ const Main_Cat_Click = () => {
   return (
     <div className="main-container">
       <div className="filter-container">
-        <h4>Filter by Price</h4>
+        <h4>Filter</h4>
         <div className="price-filter">
           <input
             type="number"
@@ -86,7 +86,7 @@ const Main_Cat_Click = () => {
               }
             }}
           />
-          <button type='button' onClick={handleFilter}>OK</button>
+          <button type='button' onClick={handleFilter}>Filter</button>
           <button type='button' onClick={clearFilter}>Clear</button>
         </div>
       </div>
@@ -98,34 +98,25 @@ const Main_Cat_Click = () => {
             <h3>Oops! No Products Have Been Added Yet</h3>
           ) : (
             filteredProducts?.map((product, index) => (
-              <NavLink to={`/product/${product._id}`} key={index} className="allproducts-card-link">
-                <div className="allproducts-card custom-card">
-                  <img
-                    src={product.images[0].url}
-                    className="allproducts-card-img-top"
-                    alt={product.title}
-                  />
-                  <div className="allproducts-card-body">
-                    <h5 className="allproducts-card-title">{product.title}</h5>
-                    <p className="allproducts-card-text">{product.description.substring(0, 100)}...</p>
-                    <div className="allproducts-btns">
-                      <button type='button' className="allproducts-btn buy-now-btn" onClick={(e) => { e.preventDefault() }}>Buy Now</button>
-                      <button type='button' className="allproducts-btn add-to-cart-btn" onClick={(e) => {
-                        e.preventDefault();
-                        setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
-                        localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
-
-
-                        // setCart([...cart, { ...product, quantity: product.quantity || 1 }]);
-                        // localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity || 1 }]));
-                        toast.success(`${cart?.length+1}  Item Added To Cart`);
-                      }}>Add to Cart</button>
-                    </div>
-                  </div>
+              <div key={index} className="singleFeaturedProduct">
+                <NavLink to={`/product/${product?._id}`} className="featuredImgContainer">
+                  <img src={product.images[0].url} alt={product.title} />
+                </NavLink>
+                <p className='productTitle'>{product.title.substring(0, 80)}{product.title.length > 80 ? "..." : ""}</p>
+                <div className="productPrices">
+                  <p>Rs: {product.price}</p>
+                  <p>Rs: {product.comparedPrice}</p>
                 </div>
-              </NavLink>
-            ))
-          )
+
+                <button type='button' onClick={(e) => {
+                  e.preventDefault();
+                  setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
+                  localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
+                  toast.success(`${cart?.length + 1}  Item Added To Cart`);
+                }}>Add to Cart</button>
+
+              </div>
+            )))
         )}
       </div>
     </div>
