@@ -35,7 +35,7 @@ const ShowingClothesProducts = () => {
                             <NavLink to={`/product/${product?._id}`} className="featuredImgContainer">
                                 <img src={product.images[0].url} alt={product.title} />
                             </NavLink>
-                            <p>{product.title.substring(0, 80)}{product.title.length > 80 ? "..." : ""}</p>
+                            <p className='productTitle'>{product.title.substring(0, 80)}{product.title.length > 80 ? "..." : ""}</p>
                             <div className="productPrices">
                                 <p>Rs: {product.price}</p>
                                 <p>Rs: {product.comparedPrice}</p>

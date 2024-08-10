@@ -21,6 +21,8 @@ const UpdateProduct = () => {
     const [category, setCategory] = useState('');
     const [existingImages, setExistingImages] = useState([]);
     const [imgKeysToDel, setImgKeysToDel] = useState([]);
+    const [isFeatured, setIsFeatured] = useState(0);
+
 
     const [newImages, setNewImages] = useState([]);
     const [error, setError] = useState('');
@@ -69,6 +71,7 @@ const UpdateProduct = () => {
                     setCategory(product.subCategory_id);
                     setExistingImages(product.images);
                     setImgKeysToDel(product.images);
+                    setIsFeatured(product.isFeatured);
                 }
             } catch (error) {
                 if (!toastShownRef.current) {
@@ -231,7 +234,9 @@ const UpdateProduct = () => {
                 shippingPrice,
                 stock,
                 category,
-                imgKeysToDel
+                imgKeysToDel,
+                isFeatured
+
             }
 
             if (newImageKeys.length > 0) {
@@ -256,6 +261,8 @@ const UpdateProduct = () => {
                 setCategory('');
                 setNewImages([]);
                 setExistingImages([]);
+                setIsFeatured(0);
+
             }
         } catch (error) {
             if (error.response) {
@@ -270,100 +277,108 @@ const UpdateProduct = () => {
     };
 
     return (
-        <div className="updateProductContainer">
+        <div className="addproduct-container">
             <AdminList />
-            <form className='updateProductForm' onSubmit={submitForm}>
-                <div className="form-group">
-                    <label>Product Title</label>
+            <form onSubmit={submitForm} className="addproduct-form">
+                <div className="addproduct-form-group">
+                    <label htmlFor="productTitle" className="addproduct-label">Product Title</label>
                     <input
                         type="text"
-                        className={`form-control ${error && !title ? 'is-invalid' : ''}`}
-                        placeholder="Product Title"
-                        value={title}
+                        required
+                        placeholder="Title"
+                        className="addproduct-input"
+                        id="productTitle"
                         onChange={(e) => setTitle(e.target.value)}
+                        value={title}
                     />
-                </div>
 
-                <div className="form-group">
-                    <label>About Item</label>
+                    <label htmlFor="productAboutItem" className="addproduct-label">About Item</label>
                     <textarea
-                        className={`form-control ${error && !aboutItem ? 'is-invalid' : ''}`}
                         placeholder="About Item"
-                        value={aboutItem}
+                        className="addproduct-input"
+                        required
+                        id="productAboutItem"
                         onChange={(e) => setAboutItem(e.target.value)}
+                        value={aboutItem}
                     />
-                </div>
 
-                <div className="form-group">
-                    <label>Description</label>
+                    <label htmlFor="productDescription" className="addproduct-label">Product Description</label>
                     <textarea
-                        className={`form-control ${error && !description ? 'is-invalid' : ''}`}
                         placeholder="Description"
-                        value={description}
+                        className="addproduct-input"
+                        required
+                        id="productDescription"
                         onChange={(e) => setDescription(e.target.value)}
+                        value={description}
                     />
-                </div>
 
-                <div className="form-group">
-                    <label>Price</label>
+                    <label htmlFor="productPrice" className="addproduct-label">Product Price</label>
                     <input
                         type="number"
-                        className={`form-control ${error && (!price || isNaN(price)) ? 'is-invalid' : ''}`}
+                        min={1}
                         placeholder="Price"
-                        value={price}
+                        className="addproduct-input"
+                        id="productPrice"
+                        required
                         onChange={(e) => setPrice(e.target.value)}
+                        value={price}
                     />
-                </div>
 
-                <div className="form-group">
-                    <label>Compared Price</label>
+                    <label htmlFor="productComparedPrice" className="addproduct-label">Compared Price</label>
                     <input
                         type="number"
-                        className={`form-control ${error && (!comparedPrice || isNaN(comparedPrice)) ? 'is-invalid' : ''}`}
+                        min={1}
                         placeholder="Compared Price"
-                        value={comparedPrice}
+                        className="addproduct-input"
+                        id="productComparedPrice"
+                        required
                         onChange={(e) => setComparedPrice(e.target.value)}
+                        value={comparedPrice}
                     />
-                </div>
 
-                <div className="form-group">
-                    <label>Shipping Price</label>
+                    <label htmlFor="productShippingPrice" className="addproduct-label">Shipping Price</label>
                     <input
                         type="number"
-                        className={`form-control ${error && (!shippingPrice || isNaN(shippingPrice)) ? 'is-invalid' : ''}`}
+                        min={1}
                         placeholder="Shipping Price"
-                        value={shippingPrice}
+                        className="addproduct-input"
+                        id="productShippingPrice"
+                        required
                         onChange={(e) => setShippingPrice(e.target.value)}
+                        value={shippingPrice}
                     />
-                </div>
 
-                <div className="form-group">
-                    <label>Stock</label>
+                    <label htmlFor="productStock" className="addproduct-label">Stock</label>
                     <input
                         type="number"
-                        className={`form-control ${error && (!stock || isNaN(stock)) ? 'is-invalid' : ''}`}
+                        min={1}
                         placeholder="Stock"
-                        value={stock}
+                        className="addproduct-input"
+                        id="productStock"
+                        required
                         onChange={(e) => setStock(e.target.value)}
+                        value={stock}
                     />
-                </div>
 
-                <div className="form-group">
-                    <label>Category</label>
+                    <label htmlFor="productCategory" className="addproduct-label">Select Product Category</label>
                     <select
-                        className={`form-control ${error && !category ? 'is-invalid' : ''}`}
+                        className="addproduct-input"
                         value={category}
+                        required
                         onChange={(e) => setCategory(e.target.value)}
+                        id="productCategory"
                     >
-                        <option value="">Select Category</option>
-                        {categories.map((cat) => (
-                            <option key={cat._id} value={cat._id}>{cat.name}</option>
+                        <option value="" disabled>
+                            Select a Category
+                        </option>
+                        {categories.map((category) => (
+                            <option key={category._id} value={category._id}>
+                                {category.name}
+                            </option>
                         ))}
                     </select>
-                </div>
 
-                <div className="form-group">
-                    <label>Existing Images</label>
+                    <label htmlFor="productImages" className="addproduct-label">Existing Images</label>
                     <div className="row">
                         {existingImages.map((image, index) => (
                             <div key={index} className="col-md-2">
@@ -372,37 +387,59 @@ const UpdateProduct = () => {
                             </div>
                         ))}
                     </div>
-                </div>
 
-                <div className="form-group">
-                    <label>New Images</label>
+                    <label htmlFor="productImages" className="addproduct-label">New Images</label>
                     <input
                         type="file"
+                        accept="image/*"
                         multiple
-                        className={`form-control ${error && newImages.length === 0 ? 'is-invalid' : ''}`}
+                        className="addproduct-input"
+                        id="productImages"
                         onChange={handleImageChange}
                     />
-                </div>
 
-                {newImages.length > 0 && (
-                    <div className="form-group">
-                        <label>Preview Selected Images</label>
-                        <div className="row">
+                    {error && <p className="error-message">{error}</p>}
+                    {newImages.length > 0 && (
+                        <div className="selected-images">
                             {newImages.map((image, index) => (
-                                <div key={index} className="col-md-2">
-                                    <img src={URL.createObjectURL(image)} alt="product" className="img-thumbnail" />
-                                    <button type="button" className="btn btn-danger btn-sm" onClick={() => removeNewImage(index)}>Remove</button>
+                                <div key={index} className="image-preview">
+                                    <img src={URL.createObjectURL(image)} alt="Selected" />
+                                    <button type="button" onClick={() => removeNewImage(index)}>Remove</button>
                                 </div>
                             ))}
                         </div>
+                    )}
+
+
+                    <label className="addproduct-label">Is Featured?</label>
+                    <div className="feature_selection">
+                        <label style={{ marginRight: "6px" }}>
+                            <input
+                                type="radio"
+                                name="isFeatured"
+                                value={0} // Not featured
+                                checked={isFeatured === 0}
+                                onChange={(e) => setIsFeatured(parseInt(e.target.value))}
+                            />
+                            No
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="isFeatured"
+                                value={1} // Featured
+                                checked={isFeatured === 1}
+                                onChange={(e) => setIsFeatured(parseInt(e.target.value))}
+                            />
+                            Yes
+                        </label>
                     </div>
-                )}
 
-                {error && <div className="alert alert-danger">{error}</div>}
+                    <button type="submit" className="addproduct-button" disabled={sendingRequest}>
+                        {sendingRequest ? `Uploading... ` : 'Add Product'}
+                    </button>
+                </div>
 
-                <button type="submit" className="btn btn-primary" disabled={sendingRequest}>
-                    {sendingRequest ? 'Updating...' : 'Update Product'}
-                </button>
             </form>
         </div>
     );

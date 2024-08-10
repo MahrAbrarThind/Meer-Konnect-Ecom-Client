@@ -65,23 +65,43 @@ const ProductDetails = () => {
 
     return (
         <div className="product-details-container">
-            <div className="productDetails">
+            <div className="upperProductDetails">
                 {loading ? (
                     <h4>Loading Product...</h4>
                 ) : !product ? (
                     <h3>Oops! No Product Found</h3>
                 ) : (
                     <>
-                        <h1>{product?.title}</h1>
                         <div className="mainProductContainer">
                             <div className="productImages">
                                 <img className='mainImage' src={mainImage.url} alt="Product Image" />
-                                {product?.images.map((img, index) =>
-                                    <img key={index} className='otherImages' onClick={() => changeImage(img)} src={img.url} alt="Product Image" />)}
+                                <div className='otherImages'>
+                                    {product?.images.map((img, index) =>
+                                        <img className={img.url === mainImage.url ? "activeImage" : ""} key={index} onClick={() => changeImage(img)} src={img.url} alt="Product Image" />)}
+                                </div>
                             </div>
                             <div className="productDetails">
+                                <h1 className='productDetailsTitle'>{product?.title}</h1>
+                                <label htmlFor="description">Product Description:</label>
                                 <p>{product?.description}</p>
-                                <p>Price: ${product?.price}</p>
+                                <label htmlFor="description">About Item:</label>
+                                <p>{product?.aboutItem}</p>
+                                <label htmlFor="description">Items Available:</label>
+                                <p>{product?.stock} </p>
+                                <label htmlFor="description">Price:</label>
+                                <p>RS: {product?.price}</p>
+
+                                <div className="actionBtns">
+                                    <button type='button' onClick={(e) => {
+                                        e.preventDefault();
+                                        setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
+                                        localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
+                                        toast.success(`${cart?.length + 1}  Item Added To Cart`);
+                                    }}>Add to Cart</button>
+
+                                    <button>Buy Now</button>
+                                </div>
+
                                 {/* Add other product details here */}
                             </div>
                         </div>
@@ -89,39 +109,30 @@ const ProductDetails = () => {
                 )}
             </div>
             {/* Add related products section here */}
-            <div className="relatedProductsContainer">
+
+            <div className="featuredProductsContainer">
                 <h1>You May Also Like</h1>
-                <div className="relatedProducts">
-                    {relatedProductsLoading ? (
-                        <h4>Loading Products...</h4>
-                    ) : relatedProducts.length === 0 ? (
-                        <h3>Oops! No Products Found</h3>
-                    ) : (
-                        relatedProducts?.map((product, index) => (
-                            <NavLink to={`/product/${product._id}`} key={index} className="allproducts-card-link">
-                                <div className="allproducts-card custom-card">
-                                    <img
-                                        src={product?.images[0]?.url}
-                                        className="allproducts-card-img-top"
-                                        alt={product.title}
-                                    />
-                                    <div className="allproducts-card-body">
-                                        <h5 className="allproducts-card-title">{product.title}</h5>
-                                        <p className="allproducts-card-text">{product.description.substring(0, 100)}...</p>
-                                        <div className="allproducts-btns">
-                                            <button type='button' className="allproducts-btn buy-now-btn" onClick={(e) => { e.preventDefault() }}>Buy Now</button>
-                                            <button type='button' className="allproducts-btn add-to-cart-btn" onClick={(e) => {
-                                                e.preventDefault();
-                                                setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
-                                                localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
-                                                toast.success(`${cart?.length + 1}  Item Added To Cart`);
-                                            }}>Add to Cart</button>
-                                        </div>
-                                    </div>
-                                </div>
+                <div className="featuredProducts">
+                    {relatedProducts.map((product, index) => (
+                        <div key={index} className="singleFeaturedProduct">
+                            <NavLink to={`/product/${product?._id}`} className="featuredImgContainer">
+                                <img src={product.images[0].url} alt={product.title} />
                             </NavLink>
-                        ))
-                    )}
+                            <p className='productTitle'>{product.title.substring(0, 80)}{product.title.length > 80 ? "..." : ""}</p>
+                            <div className="productPrices">
+                                <p>Rs: {product.price}</p>
+                                <p>Rs: {product.comparedPrice}</p>
+                            </div>
+
+                            <button type='button' onClick={(e) => {
+                                e.preventDefault();
+                                setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
+                                localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
+                                toast.success(`${cart?.length + 1}  Item Added To Cart`);
+                            }}>Add to Cart</button>
+
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

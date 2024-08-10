@@ -35,6 +35,7 @@ import './CSS/MainFilesCss/HomePagesCss/SliderImg.css';
 
 //importing other files css
 import "./CSS/OtherFilesCss/Main_Cat_Click.css";
+import "./CSS/OtherFilesCss/ProductDetails.css";
 
 
 
@@ -44,7 +45,7 @@ import "./CSS/AdminCss/AdminAccount.css";
 import "./CSS/AdminCss/MainCategory.css";
 import "./CSS/AdminCss/AddProduct.css";
 import "./CSS/AdminCss/EditProducts.css";
-import "./CSS/AdminCss/UpdateProduct.css";
+import "./CSS/AdminCss/AdminOrders.css";
 
 
 

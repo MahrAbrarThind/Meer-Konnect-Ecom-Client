@@ -24,7 +24,6 @@ const AddProduct = () => {
 
     const toastShownRef = useRef(false);
 
-    const [uploadProgress, setUploadProgress] = useState(0);
     const [sendingRequest, setSendingRequest] = useState(false);
 
     useEffect(() => {
@@ -47,34 +46,17 @@ const AddProduct = () => {
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         const invalidFiles = selectedFiles.filter(file => !allowedTypes.includes(file.type));
         const largeFiles = selectedFiles.filter(file => file.size > 1 * 1024 * 1024); // 1 MB
-    
+
         if (invalidFiles.length > 0) {
             setError('Please upload valid image files (JPEG, PNG, GIF)');
         } else if (largeFiles.length > 0) {
             setError('Image file size should not exceed 1MB');
         } else {
-            const resizedImages = await Promise.all(
-                selectedFiles.map(async (file) => {
-                    try {
-                        const options = {
-                            maxSizeMB: 1, // Reduce file size to below 1MB
-                            maxWidthOrHeight: 800, // Resize to 800px width or height, maintaining aspect ratio
-                            useWebWorker: true,
-                        };
-                        const compressedFile = await imageCompression(file, options);
-                        return compressedFile;
-                    } catch (error) {
-                        console.error('Error resizing image:', error);
-                        return file; // Fallback to original file if resizing fails
-                    }
-                })
-            );
-    
-            setImages((prev) => [...prev, ...resizedImages]);
+            setImages((prev) => [...prev, ...selectedFiles]);
             setError('');
         }
     };
-    
+
     const removeNewImage = (index) => {
         const updatedImages = images.filter((_, i) => i !== index);
         setImages(updatedImages);
@@ -149,7 +131,7 @@ const AddProduct = () => {
             const imageKeys = await Promise.all(images.map(image => handleFileUpload(title, image, 'MeerKonnectImages')));
             if (imageKeys.includes(null)) {
                 setSendingRequest(false);
-                return; // Halt if any image upload fails
+                return; 
             }
 
             const productData = {
@@ -339,7 +321,7 @@ const AddProduct = () => {
                         </label>
                     </div>
                     <button type="submit" className="addproduct-button" disabled={sendingRequest}>
-                        {sendingRequest ? `Uploading... ${uploadProgress}%` : 'Add Product'}
+                        {sendingRequest ? `Uploading... ` : 'Add Product'}
                     </button>
                 </div>
             </form>

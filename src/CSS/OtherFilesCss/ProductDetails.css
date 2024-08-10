@@ -1,0 +1,125 @@
+.product-details-container {
+    padding: 20px;
+    /* background-color: blue; */
+    width: 100%;
+}
+
+.upperProductDetails {
+    margin-bottom: 40px;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    /* background-color: black; */
+}
+
+.mainProductContainer {
+    display: flex;
+    gap: 80px;
+    padding: 40px;
+    /* background-color: red; */
+}
+
+.productImages {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 40%;
+    /* background-color: blue; */
+}
+
+.mainImage {
+    width: 100%;
+    max-width: 500px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+}
+
+.otherImages {
+    width: 100%;
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 30px;
+    /* background-color: blue; */
+}
+
+.otherImages img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+    opacity: 0.8;
+}
+
+.otherImages img:hover {
+    border-color: #333;
+    opacity: 1;
+}
+
+.activeImage {
+    border-color: #333;
+    opacity: 1;
+}
+
+
+.productDetails {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+}
+
+.productDetails label {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.productDetails p {
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.productDetails p:last-child {
+    font-weight: 500;
+    color: #000;
+}
+
+.productDetailsTitle {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+.actionBtns{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    /* background-color: red; */
+}
+.actionBtns button{
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+    font-size: 20px;
+    padding: 10px 18px;
+    width: 40%;
+    margin-top: 20px;
+    transition: all 0.4s;
+}
+.actionBtns button:hover{
+    background-color: white;
+    color: black;
+}

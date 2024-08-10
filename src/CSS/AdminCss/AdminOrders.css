@@ -1,0 +1,189 @@
+.userOrdersContainer {
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+    width: 100%;
+}
+
+.userOrdersSide {
+    width: 70%;
+}
+
+.userOrdersSide h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Container for the order filter buttons */
+.ordersNavlinks {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ordersNavlinks button {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333; /* Neutral text color */
+    background-color: transparent; /* Transparent background */
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Default state for the underline */
+.ordersNavlinks button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.4s ease-out;
+}
+
+/* Hover effect */
+.ordersNavlinks button:hover {
+    color: #007bff; /* Change text color on hover */
+}
+
+.ordersNavlinks button:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Active button style */
+.ordersNavlinks button.active {
+    color: #007bff; /* Active text color */
+}
+
+.ordersNavlinks button.active::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+
+
+/* Container for all orders */
+.allUserOrders {
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+/* Individual Order Card */
+.orderCard {
+
+    border: none;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    /* justify-content: center; */
+    gap: 40px;
+    
+    position: relative;
+    transition: transform 0.3s ease;
+    max-height:450px;
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+
+}
+
+
+.ordersImgContainer {
+    /* width: 65%; */
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+}
+
+
+.orderCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.orderCard img {
+    background-color: #eaeaea;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.ordersCardBody{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: start  ; */
+    width:80%;
+}
+
+.ordersCardTitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Montserrat', sans-serif;  */
+    min-height: 50px;
+    align-content: center;
+    /* background-color: red; */
+}
+
+.orderCard p:nth-of-type(2) {
+    font-size: 1.25rem;
+    color: #582323;
+    font-weight: bold;
+    /* background-color: blue; */
+    margin-top: -10px;
+}
+
+
+.orderButtons {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.orderButtons a,
+.orderButtons button {
+    /* flex: 1; */
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 10px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    width: 30%;
+}
+
+.orderButtons a:hover,
+.orderButtons button:hover {
+    background-color: #218838;
+}
+
+.orderButtons button {
+    background-color: #dc3545;
+}
+
+.orderButtons button:hover {
+    background-color: #c82333;
+}

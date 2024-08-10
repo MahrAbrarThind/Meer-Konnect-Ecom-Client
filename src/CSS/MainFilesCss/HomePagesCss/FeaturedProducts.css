@@ -23,6 +23,12 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    transition: transform 0.3s ease;
+}
+
+.singleFeaturedProduct:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .featuredImgContainer {

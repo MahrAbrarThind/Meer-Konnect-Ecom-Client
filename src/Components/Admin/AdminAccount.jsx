@@ -41,7 +41,6 @@ const AdminAccount = () => {
       return setError("Fields Cannot be Empty");
     }
 
-
     try {
       const response = await axios.put("http://localhost:4000/api/v1/edit-profile", formData,
         {
@@ -85,7 +84,6 @@ const AdminAccount = () => {
         <AdminList />
         <div className="adminProfile">
           <div className="adminProfileForm">
-
             <input disabled type="text" name="name" placeholder="Name" value={formData.name} onChange={handleOnChange} />
             <input disabled type="email" name="email" placeholder="Email" value={formData.email} onChange={handleOnChange} />
             <input type="text" name="phone" required placeholder="Phone" value={formData.phone} onChange={handleOnChange} />

@@ -10,7 +10,7 @@ const EditProducts = () => {
     const [loading, setLoading] = React.useState(true);
     const [products, setProducts] = React.useState([]);
     const toastShownRef = useRef(false);
-    const { auth } = useAuth(); 
+    const { auth } = useAuth();
 
     useEffect(() => {
         toastShownRef.current = false;
@@ -76,29 +76,28 @@ const EditProducts = () => {
                         products.length === 0 ? (
                             <h3>Oops! No Products Have Been Added Yet</h3>
                         ) : (
-                            products.map((product, index) => (
-                                <NavLink to={`/product/${product._id}`} key={index} className="allproducts-card-link">
-                                    <div className="allproducts-card custom-card">
-                                        <img
-                                            src={product.images[0]?.url}
-                                            className="allproducts-card-img-top"
-                                            alt={product.title}
-                                        />
-                                        <div className="allproducts-card-body">
-                                            <h5 className="allproducts-card-title">{product.title}</h5>
-                                            <p className="allproducts-card-text">{product.description.substring(0, 100)}...</p>
-                                            <div className="allproducts-btns">
-                                                <NavLink to={`/account/admin/edit-products/update/${product._id}`} className="allproducts-btn add-to-cart-btn">Update</NavLink>
-                                                <button className="allproducts-btn buy-now-btn" onClick={() => deleteProduct(product._id)}>Delete</button>
-                                            </div>
+                            <>
+                                {products.map((product, index) => (
+                                    <div key={index} className="singleFeaturedProduct">
+                                        <NavLink to={`/product/${product?._id}`} className="featuredImgContainer">
+                                            <img src={product.images[0].url} alt={product.title} />
+                                        </NavLink>
+                                        <p className='productTitle'>{product.title.substring(0, 80)}{product.title.length > 80 ? "..." : ""}</p>
+                                        <div className="productPrices">
+                                            <p>Rs: {product.price}</p>
+                                            <p>Rs: {product.comparedPrice}</p>
+                                        </div>
+                                        <div className="allproducts-btns">
+                                            <NavLink className='editProductNavlink' to={`/account/admin/edit-products/update/${product._id}`}>Update</NavLink>
+                                            <button type='button' className="allproducts-btn buy-now-btn" onClick={() => deleteProduct(product._id)}>Delete</button>
                                         </div>
                                     </div>
-                                </NavLink>
-                            ))
+                                ))}
+                            </>
                         )
                     )}
                 </div>
-            </div>
+            </div >
         </>
     )
 }

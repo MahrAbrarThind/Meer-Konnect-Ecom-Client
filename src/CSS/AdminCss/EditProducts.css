@@ -1,7 +1,42 @@
-.editProductsContainer{
+.editProductsContainer {
     display: flex;
-    padding: 40px;
+    gap: 40px;
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
 }
-.editAllProducts{
-    flex: 2;
+
+.editAllProducts {
+    width: 70%;
+    margin: auto;
+    margin-top: 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+}
+
+.allproducts-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.editProductNavlink {
+    background-color: black;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    width: 80%;
+    padding: 8px 10px;
+    border: none;
+    margin-top: -10px;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.editProductNavlink:hover {
+    background-color: rgb(157, 130, 62);
+    border: 2px solid black;
+    border: none;
 }
