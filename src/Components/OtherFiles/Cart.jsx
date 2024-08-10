@@ -24,10 +24,10 @@ const Cart = () => {
         let ship = 0;
         cart.forEach((product) => {
             total += product.price * product.quantity;
-            ship += product.shippingPrice;
+            ship = product.shippingPrice;
         });
         setProductTotal(total);
-        const shippingCost = total > 100 ? 0 : ship;
+        const shippingCost = total > 10000 ? 0 : ship;
         setShipping(shippingCost);
         setTotalPayment(total + shippingCost);
     };
@@ -86,49 +86,75 @@ const Cart = () => {
 
     return (
         <>
-            <h1>{cart.length === 0 ? "Your Cart Is Empty" : `Your Cart Has ${cart.length} Items ${auth?.token ? "" : "Register To Submit Order"}`}</h1>
+            <h1 className='cartMainHeading'>
+                Your Cart Has {cart.length} Items{' '}
+                {!auth?.token && (
+                    <>
+                        <NavLink to='/register' className='cartRegisterText'>
+                            Please Sign Up
+                        </NavLink>
+                        {' '}To Confirm Order
+                    </>
+                )}
+            </h1>
+
+
+
             {cart.length > 0 && (
                 <div className="cartContainer">
                     <div className="cartProducts">
                         {cart.map((product, index) => (
                             <div key={index} className="cartProduct">
                                 <img src={product.images[0].url} alt="Img" />
-                                <h2>{product.name}</h2>
-                                <h2>{product.description.substring(0, 100)}...</h2>
-                                <p>Price: ${product.price}</p>
-                                <button onClick={() => removeItemFromCart(index)}>Remove</button>
-                                <QuantitySelector
-                                    product={product}
-                                    onQuantityChange={handleQuantityChange}
-                                />
+                                <div className="cartProductDetails">
+                                    <h2>{product.title}</h2>
+                                    <p> <span>Price</span>:  Rs:{product.price}</p>
+                                    <QuantitySelector
+                                        product={product}
+                                        onQuantityChange={handleQuantityChange}
+                                    />
+                                    <button className='removeCartItemBtn' onClick={() => removeItemFromCart(index)}>
+                                        <i className="fas fa-trash"></i>
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>
-                    <div className="cartPriceTotal">
-                        <p>Total: ${productTotal.toFixed(2)}</p>
-                        <p>Shipping: ${shipping.toFixed(2)}</p>
-                        <p>Grand Total: ${totalPayment.toFixed(2)}</p>
-                        {
-                            auth?.token ? (
-                                <button onClick={confirmOrder} disabled={!auth?.token || isProcessing}>
-                                    {isProcessing ? "Processing..." : "Confirm Order"}
-                                </button>
-                            ) : (
-                                <>
-                                    <NavLink to={'/register'}>Register</NavLink>
-                                    <p>Please Register To Process Order</p>
-                                </>
-                            )
-                        }
-                    </div>
-                    {auth?.token && (
-                        <div className="cartAddressContainer">
-                            <h1>Your Current Address And Phone Is</h1>
-                            <p>Address: {auth?.user?.address}</p>
-                            <p>Phone: {auth?.user?.phone}</p>
-                            <NavLink to={`/account${auth?.user?.isAdmin === 1 ? '/admin' : ''}`}>Change Address</NavLink>
+                    <div className="addressAndTotals">
+                        {auth?.token && (
+                            <div className="cartAddressContainer">
+                                <h1>Your Current Address And Phone Is</h1>
+                                <p> <span> Address </span>: {auth?.user?.address}</p>
+                                <p> <span> Phone </span>: {auth?.user?.phone}</p>
+                                <NavLink to={`/account${auth?.user?.isAdmin === 1 ? '/admin' : ''}`}>Change Address</NavLink>
+                            </div>
+                        )}
+                        <div className="cartPriceTotal">
+                            <p> <span> Total </span> :  {productTotal.toFixed(2)} Rs</p>
+                            <p> <span> Shipping </span> : {shipping.toFixed(2)} Rs</p>
+                            <p> <span> Grand Total </span> : {totalPayment.toFixed(2)} Rs</p>
+                            <p> <span>
+
+                                <input
+                                    type="radio"
+                                    defaultChecked
+                                />
+                            </span> <span>Cash On Delivery</span></p>
+
+                            {
+                                auth?.token ? (
+                                    <button onClick={confirmOrder} disabled={!auth?.token || isProcessing}>
+                                        {isProcessing ? "Processing..." : "Confirm Order"}
+                                    </button>
+                                ) : (
+                                    <>
+                                        <NavLink id='cartRegisterBtn' to={'/register'}>Sign Up</NavLink>
+                                        <p id='cartRegisterText' >Please Sign Up To Process Order</p>
+                                    </>
+                                )
+                            }
                         </div>
-                    )}
+                    </div>
                 </div>
             )}
         </>

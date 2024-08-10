@@ -36,6 +36,7 @@ import './CSS/MainFilesCss/HomePagesCss/SliderImg.css';
 //importing other files css
 import "./CSS/OtherFilesCss/Main_Cat_Click.css";
 import "./CSS/OtherFilesCss/ProductDetails.css";
+import "./CSS/OtherFilesCss/Cart.css";
 
 
 

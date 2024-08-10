@@ -77,7 +77,13 @@ const ProductDetails = () => {
                                 <img className='mainImage' src={mainImage.url} alt="Product Image" />
                                 <div className='otherImages'>
                                     {product?.images.map((img, index) =>
-                                        <img className={img.url === mainImage.url ? "activeImage" : ""} key={index} onClick={() => changeImage(img)} src={img.url} alt="Product Image" />)}
+                                        <img
+                                            className={img.url === mainImage.url ? "activeImage" : ""}
+                                            key={index}
+                                            onClick={() => changeImage(img)}
+                                            src={img.url}
+                                            alt="Product Image"
+                                        />)}
                                 </div>
                             </div>
                             <div className="productDetails">

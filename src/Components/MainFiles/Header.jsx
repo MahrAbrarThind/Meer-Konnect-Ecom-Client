@@ -40,6 +40,7 @@ const Header = () => {
 
     return (
         <header className='headerContainer'>
+            <p className="headerTop">Enjoy Free Shipping Over Order Of 10,000</p>
             <div className="upper_header_part">
                 <NavLink to={'/'} className="logo">
                     <img src="mk2.png" alt="Your Logo" />

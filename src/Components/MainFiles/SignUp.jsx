@@ -3,9 +3,11 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Contexts/auth";
 
 function SignUp() {
     const navigate = useNavigate();
+    const {auth,setAuth}=useAuth();
 
     const [error, setError] = useState('');
     const [formData, setFormData] = useState({
@@ -47,7 +49,11 @@ function SignUp() {
 
             if (response.status === 201) {
                 toast.success("User Registered Successfully");
-                navigate('/login');
+                setAuth({
+                    user: response.data.data,
+                    token: response.data.token
+                });
+                localStorage.setItem('Token', response.data.token);
             }
 
         } catch (error) {
