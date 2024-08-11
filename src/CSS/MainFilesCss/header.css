@@ -16,11 +16,11 @@
 }
 
 
-.headerTop{
+.headerTop {
   /* width: 40%; */
-  text-align: center; 
+  text-align: center;
   font-size: 1.2rem;
-  background-color:rgb(5, 112, 5);
+  background-color: rgb(5, 112, 5);
   color: white;
   padding: 5px;
   margin: 0px;
@@ -37,7 +37,7 @@
   /* margin-bottom: 20px; */
 }
 
-.logo{
+.logo {
   /* background-color: red;   */
   height: 130px;
   width: 150px;
@@ -71,14 +71,14 @@
 }
 
 .header_search::after {
-  content: "" ;
-  position: absolute ;
-  bottom: 11px ;
+  content: "";
+  position: absolute;
+  bottom: 11px;
   left: 50%;
   right: 50%;
   width: 0;
-  height: 2px ;
-  background-color: black ; 
+  height: 2px;
+  background-color: black;
   background-color: white;
   transition: width 0.8s ease, left 0.8s ease, right 0.8s ease;
 }
@@ -164,30 +164,34 @@
   margin-top: 15px;
 }
 
-.mainCategories_container li {
-  position: relative;
-}
-
-.mainCat_Navlink {
+.subCatName a {
   text-decoration: none;
   color: white;
   color: black;
-
   font-weight: 600;
-  font-size: 18px;
-  transition: all 0.8s;
+  font-size: 1.2rem;
+  transition: all 0.2s;
 }
 
-.mainCat_Navlink:hover {
+.subCatName a:hover {
   color: rgb(145, 184, 67);
 }
 
+
+
+/* .mainCategories_container li {
+  position: relative;
+}
+.mainCat_Navlink:hover {
+
+  color: rgb(145, 184, 67);
+}
 .dropdown {
   display: none;
   position: absolute;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  /* background-color: black; */
+  background-color: black;
   z-index: 100;
   top: 100%;
   left: 0;
@@ -224,3 +228,13 @@
 .mainCategories_container li:hover .dropdown {
   display: block;
 }
+
+.mainCat_Navlink {
+  text-decoration: none;
+  color: white;
+  color: black;
+
+  font-weight: 600;
+  font-size: 18px;
+  transition: all 0.8s;
+} */

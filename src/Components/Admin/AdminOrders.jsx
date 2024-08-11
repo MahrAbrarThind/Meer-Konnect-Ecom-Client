@@ -5,6 +5,7 @@ import { useAuth } from '../../Contexts/auth';
 import AdminList from './AdminList';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const AdminOrders = () => {
     const { auth } = useAuth();
@@ -39,7 +40,7 @@ const AdminOrders = () => {
     const filterInProgressOrders = () => {
         const inProgressOrders = orders.filter(order => order.status === 'InProgress');
         setFilteredOrders(inProgressOrders);
-        setActiveFilter('inProgress');
+        setActiveFilter('InProgress');
     };
 
     const filterCancelledOrders = () => {
@@ -54,39 +55,100 @@ const AdminOrders = () => {
         setActiveFilter('delivered');
     };
 
-    const handleCancelOrder = async (id, index) => {
-        try {
-            const response = await axios.delete(`http://localhost:4000/api/v1/order/cancel-order/${id}`, {
-                headers: {
-                    Authorization: auth?.token
-                },
-            });
-            if (response.data.success) {
-                toast.success("Order Cancelled Successfully");
+    const handleDeleteOrder = async (id, index) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to delete this order?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it',
+            reverseButtons: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.delete(`http://localhost:4000/api/v1/order/delete-order/${id}`, {
+                        headers: {
+                            Authorization: auth?.token
+                        },
+                    });
 
-                const newOrders = orders.map((order) => {
-                    if (order.orderId === id) {
-                        return { ...order, status: 'cancelled' };
+                    if (response.data.success) {
+                        toast.success("Order deleted successfully");
+
+                        // Corrected the filter logic
+                        const newOrders = orders.filter((order) => order.orderId !== id);
+
+                        setOrders(newOrders);
+
+                        // Update the filtered orders
+                        const newFilteredOrders = newOrders.filter((order) => {
+                            return activeFilter === 'all' || order.status === activeFilter;
+                        });
+
+                        setFilteredOrders(newFilteredOrders);
                     }
-                    return order;
-                });
-
-                setOrders(newOrders);
-
-                const newFilteredOrders = newOrders.filter((order) => {
-                    return activeFilter === 'all' || order.status === activeFilter;
-                });
-
-                setFilteredOrders(newFilteredOrders);
+                } catch (error) {
+                    if (error.response) {
+                        toast.error(error.response.data.msg);
+                    } else {
+                        toast.error("Server Error");
+                    }
+                }
             }
-        } catch (error) {
-            if (error.response) {
-                toast.error(error.response.data.msg);
-            } else {
-                toast.error("Server Error");
-            }
-        }
+        });
     };
+
+    const handleCancelOrder = async (id, index) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to cancel this order?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, cancel it!',
+            cancelButtonText: 'No, keep it',
+            reverseButtons: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.delete(`http://localhost:4000/api/v1/order/cancel-order/${id}`, {
+                        headers: {
+                            Authorization: auth?.token
+                        },
+                    });
+                    if (response.data.success) {
+                        toast.success("Order Cancelled Successfully");
+
+                        const newOrders = orders.map((order) => {
+                            if (order.orderId === id) {
+                                return { ...order, status: 'cancelled' };
+                            }
+                            return order;
+                        });
+
+                        setOrders(newOrders);
+
+                        const newFilteredOrders = newOrders.filter((order) => {
+                            return activeFilter === 'all' || order.status === activeFilter;
+                        });
+
+                        setFilteredOrders(newFilteredOrders);
+
+
+
+                    }
+                } catch (error) {
+                    if (error.response) {
+                        toast.error(error.response.data.msg);
+                    } else {
+                        toast.error("Server Error");
+                    }
+                }
+            }
+        });
+    };
+
+
 
     const handleTrackOrder = (order) => {
         // Implement track order functionality
@@ -113,7 +175,7 @@ const AdminOrders = () => {
                         </button>
                         <button
                             onClick={filterInProgressOrders}
-                            className={activeFilter === 'inProgress' ? 'active' : ''}
+                            className={activeFilter === 'InProgress' ? 'active' : ''}
                         >
                             In Progress
                         </button>
@@ -135,13 +197,22 @@ const AdminOrders = () => {
                                     <p>Price: {order?.price}</p>
                                     <p>{order?.description}</p>
                                     <div className="orderButtons">
-                                        <NavLink to={`/product/${order.productID}`} >Order Again</NavLink>
+                                        {/* <NavLink to={`/product/${order.productID}`} >Order Again</NavLink> */}
                                         {order.status === 'InProgress' && (
                                             <>
-                                                <button onClick={() => handleCancelOrder(order.orderId, index)}>Cancel Order</button>
+                                                <button onClick={() => handleCancelOrder(order.orderId)}>Cancel Order</button>
                                                 <button onClick={() => handleTrackOrder(order)}>Track Order</button>
                                             </>
                                         )}
+
+                                        {order.status === 'cancelled' && (
+                                            <>
+                                                <button onClick={() => handleDeleteOrder(order.orderId, index)}>Delete Order</button>
+                                                {/* <button onClick={() => handleTrackOrder(order)}>Track Order</button> */}
+                                            </>
+                                        )}
+
+
                                     </div>
                                 </div>
                             </div>

@@ -3,10 +3,16 @@ import { getFeaturedProducts } from '../../DBFunctions/getProducts';
 import { toast } from 'react-toastify';
 import { useCart } from '../../../Contexts/cartContex';
 import { NavLink } from 'react-router-dom';
+import { AddToCartAlert } from '../../DBFunctions/AddToCartAlert';
+
 
 const ShowingFeaturedProducts = () => {
     const [featuredProducts, sertFeaturedProducts] = useState([]);
     const { cart, setCart } = useCart();
+
+    const handleAddToCart = AddToCartAlert(cart, setCart);
+
+
 
     useEffect(() => {
         (async () => {
@@ -23,8 +29,6 @@ const ShowingFeaturedProducts = () => {
             }
         })();
     }, []);
-
-
 
     return (
         <>
@@ -44,10 +48,10 @@ const ShowingFeaturedProducts = () => {
 
                             <button type='button' onClick={(e) => {
                                 e.preventDefault();
-                                setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
-                                localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
-                                toast.success(`${cart?.length + 1}  Item Added To Cart`);
-                            }}>Add to Cart</button>
+                                handleAddToCart(product);
+                            }}>
+                                Add to Cart
+                            </button>
 
                         </div>
                     ))}

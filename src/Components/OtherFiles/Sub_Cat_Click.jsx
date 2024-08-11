@@ -3,6 +3,8 @@ import { useParams, NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getProductsForSubCat } from '../DBFunctions/getProducts.js';
 import { useCart } from '../../Contexts/cartContex.js';
+import { AddToCartAlert } from '../DBFunctions/AddToCartAlert';
+
 
 const Sub_Cat_Click = () => {
   const [products, setProducts] = useState([]);
@@ -14,6 +16,8 @@ const Sub_Cat_Click = () => {
   const [maxPrice, setMaxPrice] = useState('');
 
   const { cart, setCart } = useCart();
+
+  const handleAddToCart = AddToCartAlert(cart, setCart);
 
 
   useEffect(() => {
@@ -57,7 +61,7 @@ const Sub_Cat_Click = () => {
     setFilteredProducts(products);
   };
 
-  console.log("these are the filtered products",filteredProducts);
+  console.log("these are the filtered products", filteredProducts);
   return (
     <div className="main-container">
       <div className="filter-container">
@@ -111,10 +115,10 @@ const Sub_Cat_Click = () => {
 
                 <button type='button' onClick={(e) => {
                   e.preventDefault();
-                  setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
-                  localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
-                  toast.success(`${cart?.length + 1}  Item Added To Cart`);
-                }}>Add to Cart</button>
+                  handleAddToCart(product);
+                }}>
+                  Add to Cart
+                </button>
 
               </div>
             )))

@@ -5,6 +5,8 @@ import { getAllOrders } from '../DBFunctions/getOrders';
 import { useAuth } from '../../Contexts/auth';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 
 const UserOrders = () => {
     const { auth } = useAuth();
@@ -38,7 +40,7 @@ const UserOrders = () => {
     const filterInProgressOrders = () => {
         const inProgressOrders = orders.filter(order => order.status === 'InProgress');
         setFilteredOrders(inProgressOrders);
-        setActiveFilter('inProgress');
+        setActiveFilter('InProgress');
     };
 
     const filterCancelledOrders = () => {
@@ -53,40 +55,54 @@ const UserOrders = () => {
         setActiveFilter('delivered');
     };
 
-    const handleCancelOrder = async (id) => {
-        try {
-            const response = await axios.delete(`http://localhost:4000/api/v1/order/cancel-order/${id}`, {
-                headers: {
-                    Authorization: auth?.token
-                },
-            });
-            if (response.data.success) {
-                toast.success("Order Cancelled Successfully");
+    const handleCancelOrder = async (id, index) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to cancel this order?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, cancel it!',
+            cancelButtonText: 'No, keep it',
+            reverseButtons: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.delete(`http://localhost:4000/api/v1/order/cancel-order/${id}`, {
+                        headers: {
+                            Authorization: auth?.token
+                        },
+                    });
+                    if (response.data.success) {
+                        toast.success("Order Cancelled Successfully");
 
-                const newOrders = orders.map((order) => {
-                    if (order.orderId === id) {
-                        return { ...order, status: 'cancelled' };
+                        const newOrders = orders.map((order) => {
+                            if (order.orderId === id) {
+                                return { ...order, status: 'cancelled' };
+                            }
+                            return order;
+                        });
+
+                        setOrders(newOrders);
+
+                        const newFilteredOrders = newOrders.filter((order) => {
+                            return activeFilter === 'all' || order.status === activeFilter;
+                        });
+
+                        setFilteredOrders(newFilteredOrders);
+
+
+
                     }
-                    return order;
-                });
-
-                setOrders(newOrders);
-                // Reapply the current filter
-                if (activeFilter === 'all') {
-                    setFilteredOrders(newOrders);
-                } else if (activeFilter === 'inProgress') {
-                    setFilteredOrders(newOrders.filter(order => order.status === 'InProgress'));
-                } else if (activeFilter === 'cancelled') {
-                    setFilteredOrders(newOrders.filter(order => order.status === 'cancelled'));
-                } else if (activeFilter === 'delivered') {
-                    setFilteredOrders(newOrders.filter(order => order.status === 'delivered'));
+                } catch (error) {
+                    if (error.response) {
+                        toast.error(error.response.data.msg);
+                    } else {
+                        toast.error("Server Error");
+                    }
                 }
             }
-        } catch (error) {
-            toast.error(error.response?.data?.msg || "Server Error");
-        }
+        });
     };
-
     const handleTrackOrder = (order) => {
         // Implement track order functionality
     };
@@ -112,7 +128,7 @@ const UserOrders = () => {
                         </button>
                         <button
                             onClick={filterInProgressOrders}
-                            className={activeFilter === 'inProgress' ? 'active' : ''}
+                            className={activeFilter === 'InProgress' ? 'active' : ''}
                         >
                             In Progress
                         </button>

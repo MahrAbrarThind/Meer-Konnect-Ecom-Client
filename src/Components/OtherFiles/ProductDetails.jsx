@@ -3,6 +3,8 @@ import { NavLink, useParams } from 'react-router-dom';
 import { getRelatedProducts, getSingleProduct } from '../DBFunctions/getProducts';
 import { toast } from 'react-toastify';
 import { useCart } from '../../Contexts/cartContex';
+import { AddToCartAlert } from '../DBFunctions/AddToCartAlert';
+
 
 const ProductDetails = () => {
     const [product, setProduct] = useState(null);
@@ -13,6 +15,9 @@ const ProductDetails = () => {
     const toastShownRef = useRef(false);
     const [mainImage, setMainImage] = useState(null);
     const { cart, setCart } = useCart();
+
+    const handleAddToCart = AddToCartAlert(cart, setCart);
+
 
     useEffect(() => {
         toastShownRef.current = false;
@@ -38,6 +43,8 @@ const ProductDetails = () => {
         })();
     }, [id]);
 
+
+
     useEffect(() => {
         if (product && product.subCategory_id) {
             setRelatedProductsLoading(true);
@@ -58,6 +65,9 @@ const ProductDetails = () => {
             })();
         }
     }, [product]);
+
+
+
 
     const changeImage = (img) => {
         setMainImage(img);
@@ -100,12 +110,12 @@ const ProductDetails = () => {
                                 <div className="actionBtns">
                                     <button type='button' onClick={(e) => {
                                         e.preventDefault();
-                                        setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
-                                        localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
-                                        toast.success(`${cart?.length + 1}  Item Added To Cart`);
-                                    }}>Add to Cart</button>
+                                        handleAddToCart(product);
+                                    }}>
+                                        Add to Cart
+                                    </button>
 
-                                    <button>Buy Now</button>
+                                    {/* <button>Buy Now</button> */}
                                 </div>
 
                                 {/* Add other product details here */}
@@ -131,12 +141,11 @@ const ProductDetails = () => {
                             </div>
 
                             <button type='button' onClick={(e) => {
-                                e.preventDefault();
-                                setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
-                                localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
-                                toast.success(`${cart?.length + 1}  Item Added To Cart`);
-                            }}>Add to Cart</button>
-
+                                        e.preventDefault();
+                                        handleAddToCart(product);
+                                    }}>
+                                        Add to Cart
+                                    </button>
                         </div>
                     ))}
                 </div>

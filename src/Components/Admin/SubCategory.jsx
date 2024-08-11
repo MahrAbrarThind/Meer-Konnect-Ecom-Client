@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import AdminList from './AdminList';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../Contexts/auth';
-import { getAll_mainCategories, getAll_subCategories } from '../DBFunctions/getCategories.js';
+import {getAll_subCategories } from '../DBFunctions/getCategories.js';
 
 const SubCategory = () => {
   const { auth } = useAuth();
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
-  const [mainCategories, setMainCategories] = useState([]);
-  const [selectedMainCategory, setSelectedMainCategory] = useState("");
+  // const [mainCategories, setMainCategories] = useState([]);
+  // const [selectedMainCategory, setSelectedMainCategory] = useState("");
   const [image, setImage] = useState(null);
   const [error, setError] = useState('');
 
@@ -29,20 +29,20 @@ const SubCategory = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await getAll_mainCategories();
-        if (response.error) {
-          throw response.error;
-        } else {
-          setMainCategories(response.data);
-        }
-      } catch (error) {
-        toast.error("Internal Server Error");
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await getAll_mainCategories();
+  //       if (response.error) {
+  //         throw response.error;
+  //       } else {
+  //         setMainCategories(response.data);
+  //       }
+  //     } catch (error) {
+  //       toast.error("Internal Server Error");
+  //     }
+  //   })();
+  // }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -89,7 +89,7 @@ const SubCategory = () => {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    if (!name || !selectedMainCategory || !image) {
+    if (!name || !image) {
       toast.error("Fields Cannot Be Empty");
       return;
     }
@@ -101,7 +101,7 @@ const SubCategory = () => {
       await uploadImage(image, presignedUrl);
 
       const response = await axios.post("http://localhost:4000/api/v1/add_subCategory",
-        { name, id: selectedMainCategory, imageKey: key },
+        { name, imageKey: key },
         { headers: { Authorization: auth?.token } }
       );
 
@@ -110,7 +110,7 @@ const SubCategory = () => {
         setCategories([...categories, response.data.data]);
       }
       setName("");
-      setSelectedMainCategory("");
+      // setSelectedMainCategory("");
       setImage(null);
     } catch (error) {
       if (error.response) {
@@ -177,7 +177,7 @@ const SubCategory = () => {
       <div className="category-content">
         <form onSubmit={submitForm} className="category-form">
           <div className="category-form-group">
-            <label htmlFor="mainCategorySelect" className="category-label">Select Main Category</label>
+            {/* <label htmlFor="mainCategorySelect" className="category-label">Select Main Category</label>
             <select
               className="category-input"
               id="mainCategorySelect"
@@ -191,7 +191,7 @@ const SubCategory = () => {
                   {cat.name}
                 </option>
               ))}
-            </select>
+            </select> */}
           </div>
           <div className="category-form-group">
             <label htmlFor="categoryInput" className="category-label">Enter Sub-Category</label>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const QuantitySelector = ({ product, onQuantityChange }) => {
     const [quantity, setQuantity] = useState(product.quantity || 1);
@@ -6,6 +7,12 @@ const QuantitySelector = ({ product, onQuantityChange }) => {
     const handleQuantityChange = (newQuantity, e) => {
         e.preventDefault();
         if (newQuantity < 1) return;
+
+        if(newQuantity>product.stock){
+            toast.error("No More Stock Available");
+            return;
+        }
+
         setQuantity(newQuantity);
         const updatedProduct = { ...product, quantity: newQuantity };
         onQuantityChange(updatedProduct);

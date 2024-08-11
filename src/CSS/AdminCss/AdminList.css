@@ -1,4 +1,4 @@
-.adminListContainer{
+.adminListContainer {
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -7,11 +7,12 @@
     gap: 40px;
     padding: 50px 0px;
     background-color: rgb(242, 236, 242);
-    box-shadow: 0 0 5px  rgb(246, 240, 230);
+    box-shadow: 0 0 5px rgb(246, 240, 230);
     border-radius: 5px;
     height: fit-content;
 }
-.amdinListNavLink{
+
+.amdinListNavLink {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,23 +31,28 @@
 }
 
 
-.adminListContainer a:hover{
+.adminListContainer a:hover {
     color: white;
-    background-color: #79b6f7; 
+    background-color: #79b6f7;
     border-color: #79b6f7;
 }
 
 .adminListActive {
-    background-color: #007bff !important; 
-    color: #ffffff !important; 
-    border-color:  #007bff !important;
+    background-color: #007bff !important;
+    color: #ffffff !important;
+    border-color: #007bff !important;
 }
 
 .listArrowIcon {
     margin-left: auto;
-    transition: transform 0.3s; 
+    transition: transform 0.3s;
 }
 
 .adminListActive .listArrowIcon {
-    transform: rotate(90deg); 
+    transform: rotate(90deg);
+}
+
+.adminListContainer button:hover {
+    background-color: red;
+    color: white;
 }

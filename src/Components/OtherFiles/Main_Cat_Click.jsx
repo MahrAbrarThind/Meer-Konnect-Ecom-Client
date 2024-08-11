@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { getProductsForMainCat } from '../DBFunctions/getProducts';
 import { useCart } from '../../Contexts/cartContex';
 import QuantitySelector from './QuantitySelector';
+import { AddToCartAlert } from '../DBFunctions/AddToCartAlert';
 
 const Main_Cat_Click = () => {
   const [products, setProducts] = useState([]);
@@ -15,6 +16,9 @@ const Main_Cat_Click = () => {
   const [maxPrice, setMaxPrice] = useState('');
 
   const { cart, setCart } = useCart();
+
+  const handleAddToCart = AddToCartAlert(cart, setCart);
+
 
   useEffect(() => {
     toastShownRef.current = false;
@@ -109,11 +113,11 @@ const Main_Cat_Click = () => {
                 </div>
 
                 <button type='button' onClick={(e) => {
-                  e.preventDefault();
-                  setCart([...cart, { ...product, quantity: product.quantity = 1 }]);
-                  localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: product.quantity = 1 }]));
-                  toast.success(`${cart?.length + 1}  Item Added To Cart`);
-                }}>Add to Cart</button>
+                                e.preventDefault();
+                                handleAddToCart(product);
+                            }}>
+                                Add to Cart
+                            </button>
 
               </div>
             )))

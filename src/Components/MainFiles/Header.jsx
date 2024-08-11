@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAll_mainCategories, getAll_subCategories } from '../DBFunctions/getCategories';
+import {getAll_subCategories } from '../DBFunctions/getCategories';
 import { toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../Contexts/auth';
@@ -8,18 +8,17 @@ import { useAuth } from '../../Contexts/auth';
 
 const Header = () => {
     const [showDropdown, setShowDropdown] = useState(null);
-    const [mainCategories, set_mainCategories] = useState([]);
+    // const [mainCategories, set_mainCategories] = useState([]);
     const [subCategories, set_subCategories] = useState([]);
     const { auth, setAuth } = useAuth();
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const [mainResponse, subResponse] = await Promise.all([getAll_mainCategories(), getAll_subCategories()]);
-                if (mainResponse.error || subResponse.error) {
+                const subResponse = await  getAll_subCategories();
+                if (subResponse.error) {
                     throw new Error("Failed to fetch categories");
                 } else {
-                    set_mainCategories(mainResponse.data);
                     set_subCategories(subResponse.data);
                 }
             } catch (error) {
@@ -52,7 +51,7 @@ const Header = () => {
 
                 {auth?.token ? (
                     <div className="header_actions">
-                        <NavLink to={`/account${auth?.user?.isAdmin===1 ? '/admin': ''}`} className="header_icon">
+                        <NavLink to={`/account${auth?.user?.isAdmin === 1 ? '/admin' : ''}`} className="header_icon">
                             <i className="fas fa-user"></i>
                             Account
                         </NavLink>
@@ -85,7 +84,18 @@ const Header = () => {
             </div>
             <div className="lower_header_part">
                 <ul className="mainCategories_container">
-                    {mainCategories.map(category => (
+
+
+                    {subCategories.map(sub => (
+                            <li className='subCatName' key={sub._id}>
+                                <NavLink to={`/sub/${sub.name}`} className="subCat_Navlink">
+                                    {sub.name}
+                                </NavLink>
+                            </li>
+                        ))}
+
+
+                    {/* {mainCategories.map(category => (
                         <li
                             key={category._id}
                             onMouseEnter={() => handleMouseEnter(category._id)}
@@ -106,7 +116,7 @@ const Header = () => {
                                 </ul>
                             )}
                         </li>
-                    ))}
+                    ))} */}
                 </ul>
             </div>
         </header >

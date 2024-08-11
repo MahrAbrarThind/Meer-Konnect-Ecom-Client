@@ -15,7 +15,7 @@ import Home from './Components/MainFiles/Home.jsx';
 
 
 // importing other files
-import Main_Cat_Click from './Components/OtherFiles/Main_Cat_Click.jsx';
+// import Main_Cat_Click from './Components/OtherFiles/Main_Cat_Click.jsx';
 import Sub_Cat_Click from './Components/OtherFiles/Sub_Cat_Click.jsx';
 import Cart from './Components/OtherFiles/Cart.jsx';
 import ProductDetails from './Components/OtherFiles/ProductDetails.jsx';
@@ -33,7 +33,7 @@ import UserOrders from './Components/User/UserOrders.jsx';
 // importing admin pages 
 
 import AdminAccount from './Components/Admin/AdminAccount.jsx';
-import MainCategory from './Components/Admin/MainCategory.jsx';
+// import MainCategory from './Components/Admin/MainCategory.jsx';
 import SubCategory from './Components/Admin/SubCategory.jsx'
 import AddProduct from './Components/Admin/AddProduct.jsx';
 import EditProducts from './Components/Admin/EditProducts.jsx';
@@ -63,7 +63,7 @@ const App = () => {
 
           <Route path='admin' element={<ChekAdmin />} >
             <Route index element={<AdminAccount />} />
-            <Route path='main-category' element={<MainCategory />} />
+            {/* <Route path='main-category' element={<MainCategory />} /> */}
             <Route path='sub-category' element={<SubCategory />} />
             <Route path='add-product' element={<AddProduct />} />
             <Route path='edit-products' element={<EditProducts />} />
@@ -81,13 +81,13 @@ const App = () => {
 
 
         <Route path='/' element={<Home />} />
-        <Route path='/main/:name' element={<Main_Cat_Click />} />
+        {/* <Route path='/main/:name' element={<Main_Cat_Click />} /> */}
         <Route path='/sub/:name' element={<Sub_Cat_Click />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/product/:id' element={<ProductDetails />} />
 
 
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes >
     </>
   )
