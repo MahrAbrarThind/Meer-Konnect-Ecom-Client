@@ -48,7 +48,7 @@ function SignUp() {
         }
 
         try {
-            const response = await axios.post("https://meer-kennect-ecom-server.vercel.app/api/v1/register", formData);
+            const response = await axios.post("https://meer-kennect-ecom-server-final.vercel.app//api/v1/register", formData);
 
             if (response.status === 201) {
                 toast.success("User Registered Successfully");
