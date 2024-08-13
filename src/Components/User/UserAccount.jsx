@@ -43,7 +43,7 @@ const UserAccount = () => {
 
 
     try {
-      const response = await axios.put("http://localhost:4000/api/v1/edit-profile", formData,
+      const response = await axios.put("https://meer-kennect-ecom-server.vercel.app/api/v1/edit-profile", formData,
         {
           headers:
           {

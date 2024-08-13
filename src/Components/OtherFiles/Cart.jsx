@@ -113,7 +113,7 @@ const Cart = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:4000/api/v1/order/create-order', orderData, {
+            const response = await axios.post('https://meer-kennect-ecom-server.vercel.app/api/v1/order/create-order', orderData, {
                 headers: {
                     Authorization: auth?.token
                 },

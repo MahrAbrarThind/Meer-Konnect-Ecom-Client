@@ -67,7 +67,7 @@ const UserOrders = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const response = await axios.delete(`http://localhost:4000/api/v1/order/cancel-order/${id}`, {
+                    const response = await axios.delete(`https://meer-kennect-ecom-server.vercel.app/api/v1/order/cancel-order/${id}`, {
                         headers: {
                             Authorization: auth?.token
                         },

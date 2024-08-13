@@ -71,7 +71,7 @@ const AddProduct = () => {
             title
         }
         try {
-            const response = await axios.post(`http://localhost:4000/api/v1/addProduct_preSignedUrl`, params);
+            const response = await axios.post(`https://meer-kennect-ecom-server.vercel.app/api/v1/addProduct_preSignedUrl`, params);
 
             if (response.data.success) {
                 return response.data.data;
@@ -149,7 +149,7 @@ const AddProduct = () => {
                 clothesStatus,
             };
 
-            const response = await axios.post("http://localhost:4000/api/v1/add_product", productData, {
+            const response = await axios.post("https://meer-kennect-ecom-server.vercel.app/api/v1/add_product", productData, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: auth.token,

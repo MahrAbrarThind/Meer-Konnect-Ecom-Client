@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getAllOrders = async (auth) => {
     try {
-        const response = await axios.get(`http://localhost:4000/api/v1/order/get-all-orders`, {
+        const response = await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/get-all-orders`, {
             headers: {
                 Authorization: auth?.token
             },

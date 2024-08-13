@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const getProductsForSubCat=async(name)=>{
     try {
-        const response=await axios.get(`http://localhost:4000/api/v1/getProducts_forSubCat/${name}`);
+        const response=await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/getProducts_forSubCat/${name}`);
         if(response.data.success){
             return response.data || [];
         }
@@ -27,7 +27,7 @@ export const getProductsForSubCat=async(name)=>{
 
 export const getProductsForMainCat=async(name)=>{
     try {
-        const response=await axios.get(`http://localhost:4000/api/v1/getProducts_forMainCat/${name}`);
+        const response=await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/getProducts_forMainCat/${name}`);
         if(response.data.success){
             return response.data || [];
         }
@@ -52,7 +52,7 @@ export const getProductsForMainCat=async(name)=>{
 
 export const getAllProducts=async()=>{
     try {
-        const response=await axios.get(`http://localhost:4000/api/v1/get-all-products`);
+        const response=await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/get-all-products`);
         if(response.data.success){
             return response.data || [];
         }
@@ -78,7 +78,7 @@ export const getAllProducts=async()=>{
 export const getSingleProduct=async(id)=>{
 
     try {
-        const response=await axios.get(`http://localhost:4000/api/v1/get-single-product/${id}`);
+        const response=await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/get-single-product/${id}`);
         if(response.data.success){
             return response.data || [];
         }
@@ -104,7 +104,7 @@ export const getSingleProduct=async(id)=>{
 export const getRelatedProducts=async(id)=>{
 
     try {
-        const response=await axios.get(`http://localhost:4000/api/v1/get-related-products/${id}`);
+        const response=await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/get-related-products/${id}`);
         if(response.data.success){
             return response.data || [];
         }
@@ -131,7 +131,7 @@ export const getRelatedProducts=async(id)=>{
 export const getFeaturedProducts=async(id)=>{
 
     try {
-        const response=await axios.get(`http://localhost:4000/api/v1/get-featured-products`);
+        const response=await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/get-featured-products`);
         if(response.data.success){
             return response.data || [];
         }
@@ -158,7 +158,7 @@ export const getFeaturedProducts=async(id)=>{
 export const getClothesProducts=async(id)=>{
 
     try {
-        const response=await axios.get(`http://localhost:4000/api/v1/get-clothes-products`);
+        const response=await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/get-clothes-products`);
         if(response.data.success){
             return response.data || [];
         }
@@ -184,7 +184,7 @@ export const getClothesProducts=async(id)=>{
 export const getBagsProducts=async(id)=>{
 
     try {
-        const response=await axios.get(`http://localhost:4000/api/v1/get-bags-products`);
+        const response=await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/get-bags-products`);
         if(response.data.success){
             return response.data || [];
         }

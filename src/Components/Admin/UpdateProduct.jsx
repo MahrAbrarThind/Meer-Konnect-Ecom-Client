@@ -130,7 +130,7 @@ const UpdateProduct = () => {
             id,
         }
         try {
-            const response = await axios.post(`http://localhost:4000/api/v1/updateProduct_preSignedUrl`, params, {
+            const response = await axios.post(`https://meer-kennect-ecom-server.vercel.app/api/v1/updateProduct_preSignedUrl`, params, {
                 headers: {
                     Authorization: auth.token,
                 },
@@ -240,7 +240,7 @@ const UpdateProduct = () => {
                 updateData.newImageKeys = newImageKeys;
             }
 
-            const response = await axios.put(`http://localhost:4000/api/v1/update_product/${id}`, updateData, {
+            const response = await axios.put(`https://meer-kennect-ecom-server.vercel.app/api/v1/update_product/${id}`, updateData, {
                 headers: {
                     Authorization: auth.token,
                 },

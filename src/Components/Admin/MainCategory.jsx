@@ -40,7 +40,7 @@ const MainCategory = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:4000/api/v1/add_main_category", { name},
+      const response = await axios.post("https://meer-kennect-ecom-server.vercel.app/api/v1/add_main_category", { name},
         {
           headers:
           {
@@ -66,7 +66,7 @@ const MainCategory = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:4000/api/v1/delete_main_category/${id}`, {
+      const response = await axios.delete(`https://meer-kennect-ecom-server.vercel.app/api/v1/delete_main_category/${id}`, {
         headers:
         {
           Authorization: auth?.token,
@@ -92,7 +92,7 @@ const MainCategory = () => {
     const newName = prompt(`Enter new name for "${name}":`, name);
     if (newName !== null && newName !== "") {
       try {
-        const response = await axios.put(`http://localhost:4000/api/v1/update_main_category/${id}`, { name: newName }, {
+        const response = await axios.put(`https://meer-kennect-ecom-server.vercel.app/api/v1/update_main_category/${id}`, { name: newName }, {
           headers:
           {
             Authorization: auth?.token,

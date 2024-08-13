@@ -37,7 +37,7 @@ const EditProducts = () => {
 
     const deleteProduct = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:4000/api/v1/delete_product/${id}`, {
+            const response = await axios.delete(`https://meer-kennect-ecom-server.vercel.app/api/v1/delete_product/${id}`, {
                 headers: {
                     Authorization: auth.token,
                 },

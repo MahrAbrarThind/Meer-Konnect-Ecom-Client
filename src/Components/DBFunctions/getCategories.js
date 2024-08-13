@@ -28,7 +28,7 @@ import axios from 'axios';
 
 export const getAll_subCategories = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/api/v1/get_sub_categories');
+        const response = await axios.get('https://meer-kennect-ecom-server.vercel.app/api/v1/get_sub_categories');
         if (response.data.success) {
             return response.data || [];
         }

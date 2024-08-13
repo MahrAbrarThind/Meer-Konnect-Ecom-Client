@@ -64,7 +64,7 @@ const SubCategory = () => {
   const getPresignedUrl = async (name,fileName, fileType) => {
     const params = {name,fileName, fileType, folderName: 'SubCategoryImages' };
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/getSubCatPresinedUrl', params);
+      const response = await axios.post('https://meer-kennect-ecom-server.vercel.app/api/v1/getSubCatPresinedUrl', params);
       if (response.data.success) {
         return response.data.data;
       }
@@ -100,7 +100,7 @@ const SubCategory = () => {
 
       await uploadImage(image, presignedUrl);
 
-      const response = await axios.post("http://localhost:4000/api/v1/add_subCategory",
+      const response = await axios.post("https://meer-kennect-ecom-server.vercel.app/api/v1/add_subCategory",
         { name, imageKey: key },
         { headers: { Authorization: auth?.token } }
       );
@@ -123,7 +123,7 @@ const SubCategory = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:4000/api/v1/delete_subCategory/${id}`, {
+      const response = await axios.delete(`https://meer-kennect-ecom-server.vercel.app/api/v1/delete_subCategory/${id}`, {
         headers: { Authorization: auth?.token },
       });
       if (response.data.success) {
@@ -144,7 +144,7 @@ const SubCategory = () => {
     const newName = prompt(`Enter new name for "${name}":`, name);
     if (newName !== null && newName !== "") {
       try {
-        const response = await axios.put(`http://localhost:4000/api/v1/update_subCategory/${id}`, { name: newName }, {
+        const response = await axios.put(`https://meer-kennect-ecom-server.vercel.app/api/v1/update_subCategory/${id}`, { name: newName }, {
           headers: { Authorization: auth?.token },
         });
         if (response.data.success) {
