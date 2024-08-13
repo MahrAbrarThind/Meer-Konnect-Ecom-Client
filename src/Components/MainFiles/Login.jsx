@@ -11,9 +11,11 @@ import { useAuth } from "../../Contexts/auth";
 
 function Login() {
 
-    const {auth,setAuth}=useAuth();
+    const { auth, setAuth } = useAuth();
     const [error, setError] = useState();
-    const toastShownRef = useRef(false);
+
+    const toastActiveRef = useRef(false);
+
 
     //handling proper routing
     const navigate = useNavigate();
@@ -51,7 +53,14 @@ function Login() {
             if (response.data.success) {
 
 
-                toast.success("Signed in successfully");
+                if (!toastActiveRef.current) {
+                    toastActiveRef.current = true;
+                    toast.success("Signed in successfully", {
+                        onClose: () => {
+                            toastActiveRef.current = false;
+                        }
+                    });
+                }
                 setAuth({
                     user: response.data.data,
                     token: response.data.token

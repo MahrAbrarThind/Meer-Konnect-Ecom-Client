@@ -21,6 +21,7 @@ const AddProduct = () => {
     const [category, setCategory] = useState('');
     const [images, setImages] = useState([]);
     const [isFeatured, setIsFeatured] = useState(0);
+    const [clothesStatus, setClothesStatus] = useState("none");
 
     const toastShownRef = useRef(false);
 
@@ -131,7 +132,7 @@ const AddProduct = () => {
             const imageKeys = await Promise.all(images.map(image => handleFileUpload(title, image, 'MeerKonnectImages')));
             if (imageKeys.includes(null)) {
                 setSendingRequest(false);
-                return; 
+                return;
             }
 
             const productData = {
@@ -144,7 +145,8 @@ const AddProduct = () => {
                 stock,
                 subCategory_id: category,
                 imageKeys,
-                isFeatured
+                isFeatured,
+                clothesStatus,
             };
 
             const response = await axios.post("http://localhost:4000/api/v1/add_product", productData, {
@@ -201,7 +203,7 @@ const AddProduct = () => {
                     <label htmlFor="productAboutItem" className="addproduct-label">About Item</label>
                     <textarea
                         placeholder="About Item"
-                        className="addproduct-input"
+                        className="addproduct-textArea"
                         required
                         id="productAboutItem"
                         onChange={(e) => setAboutItem(e.target.value)}
@@ -210,7 +212,7 @@ const AddProduct = () => {
                     <label htmlFor="productDescription" className="addproduct-label">Product Description</label>
                     <textarea
                         placeholder="Description"
-                        className="addproduct-input"
+                        className="addproduct-textArea"
                         required
                         id="productDescription"
                         onChange={(e) => setDescription(e.target.value)}
@@ -320,6 +322,40 @@ const AddProduct = () => {
                             Yes
                         </label>
                     </div>
+                    <label className="addproduct-label">Clothes Status?</label>
+                    <div className="clothes_status_selection">
+                        <label style={{ marginRight: "6px" }}>
+                            <input
+                                type="radio"
+                                name="clothesStatus"
+                                value="none" 
+                                checked={clothesStatus === "none"}
+                                onChange={(e) => setClothesStatus(e.target.value)}
+                            />
+                            None
+                        </label>
+                        <label style={{ marginRight: "6px" }}>
+                            <input
+                                type="radio"
+                                name="clothesStatus"
+                                value="stitched"
+                                checked={clothesStatus === "stitched"}
+                                onChange={(e) => setClothesStatus(e.target.value)}
+                            />
+                            Stitched
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="clothesStatus"
+                                value="nonStitched"
+                                checked={clothesStatus === "nonStitched"}
+                                onChange={(e) => setClothesStatus(e.target.value)}
+                            />
+                            Non-Stitched
+                        </label>
+                    </div>
+
                     <button type="submit" className="addproduct-button" disabled={sendingRequest}>
                         {sendingRequest ? `Uploading... ` : 'Add Product'}
                     </button>

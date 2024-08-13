@@ -22,6 +22,7 @@ const UpdateProduct = () => {
     const [existingImages, setExistingImages] = useState([]);
     const [imgKeysToDel, setImgKeysToDel] = useState([]);
     const [isFeatured, setIsFeatured] = useState(0);
+    const [clothesStatus, setClothesStatus] = useState("none"); // Set initial state based on the existing product data
 
 
     const [newImages, setNewImages] = useState([]);
@@ -70,8 +71,8 @@ const UpdateProduct = () => {
                     setStock(product.stock);
                     setCategory(product.subCategory_id);
                     setExistingImages(product.images);
-                    setImgKeysToDel(product.images);
                     setIsFeatured(product.isFeatured);
+                    setClothesStatus(product.clothesStatus);
                 }
             } catch (error) {
                 if (!toastShownRef.current) {
@@ -110,7 +111,10 @@ const UpdateProduct = () => {
 
     const removeExistingImage = (index) => {
         const updatedImages = existingImages.filter((_, i) => i !== index);
+        const imgToDel = existingImages[index];
         setExistingImages(updatedImages);
+        setImgKeysToDel([...imgKeysToDel, imgToDel]);
+        console.log("this is existing image to be shown",existingImages[index]);
     };
 
     const removeNewImage = (index) => {
@@ -207,13 +211,6 @@ const UpdateProduct = () => {
             // that are removed from existing images
 
 
-            const filteredImgKeysToDel = imgKeysToDel.filter(imgToDel =>
-                !existingImages.some(existingImg => existingImg.key === imgToDel.key)
-            );
-
-            setImgKeysToDel(filteredImgKeysToDel);
-
-
             let newImageKeys = [];
 
             if (newImages.length > 0) {
@@ -235,8 +232,8 @@ const UpdateProduct = () => {
                 stock,
                 category,
                 imgKeysToDel,
-                isFeatured
-
+                isFeatured,
+                clothesStatus,
             }
 
             if (newImageKeys.length > 0) {
@@ -295,7 +292,7 @@ const UpdateProduct = () => {
                     <label htmlFor="productAboutItem" className="addproduct-label">About Item</label>
                     <textarea
                         placeholder="About Item"
-                        className="addproduct-input"
+                        className="addproduct-textArea"
                         required
                         id="productAboutItem"
                         onChange={(e) => setAboutItem(e.target.value)}
@@ -305,7 +302,7 @@ const UpdateProduct = () => {
                     <label htmlFor="productDescription" className="addproduct-label">Product Description</label>
                     <textarea
                         placeholder="Description"
-                        className="addproduct-input"
+                        className="addproduct-textArea"
                         required
                         id="productDescription"
                         onChange={(e) => setDescription(e.target.value)}
@@ -434,6 +431,42 @@ const UpdateProduct = () => {
                             Yes
                         </label>
                     </div>
+
+                    <label className="updateproduct-label">Clothes Status</label>
+                    <div className="clothes_status_selection">
+                        <label style={{ marginRight: "6px" }}>
+                            <input
+                                type="radio"
+                                name="clothesStatus"
+                                value="none"
+                                checked={clothesStatus === "none"}
+                                onChange={(e) => setClothesStatus(e.target.value)}
+                            />
+                            None
+                        </label>
+                        <label style={{ marginRight: "6px" }}>
+                            <input
+                                type="radio"
+                                name="clothesStatus"
+                                value="stitched"
+                                checked={clothesStatus === "stitched"}
+                                onChange={(e) => setClothesStatus(e.target.value)}
+                            />
+                            Stitched
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="clothesStatus"
+                                value="nonStitched"
+                                checked={clothesStatus === "nonStitched"}
+                                onChange={(e) => setClothesStatus(e.target.value)}
+                            />
+                            Non-Stitched
+                        </label>
+                    </div>
+
+
 
                     <button type="submit" className="addproduct-button" disabled={sendingRequest}>
                         {sendingRequest ? `Uploading... ` : 'Add Product'}

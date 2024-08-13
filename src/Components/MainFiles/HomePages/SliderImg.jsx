@@ -8,7 +8,7 @@ const SliderImg = () => {
             <div className="carousel-inner">
                 <div className="carousel-item active">
                     <img src="sliderClothImg.png" className="d-block w-100" alt="Slide 1" />
-                    <div className="carousel-caption d-none d-md-block">
+                    <div className="carousel-caption d-block">
                         <h5>Lady Suits</h5>
                         <p>Buy The Best At Low Price.</p>
                         <NavLink to={'/main/clothes'} className="btn btn-primary">Shop Now</NavLink>
@@ -16,7 +16,7 @@ const SliderImg = () => {
                 </div>
                 <div className="carousel-item">
                     <img src="sliderBagImg.png" className="d-block w-100" alt="Slide 2" />
-                    <div className="carousel-caption d-none d-md-block">
+                    <div className="carousel-caption d-block">
                         <h5>Lady Bags</h5>
                         <p>Shop Every Design And Color.</p>
                         <NavLink to={'/main/clothes'}>Shop Now</NavLink>
@@ -24,7 +24,7 @@ const SliderImg = () => {
                 </div>
                 <div className="carousel-item">
                     <img src="sliderPouchImg.png" className="d-block w-100" alt="Slide 3" />
-                    <div className="carousel-caption d-none d-md-block">
+                    <div className="carousel-caption d-block">
                         <h5>Lady Pouches</h5>
                         <p>Shop What You Like.</p>
                         <NavLink to={'/main/clothes'}>Shop Now</NavLink>

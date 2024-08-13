@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Spinner = () => {
 
-    const [time, setTime] = useState(2);
+    const [time, setTime] = useState(3);
 
     // handling routing
     const navigate = useNavigate();
-    const location=useLocation();
+    const location = useLocation();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -21,18 +21,15 @@ const Spinner = () => {
 
     useEffect(() => {
         if (time === 0) {
-                navigate('/login');
+            navigate('/login');
         }
     }, [time, navigate]);
 
     return (
-        <div style={{ marginTop: '250px' }}>
-            <div className="">
-                <h1 className="">Redirecting in {time} Seconds</h1>
-                <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
-            </div>
+        <div class="loader">
+            <span id="one"></span>
+            <span id="two"></span>
+            <span id="three"></span>
         </div>
     );
 };

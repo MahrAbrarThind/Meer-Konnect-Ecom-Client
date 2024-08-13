@@ -1,21 +1,15 @@
 .custom1-prev,
 .custom1-next {
     width: 50px;
-    /* Adjust the size as needed */
     height: 50px;
-    /* Adjust the size as needed */
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    /* Makes the button circular */
     background-color: white !important;
-    /* Hover background color */
     color: black !important;
     transition: background-color 0.3s;
-    /* Smooth transition effect */
     border: none;
-    /* Remove any border */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -47,16 +41,10 @@
     color: white;
 }
 
-/* .carousel-caption{
-    position:absolute;
-    left: -50%;
-    display: block;
-} */
-
 .carousel-caption a{
     border: none;
     text-decoration: none;
-    padding: 12px 18px;
+    padding: 14px 50px;
     background-color: black;
     color: white;
     border-radius: 30px;
@@ -94,3 +82,51 @@
     color: #f8f9fa !important;
 
 }
+@media(max-width:768px)  {
+    .custom1-prev,
+    .custom1-next{
+        display: none;
+    }
+
+    .carousel-caption a{
+        padding: 10px 35px;
+        font-size: 14px;
+    }   
+    .carousel-caption h5 {    
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: 2px;
+    
+    }
+    
+    .carousel-caption p {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 2px;    
+    }
+}
+
+@media(max-width:576px)  {
+    .custom1-prev,
+    .custom1-next{
+        display: none;
+    }
+
+    .carousel-caption a{
+        padding: 8px 27px;
+        font-size: 12px;
+    }   
+    .carousel-caption h5 {    
+        font-size: 25px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    
+    }
+    
+    .carousel-caption p {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 1px;    
+    }
+}
+

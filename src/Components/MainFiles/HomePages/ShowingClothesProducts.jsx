@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import { getClothesProducts, getFeaturedProducts } from '../../DBFunctions/getProducts';
 import { toast } from 'react-toastify';
 import { useCart } from '../../../Contexts/cartContex';
@@ -10,6 +10,7 @@ const ShowingClothesProducts = () => {
     const [clothesProducts, setClothesProducts] = useState([]);
     const { cart, setCart } = useCart();
 
+    const toastActiveRef = useRef(false);
 
     const handleAddToCart = AddToCartAlert(cart, setCart);
 
@@ -24,8 +25,14 @@ const ShowingClothesProducts = () => {
                   setClothesProducts(response.data);
                 }
             } catch (error) {
-                toast.error(error.msg);
-            }
+                if (!toastActiveRef.current) {
+                    toastActiveRef.current = true;
+                    toast.error(error.message, {
+                        onClose: () => {
+                            toastActiveRef.current = false; 
+                        }
+                    });
+                }            }
         })();
     }, []);
 

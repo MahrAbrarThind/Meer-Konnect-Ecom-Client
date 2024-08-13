@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import Slider from 'react-slick';
 import { getAll_subCategories } from '../../DBFunctions/getCategories';
 import { CustomPrevArrow, CustomNextArrow } from './Cat_Mov_Arrows';
@@ -10,6 +10,9 @@ import { NavLink } from 'react-router-dom';
 const ShowingSubCategories = () => {
     const [subCategories, set_subCategories] = useState([]);
 
+    const toastActiveRef = useRef(false);
+
+
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -20,8 +23,14 @@ const ShowingSubCategories = () => {
                     set_subCategories(subResponse.data);
                 }
             } catch (error) {
-                toast.error("Internal Server Error: " + error.message);
-            }
+                if (!toastActiveRef.current) {
+                    toastActiveRef.current = true;
+                    toast.error(error.message, {
+                        onClose: () => {
+                            toastActiveRef.current = false; 
+                        }
+                    });
+                }            }
         };
         fetchCategories();
     }, []);
@@ -30,6 +39,7 @@ const ShowingSubCategories = () => {
         dots: true,
         infinite: subCategories.length > 6, // Enable infinite scroll only if there are more than 6 categories
         speed: 500,
+        autoplay: true, 
         slidesToShow: 6,
         slidesToScroll: 1,
         nextArrow: subCategories.length > 6 ? <CustomNextArrow /> : null,
@@ -43,6 +53,7 @@ const ShowingSubCategories = () => {
                     infinite: subCategories.length > 4,
                     nextArrow: subCategories.length > 4 ? <CustomNextArrow /> : null,
                     prevArrow: subCategories.length > 4 ? <CustomPrevArrow /> : null,
+                    autoplay: true, 
                 },
             },
             {
@@ -53,6 +64,7 @@ const ShowingSubCategories = () => {
                     infinite: subCategories.length > 3,
                     nextArrow: subCategories.length > 3 ? <CustomNextArrow /> : null,
                     prevArrow: subCategories.length > 3 ? <CustomPrevArrow /> : null,
+                    autoplay: true, 
                 },
             },
             {
@@ -63,6 +75,7 @@ const ShowingSubCategories = () => {
                     infinite: subCategories.length > 2,
                     nextArrow: subCategories.length > 2 ? <CustomNextArrow /> : null,
                     prevArrow: subCategories.length > 2 ? <CustomPrevArrow /> : null,
+                    autoplay: true, 
                 },
             },
             {
@@ -71,8 +84,9 @@ const ShowingSubCategories = () => {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: subCategories.length > 1,
-                    nextArrow: subCategories.length > 1 ? <CustomNextArrow /> : null,
-                    prevArrow: subCategories.length > 1 ? <CustomPrevArrow /> : null,
+                    nextArrow: null,
+                    prevArrow: null,
+                    autoplay: true, 
                 },
             },
         ],

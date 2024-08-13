@@ -77,17 +77,6 @@ const Cart = () => {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
     };
 
-    // const removeItemFromCart = (i) => {
-    //     if (window.confirm("Are you sure you want to remove this item?")) {
-    //         const updatedCart = cart.filter((_, index) => index !== i);
-    //         setCart(updatedCart);
-    //         localStorage.setItem('cart', JSON.stringify(updatedCart));
-    //         toast.success("Item removed from cart");
-    //     }
-    // };
-
-
-
     const removeItemFromCart = (i) => {
         Swal.fire({
             title: 'Want To Remove Item',
@@ -157,7 +146,7 @@ const Cart = () => {
         <>
             <h1 className='cartMainHeading'>
                 Your Cart Has {cart.length} Items{' '}
-                {!auth?.token && (
+                {!auth?.token && cart.length>0 && (
                     <>
                         <NavLink to='/register' className='cartRegisterText'>
                             Please Sign Up

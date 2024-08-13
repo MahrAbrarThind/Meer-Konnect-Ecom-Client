@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -7,7 +7,10 @@ import { useAuth } from "../../Contexts/auth";
 
 function SignUp() {
     const navigate = useNavigate();
-    const {auth,setAuth}=useAuth();
+    const { auth, setAuth } = useAuth();
+
+    const toastActiveRef = useRef(false);
+
 
     const [error, setError] = useState('');
     const [formData, setFormData] = useState({
@@ -60,17 +63,24 @@ function SignUp() {
             if (error.response) {
                 const { status, data } = error.response;
 
-                if (status === 409) {
-                    toast.error("User already exists");
-                } else if (status === 400) {
-                    setError(data.message);
-                } else if (status === 500) {
-                    toast.error("Internal Server Error");
-                } else {
-                    toast.error("An Error Occurred ");
+                if (!toastActiveRef.current) {
+                    toastActiveRef.current = true;
+                    toast.error(data.message, {
+                        onClose: () => {
+                            toastActiveRef.current = false;
+                        }
+                    });
                 }
             } else {
-                toast.error("An Error Occurred");
+
+                if (!toastActiveRef.current) {
+                    toastActiveRef.current = true;
+                    toast.error("An Error Occurred", {
+                        onClose: () => {
+                            toastActiveRef.current = false;
+                        }
+                    });
+                }
             }
         }
 

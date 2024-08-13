@@ -5,20 +5,19 @@ import { getProductsForSubCat } from '../DBFunctions/getProducts.js';
 import { useCart } from '../../Contexts/cartContex.js';
 import { AddToCartAlert } from '../DBFunctions/AddToCartAlert';
 
-
 const Sub_Cat_Click = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { name } = useParams();
   const toastShownRef = useRef(false);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+  const [clothesStatus, setClothesStatus] = useState(''); // New state for clothes status filter
 
   const { cart, setCart } = useCart();
-
   const handleAddToCart = AddToCartAlert(cart, setCart);
 
+  const { name } = useParams();
 
   useEffect(() => {
     toastShownRef.current = false;
@@ -50,7 +49,9 @@ const Sub_Cat_Click = () => {
     const max = parseFloat(maxPrice) || Infinity;
     const filtered = products.filter(product => {
       const price = parseFloat(product.price);
-      return price >= min && price <= max;
+      const matchesPrice = price >= min && price <= max;
+      const matchesClothesStatus = clothesStatus ? product.clothesStatus === clothesStatus : true;
+      return matchesPrice && matchesClothesStatus;
     });
     setFilteredProducts(filtered);
   };
@@ -58,14 +59,14 @@ const Sub_Cat_Click = () => {
   const clearFilter = () => {
     setMinPrice('');
     setMaxPrice('');
+    setClothesStatus(''); 
     setFilteredProducts(products);
   };
 
-  console.log("these are the filtered products", filteredProducts);
   return (
     <div className="main-container">
       <div className="filter-container">
-        <h4>Filter</h4>
+        <h4>Filter Items</h4>
         <div className="price-filter">
           <input
             type="number"
@@ -91,6 +92,16 @@ const Sub_Cat_Click = () => {
               }
             }}
           />
+          {name === 'clothes' && ( // Render this filter only if the category is "clothes"
+            <div className="clothes-filter">
+              <p>Choose Stithed or Non-Stitched</p>
+              <select value={clothesStatus} onChange={(e) => setClothesStatus(e.target.value)}>
+                <option value="">All</option>
+                <option value="stitched">Stitched</option>
+                <option value="nonStitched">NonStitched</option>
+              </select>
+            </div>
+          )}
           <button type='button' onClick={handleFilter}>Filter</button>
           <button type='button' onClick={clearFilter}>Clear</button>
         </div>
@@ -112,16 +123,15 @@ const Sub_Cat_Click = () => {
                   <p>Rs: {product.price}</p>
                   <p>Rs: {product.comparedPrice}</p>
                 </div>
-
                 <button type='button' onClick={(e) => {
                   e.preventDefault();
                   handleAddToCart(product);
                 }}>
                   Add to Cart
                 </button>
-
               </div>
-            )))
+            ))
+          )
         )}
       </div>
     </div>

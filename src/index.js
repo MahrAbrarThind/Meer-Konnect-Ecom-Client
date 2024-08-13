@@ -20,17 +20,20 @@ import 'react-toastify/dist/ReactToastify.css';
 // importing Main Files css
 import './CSS/MainFilesCss/header.css';
 import './CSS/MainFilesCss/Login.css';
+import './CSS/MainFilesCss/Spinner.css';
+
+
 
 //importing home files css
 import './CSS/MainFilesCss/HomePagesCss/ShowingSubCategories.css';
 import './CSS/MainFilesCss/HomePagesCss/FeaturedProducts.css';
 import './CSS/MainFilesCss/HomePagesCss/BagsProducts.css';
 import './CSS/MainFilesCss/HomePagesCss/ClothesProducts.css';
-
-
-
-//importing home page css
 import './CSS/MainFilesCss/HomePagesCss/SliderImg.css';
+
+
+
+
 
 
 //importing other files css
