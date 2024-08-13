@@ -48,7 +48,7 @@ function Login() {
         }
 
         try {
-            const response = await axios.post("https://meer-kennect-ecom-server-final.vercel.app/api/v1/login", formData);
+            const response = await axios.post("https://meer-kennect-ecom-server.vercel.app/api/v1/login", formData);
 
             if (response.data.success) {
 
