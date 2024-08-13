@@ -27,13 +27,12 @@ body {
   color: white;
   padding: 5px;
   margin: 0;
-  margin-top: 5px;
 }
 
 .upper_header_part {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; 
   padding: 0 2rem;
 }
 
@@ -135,6 +134,7 @@ body {
   color: black;
   font-size: 1.5rem;
   transition: all 0.4s;
+  margin-left: -50px !important;
 }
 .cart_icon:hover{
   color: rgb(145, 184, 67);
@@ -279,10 +279,7 @@ body {
 
   .headerTop {
     font-size: 0.8rem;
-    margin-top: 5px;
   }
-  
-
   .header_search {
     width: 50%;
     padding: 0.4rem 0.4rem;
@@ -302,8 +299,27 @@ body {
     font-size: 16px;
   }
   .header_search input {
-    font-size: 14px;
+    font-size: 12px;
   }
+
+  .header_search::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    right: 50%;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.8s ease, left 0.8s ease, right 0.8s ease;
+  }
+  
+  .header_search:hover::after {
+    width: 85%;
+    left: 3%;
+    right: 12%;
+  }
+
 
   .toggleMenuActive {
     width: 50%;
@@ -316,11 +332,32 @@ body {
     width: 50%;
     padding: 0.2rem 0.2rem;
   }
+
+
+  .header_search::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    right: 50%;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.8s ease, left 0.8s ease, right 0.8s ease;
+  }
+  
+  .header_search:hover::after {
+    width: 82%;
+    left: 3%;
+    right: 15%;
+  }
+
+
   .upper_header_part {
     padding: 0 0.5rem;
   }
   .cart_icon{
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   .logo {
     height: 60px;
