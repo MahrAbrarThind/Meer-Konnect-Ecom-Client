@@ -41,7 +41,7 @@
     color: white;
 }
 
-.carousel-caption a{
+.carousel-caption a {
     border: none;
     text-decoration: none;
     padding: 14px 50px;
@@ -51,7 +51,8 @@
     font-size: 20px;
     transition: all 0.5s;
 }
-.carousel-caption a:hover{
+
+.carousel-caption a:hover {
 
     color: black;
     background-color: white;
@@ -81,55 +82,71 @@
     color: #f8f9fa !important;
 
 }
-@media(max-width:768px)  {
+
+@media(max-width:768px) {
+
     .custom1-prev,
-    .custom1-next{
-        display: none;
+    .custom1-next {
+        width: 30px;
+        height: 30px;
     }
 
-    .carousel-caption a{
+    .custom1-prev .fas,
+    .custom1-next .fas {
+        font-size: 20px;
+    }
+
+    .carousel-caption a {
         padding: 10px 35px;
         font-size: 14px;
-    }   
-    .carousel-caption h5 {    
+    }
+
+    .carousel-caption h5 {
         font-size: 30px;
         font-weight: 700;
         letter-spacing: 2px;
-    
+
     }
-    
+
     .carousel-caption p {
         font-size: 20px;
         font-weight: 700;
-        letter-spacing: 2px;    
+        letter-spacing: 2px;
     }
 }
 
-@media(max-width:576px)  {
+@media(max-width:576px) {
+
     .custom1-prev,
-    .custom1-next{
-        display: none;
+    .custom1-next {
+        width: 25px;
+        height: 25px;
     }
 
-    .carousel-caption{
+    .custom1-prev .fas,
+    .custom1-next .fas {
+        font-size: 17px;
+    }
+
+    .carousel-caption {
         margin-bottom: -30px;
     }
 
-    .carousel-caption a{
+    .carousel-caption a {
         padding: 8px 27px;
         font-size: 12px;
-    }   
-    .carousel-caption h5 {    
+    }
+
+    .carousel-caption h5 {
         font-size: 25px;
         font-weight: 600;
         letter-spacing: 1px;
-    
+
     }
-    
+
     .carousel-caption p {
         font-size: 15px;
         font-weight: 600;
-        letter-spacing: 1px;    
+        letter-spacing: 1px;
     }
 }
-
