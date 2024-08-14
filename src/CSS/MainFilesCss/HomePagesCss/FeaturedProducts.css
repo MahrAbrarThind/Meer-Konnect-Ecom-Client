@@ -58,6 +58,7 @@
     left: 50%;
     transform: translate(-50%, -50%) scale(0.5);
     transition: all 0.3s ease-in-out;
+    width: 60%;
 }
 
 .featuredImgContainer:hover::before {
@@ -80,7 +81,7 @@
 }
 
 .productTitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
     margin-top: 10px;
     font-family: 'Poppins', sans-serif;
@@ -167,6 +168,9 @@
         width: 40%;
         font-size: 18px;
         margin-top: 20px;
+    }
+    .productTitle {
+        font-size: 0.9rem;
     }
     
 }

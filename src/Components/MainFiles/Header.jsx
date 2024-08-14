@@ -129,7 +129,10 @@ const Header = () => {
                     ))}
                     {auth?.token ? (
                         <div className="header_actions_togglesMenu">
-                            <NavLink to={`/account${auth?.user?.isAdmin === 1 ? '/admin' : ''}`} className="header_icon">
+                            <NavLink to={`/account${auth?.user?.isAdmin === 1 ? '/admin' : ''}`}
+                                className="header_icon"
+                                onClick={() => setToggleMenuBar(false)}
+                            >
                                 <i className="fas fa-user"></i>
                                 Account
                             </NavLink>
@@ -137,10 +140,14 @@ const Header = () => {
                     ) : (
                         <div className="header_actions_togglesMenu">
                             <div className="authLinksToggleMenu">
-                                <NavLink to={'/login'} className="header_icon">
+                                <NavLink to={'/login'} className="header_icon"
+                                    onClick={() => setToggleMenuBar(false)}
+                                >
                                     Sign In
                                 </NavLink>
-                                <NavLink to={'/register'} className="header_icon">
+                                <NavLink to={'/register'} className="header_icon"
+                                    onClick={() => setToggleMenuBar(false)}
+                                >
                                     Sign Up
                                 </NavLink>
                             </div>

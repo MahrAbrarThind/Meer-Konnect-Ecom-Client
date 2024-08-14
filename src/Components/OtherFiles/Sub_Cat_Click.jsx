@@ -4,18 +4,24 @@ import { toast } from 'react-toastify';
 import { getProductsForSubCat } from '../DBFunctions/getProducts.js';
 import { useCart } from '../../Contexts/cartContex.js';
 import { AddToCartAlert } from '../DBFunctions/AddToCartAlert';
+import LoadingSpinner from '../MainFiles/LoadingSpinner.jsx';
+import { FaFilter } from 'react-icons/fa'; // Importing a filter icon
+
 
 const Sub_Cat_Click = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showFilter, setShowFilter] = useState(false); // State to control filter visibility
   const toastShownRef = useRef(false);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const [clothesStatus, setClothesStatus] = useState(''); // New state for clothes status filter
+  const [clothesStatus, setClothesStatus] = useState('');
 
   const { cart, setCart } = useCart();
   const handleAddToCart = AddToCartAlert(cart, setCart);
+
+  const filterRef = useRef(null);
 
   const { name } = useParams();
 
@@ -31,7 +37,7 @@ const Sub_Cat_Click = () => {
           throw response.error;
         } else {
           setProducts(response.data);
-          setFilteredProducts(response.data); // Set filtered products initially
+          setFilteredProducts(response.data);
         }
       } catch (error) {
         if (!toastShownRef.current) {
@@ -43,6 +49,25 @@ const Sub_Cat_Click = () => {
       }
     })();
   }, [name]);
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setShowFilter(false);
+      }
+    };
+
+    if (showFilter) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showFilter]);
 
   const handleFilter = () => {
     const min = parseFloat(minPrice) || 0;
@@ -59,13 +84,65 @@ const Sub_Cat_Click = () => {
   const clearFilter = () => {
     setMinPrice('');
     setMaxPrice('');
-    setClothesStatus(''); 
+    setClothesStatus('');
     setFilteredProducts(products);
   };
 
+
+  const handleSort = (sortType) => {
+    let sortedProducts = [...filteredProducts];
+
+    switch (sortType) {
+      case 'priceLowHigh':
+        sortedProducts.sort((a, b) => a.price - b.price);
+        break;
+      case 'priceHighLow':
+        sortedProducts.sort((a, b) => b.price - a.price);
+        break;
+      case 'dateNewOld':
+        sortedProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        break;
+      case 'dateOldNew':
+        sortedProducts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        break;
+      default:
+        sortedProducts = [...products];
+        break;
+    }
+
+    setFilteredProducts(sortedProducts);
+  };
+
+
   return (
     <div className="main-container">
-      <div className="filter-container">
+      <div className="allFiltersContainer">
+        <div className="sort-filter">
+          {/* <label htmlFor="sort">Sort By:</label> */}
+          <select
+            id="sort"
+            onChange={(e) => {
+              handleSort(e.target.value);
+            }}
+          >
+            <option value="default">Sort By Defualt</option>
+            <option value="priceLowHigh">Price: Low to High</option>
+            <option value="priceHighLow">Price: High to Low</option>
+            <option value="dateNewOld">Date: New to Old</option>
+            <option value="dateOldNew">Date: Old to New</option>
+          </select>
+        </div>
+        <div className="filter_icon_Container" onClick={() => setShowFilter(!showFilter)}>
+          <FaFilter className="filter-icon" />
+          <p>Filter</p>
+        </div>
+      </div>
+
+
+
+
+      {/* Conditional Rendering of Filter */}
+      <div ref={filterRef} className={showFilter ? "showFilterContainer" : "filter-container"}>
         <h4>Filter Items</h4>
         <div className="price-filter">
           <input
@@ -92,9 +169,9 @@ const Sub_Cat_Click = () => {
               }
             }}
           />
-          {name === 'clothes' && ( // Render this filter only if the category is "clothes"
+          {name === 'clothes' && (
             <div className="clothes-filter">
-              <p>Choose Stithed or Non-Stitched</p>
+              <p>Choose Stitched or Non-Stitched</p>
               <select value={clothesStatus} onChange={(e) => setClothesStatus(e.target.value)}>
                 <option value="">All</option>
                 <option value="stitched">Stitched</option>
@@ -102,13 +179,14 @@ const Sub_Cat_Click = () => {
               </select>
             </div>
           )}
-          <button type='button' onClick={handleFilter}>Filter</button>
-          <button type='button' onClick={clearFilter}>Clear</button>
+          <button type='button' onClick={() => { handleFilter(); setShowFilter(!showFilter) }}>Filter</button>
+          <button type='button' onClick={() => { clearFilter(); setShowFilter(!showFilter) }}>Clear</button>
         </div>
       </div>
+
       <div className="allproducts-container">
         {loading ? (
-          <h4>Loading Products...</h4>
+          <LoadingSpinner />
         ) : (
           filteredProducts.length === 0 ? (
             <h3>Oops! No Products Have Been Added Yet</h3>
