@@ -4,6 +4,7 @@ import { getRelatedProducts, getSingleProduct } from '../DBFunctions/getProducts
 import { toast } from 'react-toastify';
 import { useCart } from '../../Contexts/cartContex';
 import { AddToCartAlert } from '../DBFunctions/AddToCartAlert';
+import LoadingSpinner from "../MainFiles/LoadingSpinner.jsx"
 
 
 const ProductDetails = () => {
@@ -77,8 +78,8 @@ const ProductDetails = () => {
         <div className="product-details-container">
             <div className="upperProductDetails">
                 {loading ? (
-                    <h4>Loading Product...</h4>
-                    // <LoadingSpinner/>
+                    // <h4>Loading Product...</h4>
+                    <LoadingSpinner/>
                 ) : !product ? (
                     <h3>Oops! No Product Found</h3>
                 ) : (
