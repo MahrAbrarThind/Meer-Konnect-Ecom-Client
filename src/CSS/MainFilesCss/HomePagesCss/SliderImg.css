@@ -116,6 +116,9 @@
 }
 
 @media(max-width:576px) {
+    .carousel-item img {
+        min-height: 50vh;
+    }
 
     .custom1-prev,
     .custom1-next {
