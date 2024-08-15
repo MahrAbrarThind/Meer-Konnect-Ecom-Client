@@ -134,6 +134,7 @@ body {
   color: black;
   font-size: 1.5rem;
   transition: all 0.4s;
+  gap: 5px;
 }
 .cart_icon:hover{
   color: rgb(145, 184, 67);
@@ -354,6 +355,7 @@ body {
   }
   .cart_icon{
     font-size: 1rem;
+    gap: 3px;
   }
   .logo {
     height: 60px;
