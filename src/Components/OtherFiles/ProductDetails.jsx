@@ -78,6 +78,7 @@ const ProductDetails = () => {
             <div className="upperProductDetails">
                 {loading ? (
                     <h4>Loading Product...</h4>
+                    // <LoadingSpinner/>
                 ) : !product ? (
                     <h3>Oops! No Product Found</h3>
                 ) : (
@@ -105,7 +106,10 @@ const ProductDetails = () => {
                                 <label htmlFor="description">Items Available:</label>
                                 <p>{product?.stock} </p>
                                 <label htmlFor="description">Price:</label>
-                                <p>RS: {product?.price}</p>
+                                <div className="detailsProductPrices">
+                                    <p>RS: {product?.price}</p>
+                                    <p>RS: {product?.comparedPrice}</p>
+                                </div>
 
                                 <div className="actionBtns">
                                     <button type='button' onClick={(e) => {
@@ -141,11 +145,11 @@ const ProductDetails = () => {
                             </div>
 
                             <button type='button' onClick={(e) => {
-                                        e.preventDefault();
-                                        handleAddToCart(product);
-                                    }}>
-                                        Add to Cart
-                                    </button>
+                                e.preventDefault();
+                                handleAddToCart(product);
+                            }}>
+                                Add to Cart
+                            </button>
                         </div>
                     ))}
                 </div>
