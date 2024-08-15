@@ -11,9 +11,12 @@
     border-radius: 5px;
     height: fit-content;
 }
-.adminListContainer h2{
+
+.adminListContainer h2 {
     text-align: center;
+    padding: 1px;
 }
+
 .amdinListNavLink {
     display: flex;
     align-items: center;
@@ -29,7 +32,6 @@
     font-size: 20px;
     box-sizing: border-box;
     transition: background-color 0.3s, color 0.3s;
-
 }
 
 
@@ -40,8 +42,8 @@
 }
 
 .adminListActive {
-    background-color: #007bff ;
-    color: #ffffff ;
+    background-color: #007bff;
+    color: #ffffff;
     border-color: #007bff;
 }
 
@@ -59,4 +61,17 @@
     color: white;
 }
 
+@media(max-width:576px) {
+    .adminListContainer h2 {
+        padding: 2px;
+        font-size: 0.9rem;
+    }
 
+    .amdinListNavLink {
+
+        padding: 8px 14px;
+        width: 80%;
+        font-size: 17px;
+
+    }
+}

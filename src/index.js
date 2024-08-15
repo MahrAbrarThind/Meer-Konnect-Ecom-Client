@@ -52,11 +52,6 @@ import "./CSS/AdminCss/EditProducts.css";
 import "./CSS/AdminCss/AdminOrders.css";
 
 
-
-// importing user files css
-import "./CSS/UserCss/UserOrders.css";
-
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>

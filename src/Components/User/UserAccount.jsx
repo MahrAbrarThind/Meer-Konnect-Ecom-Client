@@ -79,12 +79,14 @@ const UserAccount = () => {
 
   }
 
-  
+
 
   return (
     <>
       <div className="adminAccountContainer">
-        <UserList />
+      <div className="adminListAccount">
+          <UserList />
+        </div>
         <div className="adminProfile">
           <div className="adminProfileForm">
 

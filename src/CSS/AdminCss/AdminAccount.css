@@ -74,3 +74,8 @@
         width: 70%;
     }
 }
+@media(max-width:576px){
+    .adminListAccount{
+        width: 90%;
+    }
+}

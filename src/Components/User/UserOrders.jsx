@@ -110,7 +110,9 @@ const UserOrders = () => {
     return (
         <>
             <div className="userOrdersContainer">
-                <UserList />
+                <div className="adminListCommon">
+                    <UserList />
+                </div>
                 <div className="userOrdersSide">
                     <h1>My Orders</h1>
                     <div className='ordersNavlinks'>

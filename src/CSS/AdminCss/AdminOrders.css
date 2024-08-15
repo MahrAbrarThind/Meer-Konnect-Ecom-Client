@@ -211,4 +211,10 @@
         display: none !important;
         background-color: red !important;
     }
+    .ordersNavlinks button {
+        padding: 7px 7px;
+        font-size: 12px;
+        font-weight: 400;
+    }
+    
 }
