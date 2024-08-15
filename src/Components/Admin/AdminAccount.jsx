@@ -81,7 +81,9 @@ const AdminAccount = () => {
   return (
     <>
       <div className="adminAccountContainer">
-        <AdminList />
+        <div className="adminListAccount">
+          <AdminList />
+        </div>
         <div className="adminProfile">
           <div className="adminProfileForm">
             <input disabled type="text" name="name" placeholder="Name" value={formData.name} onChange={handleOnChange} />

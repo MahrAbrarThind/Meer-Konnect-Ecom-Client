@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import AdminList from './AdminList';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../Contexts/auth';
-import {getAll_subCategories } from '../DBFunctions/getCategories.js';
+import { getAll_subCategories } from '../DBFunctions/getCategories.js';
 
 const SubCategory = () => {
   const { auth } = useAuth();
@@ -61,8 +61,8 @@ const SubCategory = () => {
     }
   };
 
-  const getPresignedUrl = async (name,fileName, fileType) => {
-    const params = {name,fileName, fileType, folderName: 'SubCategoryImages' };
+  const getPresignedUrl = async (name, fileName, fileType) => {
+    const params = { name, fileName, fileType, folderName: 'SubCategoryImages' };
     try {
       const response = await axios.post('https://meer-kennect-ecom-server.vercel.app/api/v1/getSubCatPresinedUrl', params);
       if (response.data.success) {
@@ -95,7 +95,7 @@ const SubCategory = () => {
     }
 
     try {
-      const { presignedUrl, key } = await getPresignedUrl(name,image.name, image.type);
+      const { presignedUrl, key } = await getPresignedUrl(name, image.name, image.type);
       if (!presignedUrl) return;
 
       await uploadImage(image, presignedUrl);
@@ -167,31 +167,18 @@ const SubCategory = () => {
     }
   };
 
-  const removeNewImage=()=>{
+  const removeNewImage = () => {
     setImage(null);
   }
 
   return (
     <div className="mainCatContainer">
-      <AdminList />
+      <div className="adminListCommon">
+        <AdminList />
+      </div>
       <div className="category-content">
         <form onSubmit={submitForm} className="category-form">
           <div className="category-form-group">
-            {/* <label htmlFor="mainCategorySelect" className="category-label">Select Main Category</label>
-            <select
-              className="category-input"
-              id="mainCategorySelect"
-              value={selectedMainCategory}
-              onChange={(e) => setSelectedMainCategory(e.target.value)}
-              required
-            >
-              <option value="">Select Main Category</option>
-              {mainCategories.map((cat) => (
-                <option key={cat._id} value={cat._id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select> */}
           </div>
           <div className="category-form-group">
             <label htmlFor="categoryInput" className="category-label">Enter Sub-Category</label>

@@ -40,7 +40,7 @@ const MainCategory = () => {
     }
 
     try {
-      const response = await axios.post("https://meer-kennect-ecom-server.vercel.app/api/v1/add_main_category", { name},
+      const response = await axios.post("https://meer-kennect-ecom-server.vercel.app/api/v1/add_main_category", { name },
         {
           headers:
           {
@@ -122,7 +122,9 @@ const MainCategory = () => {
 
   return (
     <div className="mainCatContainer">
-      <AdminList />
+      <div className="adminListCommon">
+        <AdminList />
+      </div>
       <div className="category-content">
         <form onSubmit={submitForm} className="category-form">
           <div className="category-form-group">

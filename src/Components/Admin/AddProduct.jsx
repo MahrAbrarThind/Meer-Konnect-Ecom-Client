@@ -187,7 +187,9 @@ const AddProduct = () => {
 
     return (
         <div className="addproduct-container">
+            <div className="adminListCommon">
             <AdminList />
+            </div>
             <form onSubmit={submitForm} className="addproduct-form">
                 <div className="addproduct-form-group">
                     <label htmlFor="productTitle" className="addproduct-label">Product Title</label>
@@ -361,7 +363,7 @@ const AddProduct = () => {
                     </button>
                 </div>
             </form>
-        </div>
+        </div >
     );
 };
 

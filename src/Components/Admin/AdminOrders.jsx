@@ -157,8 +157,11 @@ const AdminOrders = () => {
     return (
         <>
             <div className="userOrdersContainer">
-                <AdminList />
+                <div className="adminListCommon">
+                    <AdminList />
+                </div>
                 <div className="userOrdersSide">
+
                     <h1>My Orders</h1>
                     <div className='ordersNavlinks'>
                         <button

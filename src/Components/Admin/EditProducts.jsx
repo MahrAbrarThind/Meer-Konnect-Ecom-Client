@@ -68,7 +68,9 @@ const EditProducts = () => {
     return (
         <>
             <div className="editProductsContainer">
-                <AdminList />
+                <div className="adminListCommon">
+                    <AdminList />
+                </div>
                 <div className="editAllProducts">
                     {loading ? (
                         <h4>Loading Products...</h4>

@@ -40,3 +40,27 @@
     border: 2px solid black;
     border: none;
 }
+
+.adminListCommon{
+    width: 30%;
+}
+@media(max-width:1300px){
+    .editProductsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .editAllProducts {
+        width: 100%;
+    }
+    .adminListCommon{
+        width: 70%;
+    }
+}
+@media(max-width:576px){
+    .adminListCommon{
+        display: none !important;
+        background-color: red !important;
+    }
+}

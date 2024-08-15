@@ -114,7 +114,7 @@ const UpdateProduct = () => {
         const imgToDel = existingImages[index];
         setExistingImages(updatedImages);
         setImgKeysToDel([...imgKeysToDel, imgToDel]);
-        console.log("this is existing image to be shown",existingImages[index]);
+        console.log("this is existing image to be shown", existingImages[index]);
     };
 
     const removeNewImage = (index) => {
@@ -275,7 +275,9 @@ const UpdateProduct = () => {
 
     return (
         <div className="addproduct-container">
-            <AdminList />
+            <div className="adminListCommon">
+                <AdminList />
+            </div>
             <form onSubmit={submitForm} className="addproduct-form">
                 <div className="addproduct-form-group">
                     <label htmlFor="productTitle" className="addproduct-label">Product Title</label>

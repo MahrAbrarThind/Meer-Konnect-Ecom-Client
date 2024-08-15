@@ -1,7 +1,7 @@
 .mainCatContainer {
     display: flex;
     gap: 40px;
-    padding: 30px;
+    padding: 20px;
     width: 100%;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -127,24 +127,24 @@
     color: #dc3545;
     font-size: 12px;
     margin-top: 5px;
-  }
-  
-  .image-preview {
+}
+
+.image-preview {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-top: 10px;
-  }
-  
-  .image-preview img {
+}
+
+.image-preview img {
     width: 80px;
     height: 80px;
     object-fit: cover;
     border-radius: 4px;
     border: 1px solid #ddd;
-  }
-  
-  .image-preview button {
+}
+
+.image-preview button {
     background-color: #dc3545;
     color: #fff;
     border: none;
@@ -152,8 +152,53 @@
     padding: 5px 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .image-preview button:hover {
+}
+
+.image-preview button:hover {
     background-color: #c82333;
-  }
+}
+
+.adminListCommon {
+    width: 30%;
+}
+
+@media(max-width:1300px) {
+    .mainCatContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .category-content {
+        width: 100%;
+    }
+
+    .adminListCommon {
+        width: 70%;
+    }
+}
+
+@media(max-width:576px) {
+    .adminListCommon {
+        display: none !important;
+        background-color: red !important;
+    }
+
+    .mainCatContainer {
+        padding: 10px;
+    }
+
+    .category-button-update,
+    .category-button-delete {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .category-name {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #333;
+    }
+}

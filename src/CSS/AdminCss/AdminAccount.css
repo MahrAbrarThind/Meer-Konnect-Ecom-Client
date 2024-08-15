@@ -56,4 +56,21 @@
     background-color: #0056b3;
 }
 
+.adminListAccount{
+    width: 30%;
+}
 
+@media(max-width:1300px){
+    .adminAccountContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .adminProfile {
+        width: 100%;
+    }
+    .adminListAccount{
+        width: 70%;
+    }
+}
