@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { toast } from 'react-toastify';
 
 const QuantitySelector = ({ product, onQuantityChange }) => {
     const [quantity, setQuantity] = useState(product.quantity || 1);
 
+    const toastActiveRef = useRef(false);
+
+
     const handleQuantityChange = (newQuantity, e) => {
         e.preventDefault();
         if (newQuantity < 1) return;
 
-        if(newQuantity>product.stock){
-            toast.error("No More Stock Available");
+        if (newQuantity > product.stock) {
+
+            if (!toastActiveRef.current) {
+                toastActiveRef.current = true;
+                toast.error("No More Stock Available", {
+                    onClose: () => {
+                        toastActiveRef.current = false;
+                    }
+                });
+            }
             return;
         }
 

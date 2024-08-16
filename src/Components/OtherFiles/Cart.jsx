@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { useCart } from '../../Contexts/cartContex';
 import { useAuth } from '../../Contexts/auth';
 import QuantitySelector from './QuantitySelector';
@@ -24,6 +24,8 @@ const Cart = () => {
     const [relatedProductsLoading, setRelatedProductsLoading] = useState(true);
 
     const handleAddToCart = AddToCartAlert(cart, setCart);
+    const toastActiveRef = useRef(false);
+
 
 
     useEffect(() => {
@@ -41,8 +43,16 @@ const Cart = () => {
                         }
                     }
                 } catch (error) {
-                    toast.error(error.msg);
+                    if (!toastActiveRef.current) {
+                        toastActiveRef.current = true;
+                        toast.error(error.message, {
+                            onClose: () => {
+                                toastActiveRef.current = false;
+                            }
+                        });
+                    }
                 } finally {
+
                     setRelatedProductsLoading(false);
                 }
             })();
@@ -91,7 +101,14 @@ const Cart = () => {
                 const updatedCart = cart.filter((_, index) => index !== i);
                 setCart(updatedCart);
                 localStorage.setItem('cart', JSON.stringify(updatedCart));
-                toast.success("Item removed from cart");
+                if (!toastActiveRef.current) {
+                    toastActiveRef.current = true;
+                    toast.success("Item removed from cart", {
+                        onClose: () => {
+                            toastActiveRef.current = false;
+                        }
+                    });
+                }
             }
         });
     };
@@ -101,7 +118,16 @@ const Cart = () => {
 
     const confirmOrder = async () => {
         if (!auth?.token) {
-            toast.error("Please log in to place an order.");
+
+            if (!toastActiveRef.current) {
+                toastActiveRef.current = true;
+                toast.error("Please log in to place an order.", {
+                    onClose: () => {
+                        toastActiveRef.current = false;
+                    }
+                });
+            }
+
             return;
         }
 
@@ -133,7 +159,14 @@ const Cart = () => {
             }
         } catch (error) {
             if (error.response) {
-                toast.error(error.response.data.msg);
+                if (!toastActiveRef.current) {
+                    toastActiveRef.current = true;
+                    toast.error(error.response.data.msg, {
+                        onClose: () => {
+                            toastActiveRef.current = false;
+                        }
+                    });
+                }
             } else {
                 toast.error("Sorry, the order could not be completed due to some issue.");
             }
@@ -146,7 +179,7 @@ const Cart = () => {
         <>
             <h1 className='cartMainHeading'>
                 Your Cart Has {cart.length} Items{' '}
-                {!auth?.token && cart.length>0 && (
+                {!auth?.token && cart.length > 0 && (
                     <>
                         <NavLink to='/register' className='cartRegisterText'>
                             Please Sign Up

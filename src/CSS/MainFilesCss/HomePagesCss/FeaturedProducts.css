@@ -13,7 +13,11 @@
     width: 100%;
     margin: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 products per row */
+
+    /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
     gap: 25px;
     padding: 20px;
 }
@@ -29,7 +33,7 @@
     transition: transform 0.3s ease;
 }
 
-.singleFeaturedProduct:hover{
+.singleFeaturedProduct:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
@@ -38,7 +42,7 @@
     width: 100%;
     height: 400px;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     z-index: 1;
     cursor: pointer;
 }
@@ -58,7 +62,7 @@
     left: 50%;
     transform: translate(-50%, -50%) scale(0.5);
     transition: all 0.3s ease-in-out;
-    width: 60%;
+    width: 70%;
 }
 
 .featuredImgContainer:hover::before {
@@ -78,6 +82,7 @@
     width: 100%;
     height: 100%;
     transition: opacity 0.5s ease-in-out;
+    /* aspect-ratio: 1/1; */
 }
 
 .productTitle {
@@ -144,33 +149,52 @@
     letter-spacing: 2px;
 }
 
-@media(max-width:768px){
+@media(max-width:768px) {
     .ViewAllBtn {
         width: 35%;
     }
 }
 
-@media(max-width:576px){
+@media(max-width:576px) {
     .featuredProductsContainer h1 {
         font-size: 1.7rem;
         font-weight: 600;
     }
+
     .featuredProducts {
         width: 100%;
         gap: 25px;
         padding: 15px;
     }
-    .singleFeaturedProduct{
+
+    .singleFeaturedProduct {
         transform: translateY(-5px);
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     }
+
     .ViewAllBtn {
         width: 40%;
         font-size: 18px;
         margin-top: 20px;
     }
+
     .productTitle {
         font-size: 0.9rem;
     }
+
+    .featuredImgContainer {
+        width: 100%;
+        height: 200px;
+    }
+
+    .featuredImgContainer img {
+        object-fit: fill;
+        width: 100%;
+        height: 100%;
+    }
     
+    .featuredProducts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }

@@ -13,15 +13,15 @@ const ProductDetails = () => {
     const [loading, setLoading] = useState(true);
     const [relatedProductsLoading, setRelatedProductsLoading] = useState(true);
     const { id } = useParams();
-    const toastShownRef = useRef(false);
+    const toastActiveRef = useRef(false);
     const [mainImage, setMainImage] = useState(null);
     const { cart, setCart } = useCart();
 
     const handleAddToCart = AddToCartAlert(cart, setCart);
 
+    
 
     useEffect(() => {
-        toastShownRef.current = false;
         setProduct(null);
         setLoading(true);
         (async () => {
@@ -34,9 +34,13 @@ const ProductDetails = () => {
                     setMainImage(response.data.images[0]);
                 }
             } catch (error) {
-                if (!toastShownRef.current) {
-                    toast.error(error.msg);
-                    toastShownRef.current = true;
+                if (!toastActiveRef.current) {
+                    toastActiveRef.current = true;
+                    toast.error(error.msg, {
+                        onClose: () => {
+                            toastActiveRef.current = false;
+                        }
+                    });
                 }
             } finally {
                 setLoading(false);
@@ -59,7 +63,15 @@ const ProductDetails = () => {
                         console.log("related products ", response.data);
                     }
                 } catch (error) {
-                    toast.error(error.msg);
+                    if (!toastActiveRef.current) {
+                        toastActiveRef.current = true;
+                        toast.error(error.msg, {
+                            onClose: () => {
+                                toastActiveRef.current = false;
+                            }
+                        });
+                    }
+
                 } finally {
                     setRelatedProductsLoading(false);
                 }
@@ -79,7 +91,7 @@ const ProductDetails = () => {
             <div className="upperProductDetails">
                 {loading ? (
                     // <h4>Loading Product...</h4>
-                    <LoadingSpinner/>
+                    <LoadingSpinner />
                 ) : !product ? (
                     <h3>Oops! No Product Found</h3>
                 ) : (

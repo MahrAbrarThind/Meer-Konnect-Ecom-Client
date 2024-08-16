@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import UserList from './UserList';
 import { toast } from 'react-toastify';
 import { getAllOrders } from '../DBFunctions/getOrders';
@@ -13,6 +13,10 @@ const UserOrders = () => {
     const [orders, setOrders] = useState([]);
     const [filteredOrders, setFilteredOrders] = useState([]);
     const [activeFilter, setActiveFilter] = useState('all');
+    const [cancelling, setCancelling] = useState(false);
+
+    const toastActiveRef = useRef(false);
+
 
     useEffect(() => {
         if (auth?.token) {
@@ -26,7 +30,15 @@ const UserOrders = () => {
                         setFilteredOrders(response.data);
                     }
                 } catch (error) {
-                    toast.error(error.msg || "Failed to load orders");
+
+                    if (!toastActiveRef.current) {
+                        toastActiveRef.current = true;
+                        toast.error(error.msg || "Failed to load orders", {
+                            onClose: () => {
+                                toastActiveRef.current = false;
+                            }
+                        });
+                    }
                 }
             })();
         }
@@ -67,6 +79,7 @@ const UserOrders = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
+                    setCancelling(true);
                     const response = await axios.delete(`https://meer-kennect-ecom-server.vercel.app/api/v1/order/cancel-order/${id}`, {
                         headers: {
                             Authorization: auth?.token
@@ -100,6 +113,7 @@ const UserOrders = () => {
                         toast.error("Server Error");
                     }
                 }
+                setCancelling(false);
             }
         });
     };
@@ -155,7 +169,7 @@ const UserOrders = () => {
                                         <NavLink to={`/product/${order.productID}`} >Order Again</NavLink>
                                         {order.status === 'InProgress' && (
                                             <>
-                                                <button onClick={() => handleCancelOrder(order.orderId)}>Cancel Order</button>
+                                                <button disabled={cancelling} onClick={() => handleCancelOrder(order.orderId)}>Cancel Order</button>
                                                 <button onClick={() => handleTrackOrder(order)}>Track Order</button>
                                             </>
                                         )}

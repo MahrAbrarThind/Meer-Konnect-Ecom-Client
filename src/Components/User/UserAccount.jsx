@@ -8,6 +8,9 @@ const UserAccount = () => {
 
   const { auth, setAuth } = useAuth();
   const [error, setError] = useState('');
+  const [updatingProfile,setUpdatingProfile]=useState(false);
+
+
 
   const [formData, setFormData] = useState({
     name: auth?.user?.name || "",
@@ -34,6 +37,7 @@ const UserAccount = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    setUpdatingProfile(true);
 
     const { name, email, phone, address } = formData;
 
@@ -70,6 +74,7 @@ const UserAccount = () => {
       }
     }
 
+    setUpdatingProfile(false);
     setFormData({
       name: auth?.user?.name || "",
       email: auth?.user?.email || "",
@@ -94,7 +99,7 @@ const UserAccount = () => {
             <input disabled type="email" name="email" placeholder="Email" value={formData.email} onChange={handleOnChange} />
             <input type="text" name="phone" required placeholder="Phone" value={formData.phone} onChange={handleOnChange} />
             <input type="text" name="address" required placeholder="Complete Address" value={formData.address} onChange={handleOnChange} />
-            <button onClick={handleOnSubmit}>Update</button>
+            <button onClick={handleOnSubmit} disabled={updatingProfile}>Update</button>
           </div>
         </div>
       </div>
