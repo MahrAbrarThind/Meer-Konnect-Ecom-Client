@@ -189,12 +189,6 @@
     .featuredImgContainer {
         aspect-ratio: 16/25; /* Adjusting for a wider aspect ratio on smaller screens */
     }
-    .featuredProducts {
-        width: 100%;
-        gap: 25px;
-        padding: 15px;
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 @media(max-width:450px){
     .productTitle {
