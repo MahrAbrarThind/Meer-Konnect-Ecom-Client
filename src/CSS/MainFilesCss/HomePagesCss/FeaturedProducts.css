@@ -40,11 +40,19 @@
 
 .featuredImgContainer {
     width: 100%;
-    height: 400px;
+    aspect-ratio: 7/10; /* This keeps the image at a 4:3 aspect ratio */
     position: relative;
-    /* overflow: hidden; */
+    overflow: hidden;
     z-index: 1;
     cursor: pointer;
+}
+
+.featuredImgContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .featuredImgContainer::before {
@@ -75,16 +83,6 @@
     opacity: 0.5;
     z-index: 1;
 }
-
-.featuredImgContainer img {
-    background-color: #eaeaea;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    transition: opacity 0.5s ease-in-out;
-    /* aspect-ratio: 1/1; */
-}
-
 .productTitle {
     font-size: 1.1rem;
     font-weight: 500;
@@ -149,9 +147,22 @@
     letter-spacing: 2px;
 }
 
+@media(max-width:992px){
+    .featuredProducts {
+        width: 100%;
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media(max-width:768px) {
     .ViewAllBtn {
         width: 35%;
+    }
+    .featuredProducts {
+        width: 100%;
+        display:grid;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -160,13 +171,6 @@
         font-size: 1.7rem;
         font-weight: 600;
     }
-
-    .featuredProducts {
-        width: 100%;
-        gap: 25px;
-        padding: 15px;
-    }
-
     .singleFeaturedProduct {
         transform: translateY(-5px);
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
@@ -183,18 +187,40 @@
     }
 
     .featuredImgContainer {
+        aspect-ratio: 16/25; /* Adjusting for a wider aspect ratio on smaller screens */
+    }
+    .featuredProducts {
         width: 100%;
-        height: 200px;
+        gap: 25px;
+        padding: 15px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media(max-width:450px){
+    .productTitle {
+        font-size: 0.7rem;
+        min-height: 60px;
+    }
+    .productPrices {
+        gap: 3px;
+        margin-top: -20px;
     }
 
-    .featuredImgContainer img {
-        object-fit: fill;
-        width: 100%;
-        height: 100%;
+    .productPrices p:last-child {
+        font-size: 0.6rem;
+        font-weight: 500;
     }
     
-    .featuredProducts {
-        grid-template-columns: repeat(2, 1fr);
+    .productPrices p:first-child {
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    .singleFeaturedProduct button {
+        font-size: 0.9rem;
+        font-weight: 400;
+        width: 100%;
+        padding: 6px 8px;
+        margin-top: 0px;
     }
 
 }
