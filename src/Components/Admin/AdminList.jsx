@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from "../../Contexts/auth.js";
 import Swal from 'sweetalert2';
 
@@ -8,6 +8,7 @@ const AdminList = () => {
     const { auth, setAuth } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const navigate=useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem('Token');
@@ -36,6 +37,7 @@ const AdminList = () => {
                     // 'You have been logged out.',
                     // 'success'
                 );
+                navigate('/login');
             }
         });
     };

@@ -50,13 +50,14 @@ import "./CSS/AdminCss/MainCategory.css";
 import "./CSS/AdminCss/AddProduct.css";
 import "./CSS/AdminCss/EditProducts.css";
 import "./CSS/AdminCss/AdminOrders.css";
+import { UrlStateContextProvider } from './Contexts/urlStateContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>
     <CartProvider>
-      <urlStateContextProvider>
+      <UrlStateContextProvider>
         <BrowserRouter>
           <React.StrictMode>
             <ToastContainer
@@ -74,7 +75,7 @@ root.render(
             <App />
           </React.StrictMode>
         </BrowserRouter>
-      </urlStateContextProvider>
+      </UrlStateContextProvider>
     </CartProvider>
   </AuthProvider>
 );

@@ -3,18 +3,20 @@ import { useCart } from '../../Contexts/cartContex';
 import { useAuth } from '../../Contexts/auth';
 import QuantitySelector from './QuantitySelector';
 import { getRelatedProducts } from '../DBFunctions/getProducts';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 import Swal from 'sweetalert2';
 
 import { AddToCartAlert } from '../DBFunctions/AddToCartAlert';
+import { useStateContext } from '../../Contexts/urlStateContext';
 
 
 const Cart = () => {
     const { cart, setCart } = useCart();
     const { auth } = useAuth();
+    const {routeState,setRouteState}=useStateContext();
 
     const [productTotal, setProductTotal] = useState(0);
     const [shipping, setShipping] = useState(0);
@@ -25,6 +27,8 @@ const Cart = () => {
 
     const handleAddToCart = AddToCartAlert(cart, setCart);
     const toastActiveRef = useRef(false);
+
+    const location=useLocation();
 
 
     // getting related products here
@@ -181,7 +185,7 @@ const Cart = () => {
                 Your Cart Has {cart.length} Items{' '}
                 {!auth?.token && cart.length > 0 && (
                     <>
-                        <NavLink to='/register' className='cartRegisterText'>
+                        <NavLink to='/register' className='cartRegisterText' onClick={()=>setRouteState(location.pathname)}>
                             Please Sign Up
                         </NavLink>
                         {' '}To Confirm Order
@@ -242,7 +246,7 @@ const Cart = () => {
                                         </button>
                                     ) : (
                                         <>
-                                            <NavLink id='cartRegisterBtn' to={'/register'}>Sign Up</NavLink>
+                                            <NavLink id='cartRegisterBtn' to={'/register'} onClick={()=>setRouteState(location.pathname)}>Sign Up</NavLink>
                                             <p id='cartRegisterText' >Please Sign Up To Process Order</p>
                                         </>
                                     )

@@ -1,18 +1,18 @@
 import { createContext, useContext, useState } from "react";
 
-const stateContext=createContext();
+const StateContext = createContext();
 
-const urlStateContextProvider=({children}){
-    const [state,setState]=useState();
-    return(
-        <stateContext.Provider value={state,setState}>
-        {children}
-        </stateContext.Provider>
-    )
-}
+const UrlStateContextProvider = ({ children }) => {
+    const [routeState, setRouteState] = useState();
+    return (
+        <StateContext.Provider value={{ routeState, setRouteState }}>
+            {children}
+        </StateContext.Provider>
+    );
+};
 
-const useStateContext=()=>{
-    return useContext(stateContext);
-}
+const useStateContext = () => {
+    return useContext(StateContext);
+};
 
-export {useStateContext}
+export { UrlStateContextProvider, useStateContext };

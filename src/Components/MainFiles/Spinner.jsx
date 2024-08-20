@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useStateContext } from '../../Contexts/urlStateContext';
 
 const Spinner = () => {
-
+    const {routeState,setRouteState}=useStateContext();
     const [time, setTime] = useState(3);
 
     // handling routing
@@ -21,6 +22,7 @@ const Spinner = () => {
 
     useEffect(() => {
         if (time === 0) {
+            setRouteState(location.pathname);
             navigate('/login');
         }
     }, [time, navigate]);

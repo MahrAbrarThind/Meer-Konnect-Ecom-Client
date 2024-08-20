@@ -1,11 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../Contexts/auth'
 import Swal from 'sweetalert2'
 
 const UserList = () => {
     const { auth, setAuth } = useAuth();
-
+    const navigate=useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('Token');
         localStorage.removeItem('cart');
@@ -30,6 +30,7 @@ const UserList = () => {
                 Swal.fire(
                     'You have been logged out.'
                 );
+                navigate('/login');
             }
         });
     };

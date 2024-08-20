@@ -6,12 +6,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { toast } from 'react-toastify';
 import { useAuth } from "../../Contexts/auth";
+import { useStateContext } from "../../Contexts/urlStateContext";
 
 
 
 function Login() {
 
     const { auth, setAuth } = useAuth();
+    const {routeState,setRouteState}=useStateContext();
     const [error, setError] = useState();
 
     const toastActiveRef = useRef(false);
@@ -66,6 +68,11 @@ function Login() {
                     token: response.data.token
                 });
                 localStorage.setItem('Token', response.data.token);
+
+                const route = routeState || "/";
+                setRouteState(null);
+                navigate(route);
+
             } else {
                 setError("Invalid email or password");
             }

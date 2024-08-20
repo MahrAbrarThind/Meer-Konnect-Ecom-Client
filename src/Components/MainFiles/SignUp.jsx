@@ -4,11 +4,12 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Contexts/auth";
+import { useStateContext } from "../../Contexts/urlStateContext";
 
 function SignUp() {
     const navigate = useNavigate();
     const { auth, setAuth } = useAuth();
-
+    const {routeState,setRouteState}=useStateContext();
     const toastActiveRef = useRef(false);
 
 
@@ -57,7 +58,11 @@ function SignUp() {
                     token: response.data.token
                 });
                 localStorage.setItem('Token', response.data.token);
+                const route = routeState || "/";
+                setRouteState(null);
+                navigate(route);
             }
+            
 
         } catch (error) {
             if (error.response) {
