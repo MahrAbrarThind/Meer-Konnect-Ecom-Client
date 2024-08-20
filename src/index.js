@@ -56,23 +56,25 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>
     <CartProvider>
-      <BrowserRouter>
-        <React.StrictMode>
-          <ToastContainer
-            position="top-center"
-            autoClose={1700}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            style={{ fontSize: '14px' }}
-          />
-          <App />
-        </React.StrictMode>
-      </BrowserRouter>
+      <urlStateContextProvider>
+        <BrowserRouter>
+          <React.StrictMode>
+            <ToastContainer
+              position="top-center"
+              autoClose={1700}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              style={{ fontSize: '14px' }}
+            />
+            <App />
+          </React.StrictMode>
+        </BrowserRouter>
+      </urlStateContextProvider>
     </CartProvider>
   </AuthProvider>
 );

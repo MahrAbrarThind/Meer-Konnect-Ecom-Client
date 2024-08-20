@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { getAllProducts } from '../DBFunctions/getProducts';
 import axios from 'axios';
 import { useAuth } from '../../Contexts/auth';
+import LoadingSpinner from '../MainFiles/LoadingSpinner';
 
 const EditProducts = () => {
     const [loading, setLoading] = React.useState(true);

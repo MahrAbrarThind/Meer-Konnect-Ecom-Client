@@ -60,7 +60,7 @@ const Header = () => {
     // handling search operation
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/api/v1/products/search?q=${searchTerm}`); 
+            const response = await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/products/search?q=${searchTerm}`); 
             if(response.data.success){
                 const products = response.data.data;
                 const categories= response.data.categories;
