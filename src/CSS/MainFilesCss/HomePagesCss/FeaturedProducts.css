@@ -18,8 +18,8 @@
     /* 4 products per row */
 
     /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
-    gap: 25px;
-    padding: 20px;
+    gap: 0.7rem;
+    padding: 1.1rem;
 }
 
 .singleFeaturedProduct {
@@ -189,6 +189,13 @@
     .featuredImgContainer {
         aspect-ratio: 16/25; /* Adjusting for a wider aspect ratio on smaller screens */
     }
+
+    .featuredImgContainer::before {
+        padding: 9px 18px;
+        font-size: 14px;
+        width: 80%;
+    }
+    
 }
 @media(max-width:450px){
     .productTitle {
@@ -215,6 +222,12 @@
         width: 100%;
         padding: 6px 8px;
         margin-top: 0px;
+    }
+
+    .featuredImgContainer::before {
+        padding: 6px 10px;
+        font-size: 11px;
+        width: 90%;
     }
 
 }
