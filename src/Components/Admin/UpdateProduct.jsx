@@ -33,7 +33,7 @@ const UpdateProduct = () => {
     const [sendingRequest, setSendingRequest] = useState(false);
 
 
-
+    // getting sub categories so admin can select for product
     useEffect(() => {
         (async () => {
             try {
@@ -54,6 +54,7 @@ const UpdateProduct = () => {
     }, []);
 
 
+    // getting the product to be updated
     useEffect(() => {
         (async () => {
             try {
@@ -122,6 +123,7 @@ const UpdateProduct = () => {
         setNewImages(updatedImages);
     };
 
+    // getting presigned url from backend so image can be added to aws
     async function getPresignedUrl(fileName, fileType, folderName) {
         const params = {
             fileName,
@@ -151,6 +153,7 @@ const UpdateProduct = () => {
         }
     }
 
+    // uploading the images to aws
     async function uploadFile(file, presignedUrl) {
         const options = {
             headers: {
@@ -165,6 +168,7 @@ const UpdateProduct = () => {
         }
     }
 
+    // getting presined url for its function and passing to upload file function
     async function handleFileUpload(file, folderName) {
         const presignedData = await getPresignedUrl(file.name, file.type, folderName);
         if (!presignedData) {
@@ -213,6 +217,8 @@ const UpdateProduct = () => {
 
             let newImageKeys = [];
 
+            
+            // uploading files to aws here
             if (newImages.length > 0) {
                 newImageKeys = await Promise.all(newImages.map(image => handleFileUpload(image, 'MeerKonnectImages')));
                 if (newImageKeys.includes(null)) {

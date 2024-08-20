@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useCart } from '../../Contexts/cartContex';
 import { useAuth } from '../../Contexts/auth';
 import QuantitySelector from './QuantitySelector';
@@ -27,7 +27,7 @@ const Cart = () => {
     const toastActiveRef = useRef(false);
 
 
-
+    // getting related products here
     useEffect(() => {
         if (cart && cart.length > 0) {
             setRelatedProductsLoading(true);
@@ -191,6 +191,8 @@ const Cart = () => {
 
             {cart.length > 0 && (
                 <div className="wholeCartContainer">
+                    
+                    {/* showing cart products */}
                     <div className="cartContainer">
                         <div className="cartProducts">
                             {cart.map((product, index) => (
@@ -210,6 +212,8 @@ const Cart = () => {
                                 </div>
                             ))}
                         </div>
+
+                        {/* here showing address and calculating totals */}
                         <div className="addressAndTotals">
                             {auth?.token && (
                                 <div className="cartAddressContainer">
@@ -248,7 +252,7 @@ const Cart = () => {
                     </div>
 
 
-
+                    {/* shwoing related products */}
                     <div className="featuredProductsContainer">
                         <h1>You May Also Like</h1>
                         <div className="featuredProducts">

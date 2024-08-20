@@ -76,12 +76,10 @@ const AdminOrders = () => {
                     if (response.data.success) {
                         toast.success("Order deleted successfully");
 
-                        // Corrected the filter logic
                         const newOrders = orders.filter((order) => order.orderId !== id);
 
                         setOrders(newOrders);
 
-                        // Update the filtered orders
                         const newFilteredOrders = newOrders.filter((order) => {
                             return activeFilter === 'all' || order.status === activeFilter;
                         });

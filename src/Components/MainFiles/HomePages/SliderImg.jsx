@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 const SliderImg = () => {
     return (
+        // showing carousel image using bootstrap
+
         <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
             <div className="carousel-inner">
                 <div className="carousel-item active">

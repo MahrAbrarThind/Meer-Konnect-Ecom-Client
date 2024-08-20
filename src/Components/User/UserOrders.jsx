@@ -129,6 +129,7 @@ const UserOrders = () => {
                 </div>
                 <div className="userOrdersSide">
                     <h1>My Orders</h1>
+                    {/* showing top buttons to click for orders */}
                     <div className='ordersNavlinks'>
                         <button
                             onClick={filterAllOrders}
@@ -170,7 +171,7 @@ const UserOrders = () => {
                                         {order.status === 'InProgress' && (
                                             <>
                                                 <button disabled={cancelling} onClick={() => handleCancelOrder(order.orderId)}>Cancel Order</button>
-                                                <button onClick={() => handleTrackOrder(order)}>Track Order</button>
+                                                {/* <button onClick={() => handleTrackOrder(order)}>Track Order</button> */}
                                             </>
                                         )}
                                     </div>

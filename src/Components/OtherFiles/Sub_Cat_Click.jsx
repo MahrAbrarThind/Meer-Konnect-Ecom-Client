@@ -25,6 +25,7 @@ const Sub_Cat_Click = () => {
 
   const { name } = useParams();
 
+  // getting products for category selected
   useEffect(() => {
     toastShownRef.current = false;
     setProducts([]);
@@ -50,7 +51,7 @@ const Sub_Cat_Click = () => {
     })();
   }, [name]);
 
-
+// handling disappear filter when clicked on screen
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (filterRef.current && !filterRef.current.contains(event.target)) {
@@ -117,6 +118,8 @@ const Sub_Cat_Click = () => {
   return (
     <div className="main-container">
       <div className="allFiltersContainer">
+
+        {/* handling sort here for price and date from hign low */}
         <div className="sort-filter">
           {/* <label htmlFor="sort">Sort By:</label> */}
           <select
@@ -141,7 +144,7 @@ const Sub_Cat_Click = () => {
 
 
 
-      {/* Conditional Rendering of Filter */}
+      {/* price  Filter here */}
 
       <div className="filterAndProductsContainer">
 

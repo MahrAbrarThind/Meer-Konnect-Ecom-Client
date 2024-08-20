@@ -62,7 +62,8 @@ body {
   /* max-width: 600px; */
 }
 
-.header_search:hover {
+.header_search:hover, 
+.header_search:focus-within {
   border-radius: 2rem;
 }
 
@@ -78,7 +79,8 @@ body {
   transition: width 0.8s ease, left 0.8s ease, right 0.8s ease;
 }
 
-.header_search:hover::after {
+.header_search:hover::after, 
+.header_search:focus-within::after {
   width: 87%;
   left: 3%;
   right: 10%;

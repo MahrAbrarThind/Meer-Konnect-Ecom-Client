@@ -1,40 +1,39 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { getAll_subCategories } from '../DBFunctions/getCategories';
 import { toast } from 'react-toastify';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useNavigate  } from 'react-router-dom';
 import { useAuth } from '../../Contexts/auth';
 import { FaBars, FaTimes } from "react-icons/fa"; // Import the close icon
-
+import axios from 'axios';
 const Header = () => {
     const [showDropdown, setShowDropdown] = useState(null);
     const [subCategories, set_subCategories] = useState([]);
+    const [searchTerm, setSearchTerm] = useState(''); // State to store the search term
+
     const { auth } = useAuth();
     const toastActiveRef = useRef(false);
     const [toggleMenuBar, setToggleMenuBar] = useState(false);
     const menuRef = useRef(null); // 1. Create a ref for the menu container
+    const navigate = useNavigate(); // Initialize useNavigate
 
 
     // code for hiding hamburger when someone clicks on screen   
     useEffect(() => {
-        // 2. Function to handle clicks outside of the menu
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 setToggleMenuBar(false); // Close the menu
             }
         };
 
-        // Add event listener
         document.addEventListener('mousedown', handleClickOutside);
 
-        // Clean up the event listener on component unmount
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [menuRef]); // 3. Effect depends on menuRef
+    }, [menuRef]); 
 
 
-
-
+    // Fetching subcategories to show
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -58,6 +57,24 @@ const Header = () => {
         fetchCategories();
     }, []);
 
+    // handling search operation
+    const handleSearch = async () => {
+        try {
+            const response = await axios.get(`http://localhost:4000/api/v1/products/search?q=${searchTerm}`); 
+            if(response.data.success){
+                const products = response.data.data;
+                const categories= response.data.categories;
+                console.log("these are the products from search ",products);
+                navigate('/products/search/search-result', { state: { products,categories } }); 
+            }
+        } catch (error) {
+            toast.error('Search failed');
+            console.log("it is error for searching",error);
+        }finally{
+            setSearchTerm('');
+        }
+    };
+
     const handleMouseEnter = (categoryId) => {
         setShowDropdown(categoryId);
     };
@@ -69,13 +86,23 @@ const Header = () => {
     return (
         <header className='headerContainer'>
             <p className="headerTop">Enjoy Free Shipping Over Order Of 10,000</p>
+
+            {/* this contains logo, search bar, account and cart */}
             <div className="upper_header_part">
                 <NavLink to={'/'} className="logo">
                     <img src="mk2.png" alt="Your Logo" />
                 </NavLink>
                 <div className="header_search">
-                    <input type="text" placeholder="Search" />
-                    <i className="fas fa-search"></i>
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+                    />
+                    <i
+                        className="fas fa-search"
+                        onClick={handleSearch} // Call search handler
+                    ></i>
                 </div>
                 {auth?.token ? (
                     <div className="header_actions">
@@ -108,6 +135,7 @@ const Header = () => {
                 />
             </div>
 
+            {/* this container sub categories and also sign in sign up for small devices */}
             <div className="lower_header_part">
                 <ul
                     ref={menuRef}
@@ -127,6 +155,8 @@ const Header = () => {
                             </NavLink>
                         </li>
                     ))}
+                    
+                    {/* showing sign in sign up and account on small devices */}
                     {auth?.token ? (
                         <div className="header_actions_togglesMenu">
                             <NavLink to={`/account${auth?.user?.isAdmin === 1 ? '/admin' : ''}`}

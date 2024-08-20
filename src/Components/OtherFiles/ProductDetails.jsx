@@ -19,8 +19,8 @@ const ProductDetails = () => {
 
     const handleAddToCart = AddToCartAlert(cart, setCart);
 
-    
 
+    // getting single product to show
     useEffect(() => {
         setProduct(null);
         setLoading(true);
@@ -49,7 +49,7 @@ const ProductDetails = () => {
     }, [id]);
 
 
-
+    // getting related products for that single product
     useEffect(() => {
         if (product && product.subCategory_id) {
             setRelatedProductsLoading(true);
@@ -97,6 +97,8 @@ const ProductDetails = () => {
                 ) : (
                     <>
                         <div className="mainProductContainer">
+
+                            {/* showing single product details */}
                             <div className="productImages">
                                 <img className='mainImage' src={mainImage.url} alt="Product Image" />
                                 <div className='otherImages'>
@@ -131,17 +133,14 @@ const ProductDetails = () => {
                                     }}>
                                         Add to Cart
                                     </button>
-
-                                    {/* <button>Buy Now</button> */}
                                 </div>
-
-                                {/* Add other product details here */}
                             </div>
                         </div>
                     </>
                 )}
             </div>
-            {/* Add related products section here */}
+
+            {/*  related products section here */}
 
             <div className="featuredProductsContainer">
                 <h1>You May Also Like</h1>

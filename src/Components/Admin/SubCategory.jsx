@@ -14,6 +14,7 @@ const SubCategory = () => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState('');
 
+  // getting all sub categories already added 
   useEffect(() => {
     (async () => {
       try {
@@ -61,6 +62,7 @@ const SubCategory = () => {
     }
   };
 
+  // getting presinged url to add sub category image to aws
   const getPresignedUrl = async (name, fileName, fileType) => {
     const params = { name, fileName, fileType, folderName: 'SubCategoryImages' };
     try {
@@ -95,6 +97,7 @@ const SubCategory = () => {
     }
 
     try {
+      // getting presigned url 
       const { presignedUrl, key } = await getPresignedUrl(name, image.name, image.type);
       if (!presignedUrl) return;
 
@@ -212,6 +215,8 @@ const SubCategory = () => {
           </div>
           <button type="submit" className="category-button">Add</button>
         </form>
+
+        {/* showing sub categories already added */}
         <div className="category-list">
           {categories.map((c, index) => (
             <div key={index} className="category-item">

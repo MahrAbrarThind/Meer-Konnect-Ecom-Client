@@ -27,6 +27,7 @@ const AddProduct = () => {
 
     const [sendingRequest, setSendingRequest] = useState(false);
 
+    // getting sub categories so admin can select for product
     useEffect(() => {
         (async () => {
             try {
@@ -42,6 +43,7 @@ const AddProduct = () => {
         })();
     }, []);
 
+    
     const handleImageChange = async (e) => {
         const selectedFiles = Array.from(e.target.files);
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -63,6 +65,7 @@ const AddProduct = () => {
         setImages(updatedImages);
     };
 
+    // getting presigned url from backend so image can be added to aws
     async function getPresignedUrl(title, fileName, fileType, folderName) {
         const params = {
             fileName,
@@ -88,32 +91,26 @@ const AddProduct = () => {
         }
     }
 
+    // uploading the images to aws
     async function uploadFile(file, presignedUrl) {
         const options = {
             headers: {
                 'Content-Type': file.type,
             },
         };
-
-        console.log("going to upload file", presignedUrl, file, options);
-
         const uploadResponse = await axios.put(presignedUrl, file, options);
-
-        console.log("it is the uploadResponse", uploadResponse);
-
         if (uploadResponse.status !== 200) {
             throw new Error('Failed to upload file');
         }
     }
 
+
+    // getting presined url for its function and passing to upload file function
     async function handleFileUpload(name, file, folderName) {
         const presignedData = await getPresignedUrl(name, file.name, file.type, folderName);
         if (!presignedData) {
             return null;
         }
-
-        console.log("this is the presigned DAta", presignedData);
-
         const { presignedUrl, key } = presignedData;
         await uploadFile(file, presignedUrl);
         return key;
@@ -129,6 +126,7 @@ const AddProduct = () => {
         setSendingRequest(true);
 
         try {
+            // uploading files to aws here
             const imageKeys = await Promise.all(images.map(image => handleFileUpload(title, image, 'MeerKonnectImages')));
             if (imageKeys.includes(null)) {
                 setSendingRequest(false);

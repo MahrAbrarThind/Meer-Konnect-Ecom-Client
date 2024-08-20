@@ -40,6 +40,7 @@ import EditProducts from './Components/Admin/EditProducts.jsx';
 import UpdateProduct from './Components/Admin/UpdateProduct.jsx';
 import ChekAdmin from './Components/OtherFiles/ChekAdmin.js';
 import AdminOrders from './Components/Admin/AdminOrders.jsx';
+import SearchProducts from './Components/OtherFiles/SearchProducts.jsx';
 
 const App = () => {
 
@@ -81,10 +82,11 @@ const App = () => {
 
 
         <Route path='/' element={<Home />} />
-        {/* <Route path='/main/:name' element={<Main_Cat_Click />} /> */}
         <Route path='/sub/:name' element={<Sub_Cat_Click />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/product/:id' element={<ProductDetails />} />
+        <Route path='/products/search/search-result' element={<SearchProducts/>}/>
+        {/* <Route path='/main/:name' element={<Main_Cat_Click />} /> */}
 
 
         <Route path="*" element={<Navigate to="/" />} />

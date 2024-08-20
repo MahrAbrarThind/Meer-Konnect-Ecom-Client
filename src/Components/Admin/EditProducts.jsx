@@ -12,6 +12,8 @@ const EditProducts = () => {
     const toastShownRef = useRef(false);
     const { auth } = useAuth();
 
+
+    // getting all added products to show user so he can update or delete them
     useEffect(() => {
         toastShownRef.current = false;
         setProducts([]);
@@ -73,7 +75,7 @@ const EditProducts = () => {
                 </div>
                 <div className="editAllProducts">
                     {loading ? (
-                        <h4>Loading Products...</h4>
+                        <LoadingSpinner/>
                     ) : (
                         products.length === 0 ? (
                             <h3>Oops! No Products Have Been Added Yet</h3>
