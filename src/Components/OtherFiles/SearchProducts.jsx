@@ -4,13 +4,14 @@ import { AddToCartAlert } from '../DBFunctions/AddToCartAlert';
 import { useCart } from '../../Contexts/cartContex';
 import LoadingSpinner from '../MainFiles/LoadingSpinner';
 import { FaFilter } from 'react-icons/fa'; // Importing a filter icon
+import NoResultSearch from './NoResultSearch';
 
 const SearchProducts = () => {
     const location = useLocation();
     const products = location.state?.products || [];
     const categories = location.state?.categories || [];
     const [filteredProducts, setFilteredProducts] = useState([]);
-
+    
     const [loading, setLoading] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
     const toastShownRef = useRef(false);
@@ -30,6 +31,10 @@ const SearchProducts = () => {
         name = "clothes";
     }
 
+    // setting filtered products to products
+    useEffect(()=>{
+        setFilteredProducts(products);
+    },[products]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -165,8 +170,8 @@ const SearchProducts = () => {
                                 </select>
                             </div>
                         )}
-                        <button type='button' onClick={() => { handleFilter(); setShowFilter(!showFilter) }}>Filter</button>
-                        <button type='button' onClick={() => { clearFilter(); setShowFilter(!showFilter) }}>Clear</button>
+                        <button type='button' onClick={() => { handleFilter(); setShowFilter(false) }}>Filter</button>
+                        <button type='button' onClick={() => { clearFilter(); setShowFilter(false) }}>Clear</button>
                     </div>
                 </div>
 
@@ -175,10 +180,10 @@ const SearchProducts = () => {
                     {loading ? (
                         <LoadingSpinner />
                     ) : (
-                        products.length === 0 ? (
-                            <h3>No Products Founded</h3>
+                        filteredProducts.length === 0 ? (
+                            <NoResultSearch/>
                         ) : (
-                            products?.map((product, index) => (
+                            filteredProducts?.map((product, index) => (
                                 <div key={index} className="singleFeaturedProduct">
                                     <NavLink to={`/product/${product?._id}`} className="featuredImgContainer">
                                         <img src={product.images[0].url} alt={product.title} />

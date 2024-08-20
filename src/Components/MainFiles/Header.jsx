@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { getAll_subCategories } from '../DBFunctions/getCategories';
 import { toast } from 'react-toastify';
-import { NavLink,useNavigate  } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Contexts/auth';
 import { FaBars, FaTimes } from "react-icons/fa"; // Import the close icon
 import axios from 'axios';
@@ -30,7 +30,7 @@ const Header = () => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [menuRef]); 
+    }, [menuRef]);
 
 
     // Fetching subcategories to show
@@ -59,19 +59,21 @@ const Header = () => {
 
     // handling search operation
     const handleSearch = async () => {
-        try {
-            const response = await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/products/search?q=${searchTerm}`); 
-            if(response.data.success){
-                const products = response.data.data;
-                const categories= response.data.categories;
-                console.log("these are the products from search ",products);
-                navigate('/products/search/search-result', { state: { products,categories } }); 
+        if (searchTerm.length > 0) {
+            try {
+                const response = await axios.get(`https://meer-kennect-ecom-server.vercel.app/api/v1/products/search?q=${searchTerm}`);
+                if (response.data.success) {
+                    const products = response.data.data;
+                    const categories = response.data.categories;
+                    console.log("these are the products from search ", products);
+                    navigate('/products/search/search-result', { state: { products, categories } });
+                }
+            } catch (error) {
+                toast.error('Search failed');
+                console.log("it is error for searching", error);
+            } finally {
+                setSearchTerm('');
             }
-        } catch (error) {
-            toast.error('Search failed');
-            console.log("it is error for searching",error);
-        }finally{
-            setSearchTerm('');
         }
     };
 
@@ -98,6 +100,11 @@ const Header = () => {
                         placeholder="Search"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                handleSearch(); // Call search handler on Enter key press
+                            }
+                        }}
                     />
                     <i
                         className="fas fa-search"
@@ -155,7 +162,7 @@ const Header = () => {
                             </NavLink>
                         </li>
                     ))}
-                    
+
                     {/* showing sign in sign up and account on small devices */}
                     {auth?.token ? (
                         <div className="header_actions_togglesMenu">

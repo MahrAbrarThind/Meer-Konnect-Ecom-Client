@@ -51,7 +51,7 @@ const Sub_Cat_Click = () => {
     })();
   }, [name]);
 
-// handling disappear filter when clicked on screen
+  // handling disappear filter when clicked on screen
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (filterRef.current && !filterRef.current.contains(event.target)) {
@@ -135,6 +135,8 @@ const Sub_Cat_Click = () => {
             <option value="dateOldNew">Date: Old to New</option>
           </select>
         </div>
+
+        {/*will be shown for small devices these are icons for sort and filter  */}
         <div className="filter_icon_Container" onClick={() => setShowFilter(!showFilter)}>
           <FaFilter className="filter-icon" />
           <p>Filter</p>
@@ -185,8 +187,8 @@ const Sub_Cat_Click = () => {
                 </select>
               </div>
             )}
-            <button type='button' onClick={() => { handleFilter(); setShowFilter(!showFilter) }}>Filter</button>
-            <button type='button' onClick={() => { clearFilter(); setShowFilter(!showFilter) }}>Clear</button>
+            <button type='button' onClick={() => { handleFilter(); setShowFilter(false) }}>Filter</button>
+            <button type='button' onClick={() => { clearFilter(); setShowFilter(false) }}>Clear</button>
           </div>
         </div>
 

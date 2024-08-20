@@ -1,0 +1,27 @@
+.NoResultSearchContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    color: #555;
+    width: 100%; 
+    position: absolute; 
+    top: 5rem;
+    left: 0;
+}
+
+.NoResultSearchHeading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.NoResultSearchParagraph {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.NoResultSearchSvg {
+    color: #aaa;
+}

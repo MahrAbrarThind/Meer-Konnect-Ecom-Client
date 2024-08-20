@@ -38,6 +38,7 @@ import './CSS/MainFilesCss/HomePagesCss/SliderImg.css';
 import "./CSS/OtherFilesCss/Main_Cat_Click.css";
 import "./CSS/OtherFilesCss/ProductDetails.css";
 import "./CSS/OtherFilesCss/Cart.css";
+import "./CSS/OtherFilesCss/NoResultSearch.css";
 
 
 
