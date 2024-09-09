@@ -27,8 +27,10 @@
     padding: 10px 15px;
     font-size: 14px;
     font-weight: 500;
-    color: #333; /* Neutral text color */
-    background-color: transparent; /* Transparent background */
+    color: #333;
+    /* Neutral text color */
+    background-color: transparent;
+    /* Transparent background */
     border: none;
     cursor: pointer;
     position: relative;
@@ -51,7 +53,8 @@
 
 /* Hover effect */
 .ordersNavlinks button:hover {
-    color: #007bff; /* Change text color on hover */
+    color: #007bff;
+    /* Change text color on hover */
 }
 
 .ordersNavlinks button:hover::after {
@@ -61,7 +64,8 @@
 
 /* Active button style */
 .ordersNavlinks button.active {
-    color: #007bff; /* Active text color */
+    color: #007bff;
+    /* Active text color */
 }
 
 .ordersNavlinks button.active::after {
@@ -78,12 +82,10 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-
 }
 
 /* Individual Order Card */
 .orderCard {
-
     border: none;
     padding: 15px;
     display: flex;
@@ -91,15 +93,11 @@
     /* align-items: center; */
     /* justify-content: center; */
     gap: 40px;
-    
     position: relative;
     transition: transform 0.3s ease;
-    max-height:450px;
-
+    max-height: 450px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-
 }
-
 
 .ordersImgContainer {
     /* width: 65%; */
@@ -124,11 +122,11 @@
     transition: opacity 0.5s ease-in-out;
 }
 
-.ordersCardBody{
+.ordersCardBody {
     display: flex;
     flex-direction: column;
     /* justify-content: start  ; */
-    width:80%;
+    width: 80%;
 }
 
 .ordersCardTitle {
@@ -187,34 +185,72 @@
 .orderButtons button:hover {
     background-color: #c82333;
 }
-.adminListCommon{
+
+.adminListCommon {
     width: 30%;
 }
 
-@media(max-width:1300px){
+@media(max-width:1300px) {
     .userOrdersContainer {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
+
     .userOrdersSide {
         width: 100%;
     }
-    .adminListCommon{
+
+    .adminListCommon {
         width: 70%;
     }
 }
 
-@media(max-width:576px){
-    .adminListCommon{
+@media(max-width:576px) {
+    .adminListCommon {
         display: none !important;
         background-color: red !important;
     }
+
     .ordersNavlinks button {
-        padding: 7px 7px;
+        padding: 3px 3px;
         font-size: 12px;
         font-weight: 400;
+    }
+
+    .orderCard {
+        padding:10px;
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        /* justify-content: center; */
+        /* gap: 40px; */
+
+        max-height: 450px;
+    }
+
+    .ordersImgContainer {
+        /* width: 65%; */
+        height: auto;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        cursor: pointer;
+        aspect-ratio: 16/67;
+        }
+
+    .ordersCardBody {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: start  ; */
+        width: 100%;
+    }
+    .orderButtons button {
+        font-size: 12px;
+        font-weight: 400;
+        padding: 8px 8px;
+        width: 40%;
     }
     
 }

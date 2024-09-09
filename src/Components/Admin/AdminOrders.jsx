@@ -67,7 +67,7 @@ const AdminOrders = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const response = await axios.delete(`http://localhost:4000/api/v1/order/delete-order/${id}`, {
+                    const response = await axios.delete(`https://meer-kennect-ecom-server.vercel.app/api/v1/order/delete-order/${id}`, {
                         headers: {
                             Authorization: auth?.token
                         },
@@ -196,7 +196,7 @@ const AdminOrders = () => {
                                 <div className="ordersCardBody">
                                     <p className='ordersCardTitle'>{order?.title}</p>
                                     <p>Price: {order?.price}</p>
-                                    <p>{order?.description}</p>
+                                    {/* <p>{order?.description}</p> */}
                                     <div className="orderButtons">
                                         {/* <NavLink to={`/product/${order.productID}`} >Order Again</NavLink> */}
                                         {order.status === 'InProgress' && (
