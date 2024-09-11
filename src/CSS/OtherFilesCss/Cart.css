@@ -5,6 +5,9 @@
     margin: 20px 0px;
     word-spacing: 2px;
 }
+.cartHeightContainer{
+    min-height: 60vh;
+}
 
 .cartRegisterText {
     color: rgb(233, 61, 61);

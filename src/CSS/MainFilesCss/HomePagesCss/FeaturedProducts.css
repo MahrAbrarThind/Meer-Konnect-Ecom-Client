@@ -4,6 +4,7 @@
     color: #333;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
+    margin: 40px;
 }
 
 .featuredProducts {
@@ -31,16 +32,19 @@
     justify-content: center;
     position: relative;
     transition: transform 0.3s ease;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .singleFeaturedProduct:hover {
-    transform: translateY(-5px);
+    /* transform: translateY(-5px); */
+    transform: scale(1.02);
+    
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .featuredImgContainer {
     width: 100%;
-    aspect-ratio: 7/10; /* This keeps the image at a 4:3 aspect ratio */
+    aspect-ratio: 7/10;
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -83,6 +87,7 @@
     opacity: 0.5;
     z-index: 1;
 }
+
 .productTitle {
     font-size: 1.1rem;
     font-weight: 500;
@@ -144,13 +149,14 @@
     font-size: 18px;
     padding: 6px 10px;
     margin-bottom: 60px;
+    margin-top: 30px;
     letter-spacing: 2px;
 }
 
-@media(max-width:992px){
+@media(max-width:992px) {
     .featuredProducts {
         width: 100%;
-        display:grid;
+        display: grid;
         grid-template-columns: repeat(3, 1fr);
     }
 }
@@ -159,9 +165,10 @@
     .ViewAllBtn {
         width: 35%;
     }
+
     .featuredProducts {
         width: 100%;
-        display:grid;
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -171,6 +178,7 @@
         font-size: 1.7rem;
         font-weight: 600;
     }
+
     .singleFeaturedProduct {
         transform: translateY(-5px);
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
@@ -187,7 +195,8 @@
     }
 
     .featuredImgContainer {
-        aspect-ratio: 16/25; /* Adjusting for a wider aspect ratio on smaller screens */
+        aspect-ratio: 16/25;
+        /* Adjusting for a wider aspect ratio on smaller screens */
     }
 
     .featuredImgContainer::before {
@@ -195,13 +204,15 @@
         font-size: 14px;
         width: 80%;
     }
-    
+
 }
-@media(max-width:450px){
+
+@media(max-width:450px) {
     .productTitle {
         font-size: 0.7rem;
         min-height: 60px;
     }
+
     .productPrices {
         gap: 3px;
         margin-top: -20px;
@@ -211,11 +222,12 @@
         font-size: 0.6rem;
         font-weight: 500;
     }
-    
+
     .productPrices p:first-child {
         font-size: 0.8rem;
         font-weight: 500;
     }
+
     .singleFeaturedProduct button {
         font-size: 0.9rem;
         font-weight: 400;

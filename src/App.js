@@ -41,6 +41,7 @@ import UpdateProduct from './Components/Admin/UpdateProduct.jsx';
 import ChekAdmin from './Components/OtherFiles/ChekAdmin.js';
 import AdminOrders from './Components/Admin/AdminOrders.jsx';
 import SearchProducts from './Components/OtherFiles/SearchProducts.jsx';
+import Footer from './Components/MainFiles/Footer.jsx';
 
 const App = () => {
 
@@ -91,6 +92,7 @@ const App = () => {
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes >
+      <Footer/>
     </>
   )
 }

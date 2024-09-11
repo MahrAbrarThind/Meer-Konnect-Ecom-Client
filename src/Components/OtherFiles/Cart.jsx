@@ -3,7 +3,7 @@ import { useCart } from '../../Contexts/cartContex';
 import { useAuth } from '../../Contexts/auth';
 import QuantitySelector from './QuantitySelector';
 import { getRelatedProducts } from '../DBFunctions/getProducts';
-import { NavLink,useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ import { useStateContext } from '../../Contexts/urlStateContext';
 const Cart = () => {
     const { cart, setCart } = useCart();
     const { auth } = useAuth();
-    const {routeState,setRouteState}=useStateContext();
+    const { routeState, setRouteState } = useStateContext();
 
     const [productTotal, setProductTotal] = useState(0);
     const [shipping, setShipping] = useState(0);
@@ -28,7 +28,7 @@ const Cart = () => {
     const handleAddToCart = AddToCartAlert(cart, setCart);
     const toastActiveRef = useRef(false);
 
-    const location=useLocation();
+    const location = useLocation();
 
 
     // getting related products here
@@ -181,111 +181,113 @@ const Cart = () => {
 
     return (
         <>
-            <h1 className='cartMainHeading'>
-                Your Cart Has {cart.length} Items{' '}
-                {!auth?.token && cart.length > 0 && (
-                    <>
-                        <NavLink to='/register' className='cartRegisterText' onClick={()=>setRouteState(location.pathname)}>
-                            Please Sign Up
-                        </NavLink>
-                        {' '}To Confirm Order
-                    </>
-                )}
-            </h1>
+            <div className="cartHeightContainer">
+                <h1 className='cartMainHeading'>
+                    Your Cart Has {cart.length} Items{' '}
+                    {!auth?.token && cart.length > 0 && (
+                        <>
+                            <NavLink to='/register' className='cartRegisterText' onClick={() => setRouteState(location.pathname)}>
+                                Please Sign Up
+                            </NavLink>
+                            {' '}To Confirm Order
+                        </>
+                    )}
+                </h1>
 
-            {cart.length > 0 && (
-                <div className="wholeCartContainer">
-                    
-                    {/* showing cart products */}
-                    <div className="cartContainer">
-                        <div className="cartProducts">
-                            {cart.map((product, index) => (
-                                <div key={index} className="cartProduct">
-                                    <img src={product.images[0].url} alt="Img" />
-                                    <div className="cartProductDetails">
-                                        <h2>{product.title}</h2>
-                                        <p> <span>Price</span>:  Rs:{product.price}</p>
-                                        <QuantitySelector
-                                            product={product}
-                                            onQuantityChange={handleQuantityChange}
-                                        />
-                                        <button className='removeCartItemBtn' onClick={() => removeItemFromCart(index)}>
-                                            <i className="fas fa-trash"></i>
-                                        </button>
+                {cart.length > 0 && (
+                    <div className="wholeCartContainer">
+
+                        {/* showing cart products */}
+                        <div className="cartContainer">
+                            <div className="cartProducts">
+                                {cart.map((product, index) => (
+                                    <div key={index} className="cartProduct">
+                                        <img src={product.images[0].url} alt="Img" />
+                                        <div className="cartProductDetails">
+                                            <h2>{product.title}</h2>
+                                            <p> <span>Price</span>:  Rs:{product.price}</p>
+                                            <QuantitySelector
+                                                product={product}
+                                                onQuantityChange={handleQuantityChange}
+                                            />
+                                            <button className='removeCartItemBtn' onClick={() => removeItemFromCart(index)}>
+                                                <i className="fas fa-trash"></i>
+                                            </button>
+                                        </div>
                                     </div>
+                                ))}
+                            </div>
+
+                            {/* here showing address and calculating totals */}
+                            <div className="addressAndTotals">
+                                {auth?.token && (
+                                    <div className="cartAddressContainer">
+                                        <h1>Your Current Address And Phone Is</h1>
+                                        <p> <span> Address </span>: {auth?.user?.address}</p>
+                                        <p> <span> Phone </span>: {auth?.user?.phone}</p>
+                                        <NavLink to={`/account${auth?.user?.isAdmin === 1 ? '/admin' : ''}`}>Change Address</NavLink>
+                                    </div>
+                                )}
+                                <div className="cartPriceTotal">
+                                    <p> <span> Total </span> :  {productTotal.toFixed(2)} Rs</p>
+                                    <p> <span> Shipping </span> : {shipping.toFixed(2)} Rs</p>
+                                    <p> <span> Grand Total </span> : {totalPayment.toFixed(2)} Rs</p>
+                                    <p> <span>
+
+                                        <input
+                                            type="radio"
+                                            defaultChecked
+                                        />
+                                    </span> <span>Cash On Delivery</span></p>
+
+                                    {
+                                        auth?.token ? (
+                                            <button onClick={confirmOrder} disabled={!auth?.token || isProcessing}>
+                                                {isProcessing ? "Processing..." : "Confirm Order"}
+                                            </button>
+                                        ) : (
+                                            <>
+                                                <NavLink id='cartRegisterBtn' to={'/register'} onClick={() => setRouteState(location.pathname)}>Sign Up</NavLink>
+                                                <p id='cartRegisterText' >Please Sign Up To Process Order</p>
+                                            </>
+                                        )
+                                    }
                                 </div>
-                            ))}
-                        </div>
-
-                        {/* here showing address and calculating totals */}
-                        <div className="addressAndTotals">
-                            {auth?.token && (
-                                <div className="cartAddressContainer">
-                                    <h1>Your Current Address And Phone Is</h1>
-                                    <p> <span> Address </span>: {auth?.user?.address}</p>
-                                    <p> <span> Phone </span>: {auth?.user?.phone}</p>
-                                    <NavLink to={`/account${auth?.user?.isAdmin === 1 ? '/admin' : ''}`}>Change Address</NavLink>
-                                </div>
-                            )}
-                            <div className="cartPriceTotal">
-                                <p> <span> Total </span> :  {productTotal.toFixed(2)} Rs</p>
-                                <p> <span> Shipping </span> : {shipping.toFixed(2)} Rs</p>
-                                <p> <span> Grand Total </span> : {totalPayment.toFixed(2)} Rs</p>
-                                <p> <span>
-
-                                    <input
-                                        type="radio"
-                                        defaultChecked
-                                    />
-                                </span> <span>Cash On Delivery</span></p>
-
-                                {
-                                    auth?.token ? (
-                                        <button onClick={confirmOrder} disabled={!auth?.token || isProcessing}>
-                                            {isProcessing ? "Processing..." : "Confirm Order"}
-                                        </button>
-                                    ) : (
-                                        <>
-                                            <NavLink id='cartRegisterBtn' to={'/register'} onClick={()=>setRouteState(location.pathname)}>Sign Up</NavLink>
-                                            <p id='cartRegisterText' >Please Sign Up To Process Order</p>
-                                        </>
-                                    )
-                                }
                             </div>
                         </div>
-                    </div>
 
 
-                    {/* shwoing related products */}
-                    <div className="featuredProductsContainer">
-                        <h1>You May Also Like</h1>
-                        <div className="featuredProducts">
-                            {relatedProducts.map((product, index) => (
-                                <div key={index} className="singleFeaturedProduct">
-                                    <NavLink to={`/product/${product?._id}`} className="featuredImgContainer">
-                                        <img src={product.images[0].url} alt={product.title} />
-                                    </NavLink>
-                                    <p className='productTitle'>{product.title.substring(0, 80)}{product.title.length > 80 ? "..." : ""}</p>
-                                    <div className="productPrices">
-                                        <p>Rs: {product.price}</p>
-                                        <p>Rs: {product.comparedPrice}</p>
+                        {/* shwoing related products */}
+                        <div className="featuredProductsContainer">
+                            <h1>You May Also Like</h1>
+                            <div className="featuredProducts">
+                                {relatedProducts.map((product, index) => (
+                                    <div key={index} className="singleFeaturedProduct">
+                                        <NavLink to={`/product/${product?._id}`} className="featuredImgContainer">
+                                            <img src={product.images[0].url} alt={product.title} />
+                                        </NavLink>
+                                        <p className='productTitle'>{product.title.substring(0, 80)}{product.title.length > 80 ? "..." : ""}</p>
+                                        <div className="productPrices">
+                                            <p>Rs: {product.price}</p>
+                                            <p>Rs: {product.comparedPrice}</p>
+                                        </div>
+
+                                        <button type='button' onClick={(e) => {
+                                            e.preventDefault();
+                                            handleAddToCart(product);
+                                        }}>
+                                            Add to Cart
+                                        </button>
+
                                     </div>
-
-                                    <button type='button' onClick={(e) => {
-                                        e.preventDefault();
-                                        handleAddToCart(product);
-                                    }}>
-                                        Add to Cart
-                                    </button>
-
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
+
+
                     </div>
-
-
-                </div>
-            )}
+                )}
+            </div>
         </>
     );
 };
