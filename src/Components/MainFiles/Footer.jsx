@@ -33,8 +33,8 @@ const Footer = () => {
 
                     <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3 d-flex flex-column align-items-start">
                         <h5 className="text-uppercase mb-4 font-weight-bold">Contact</h5>
-                        <p><i className="fas fa-home mr-3" /> SultanPura, Lahore, Punjab</p>
-                        <p><i className="fas fa-envelope mr-3" /> abrarDeveloper@gmail.com</p>
+                        <p><i className="fas fa-home mr-3" /> Uet, Lahore, Punjab</p>
+                        <p><i className="fas fa-envelope mr-3" /> abrarDeveloperr@gmail.com</p>
                         <p><i className="fas fa-phone mr-3" /> +92-3416496320</p>
                     </div>
                 </div >
